@@ -6,12 +6,7 @@
           <div class="left-components">
             <!-- <img src="~/assets/logo-light.png" alt="light-logo" /> -->
             <h2 class="mb-10">Select your Role</h2>
-            <v-radio-group
-              @change="setRoleHeading(userRole)"
-              v-model="userRole"
-              column
-              dark
-            >
+            <v-radio-group @change="setRoleHeading(userRole)" v-model="userRole" column dark>
               <v-radio value="1" color="success">
                 <template v-slot:label>
                   <h5 class="radio-des">
@@ -32,10 +27,10 @@
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Marketing Partner
-                    <span
-                      >(Example: Any individual or student or company who wants
-                      to be our franchisee or marketing partner/agent)</span
-                    >
+                    <span>
+                      (Example: Any individual or student or company who wants
+                      to be our franchisee or marketing partner/agent)
+                    </span>
                   </h5>
                 </template>
               </v-radio>
@@ -43,10 +38,10 @@
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Host
-                    <span
-                      >(Example: Any food or accommodation businesses who is
-                      looking for free manpower to help their business)</span
-                    >
+                    <span>
+                      (Example: Any food or accommodation businesses who is
+                      looking for free manpower to help their business)
+                    </span>
                   </h5>
                 </template>
               </v-radio>
@@ -54,11 +49,11 @@
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Volunteers
-                    <span
-                      >(Example: Any individual who wants to travel and stay
+                    <span>
+                      (Example: Any individual who wants to travel and stay
                       free, eat free, and learn new work experience
-                      internationally)</span
-                    >
+                      internationally)
+                    </span>
                   </h5>
                 </template>
               </v-radio>
@@ -98,14 +93,7 @@
                 <a href="#">Forgot Password?</a>
               </p>
               <div class="text-center">
-                <v-alert
-                  v-model="error"
-                  type="error"
-                  dismissible
-                  outlined
-                  text
-                  >{{ errorMsg }}</v-alert
-                >
+                <v-alert v-model="error" type="error" dismissible outlined text>{{ errorMsg }}</v-alert>
                 <v-btn
                   rounded
                   color="#104388"
@@ -114,8 +102,7 @@
                   class="login-sub"
                   @click="submit"
                   :loading="loading"
-                  >Login</v-btn
-                >
+                >Login</v-btn>
                 <p class="create-acc">
                   Don't have an account?
                   <nuxt-link to="/account/register">Create account</nuxt-link>
@@ -135,7 +122,9 @@
               <div class="login-policy text-center">
                 <p>
                   By logging into an account you are agreeing with our
-                  <a href="#">Term and Conditions</a> and
+                  <a
+                    href="#"
+                  >Term and Conditions</a> and
                   <a href="#">Privacy Policy</a>
                 </p>
               </div>
@@ -168,14 +157,14 @@ export default {
       valid: false,
       loading: false,
       rules: {
-        required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters",
+        required: (value) => !!value || "Required.",
+        min: (v) => v.length >= 8 || "Min 8 characters",
         emailMatch: () => "The email and password you entered don't match",
-        email: value => {
+        email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        }
-      }
+        },
+      },
     };
   },
   mounted() {
@@ -191,7 +180,7 @@ export default {
           const { data } = await this.$axios.post("CheckLogin", {
             UserName: this.UserEmail,
             UserPassword: this.UserPassword,
-            UserRole: this.userRole
+            UserRole: this.userRole,
           });
           //   Invalid Credentials
           if (data.code == 400) {
@@ -211,22 +200,26 @@ export default {
             // Set Userdata in Store
             this.$store.commit("SET_USER_DATA", userData);
           }
-
           // Conditions
-          if (data.data.approvedFlag == 1 && data.data.flag == 3) {
-            this.$router.push("/partner-dashboard");
-          } else if (data.data.approvedFlag == 1 && data.data.flag == 2) {
-            const { id, userID, userAccessToken, userName } = data.data;
-
-            this.$store.commit("SET_USER_DATA", {
-              id,
-              userID,
-              userAccessToken,
-              userName
-            });
-            this.$router.push("/partner-dashboard/food-partnet-registration-2");
-          } else if (data.data.approvedFlag == 0) {
-            this.$router.push("/account/food-partner-confirmation-pending");
+          if (this.userRole == 1) {
+            this.$router.push("/");
+          } else {
+            if (data.data.approvedFlag == 1 && data.data.flag == 3) {
+              this.$router.push("/partner-dashboard");
+            } else if (data.data.approvedFlag == 1 && data.data.flag == 2) {
+              const { id, userID, userAccessToken, userName } = data.data;
+              this.$store.commit("SET_USER_DATA", {
+                id,
+                userID,
+                userAccessToken,
+                userName,
+              });
+              this.$router.push(
+                "/partner-dashboard/food-partnet-registration-2"
+              );
+            } else if (data.data.approvedFlag == 0) {
+              this.$router.push("/account/food-partner-confirmation-pending");
+            }
           }
         } catch (e) {
           // If login request fails
@@ -262,13 +255,13 @@ export default {
           this.userRoleHeading = "";
           break;
       }
-    }
+    },
   },
   middleware({ store, redirect }) {
     if (store.state.userData) {
       return redirect("/");
     }
-  }
+  },
 };
 </script>
 
@@ -278,6 +271,11 @@ p {
 }
 .v-text-field.v-text-field--enclosed .v-text-field__details {
   margin-bottom: 0 !important;
+}
+.login-left-sec h2 {
+  font-weight: 400 !important;
+  font-size: 26px;
+  color: #ffffffd9;
 }
 p.forgot-pass > a,
 .login-policy > p > a {

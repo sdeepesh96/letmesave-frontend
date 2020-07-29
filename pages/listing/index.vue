@@ -3,102 +3,137 @@
     <InnerBanner />
     <v-container>
       <div class="list-head">
-        <p>{{ rest.restaurant }} Restaurants</p>
+        <p>{{rest}} Restaurants</p>
         <v-spacer></v-spacer>
       </div>
     </v-container>
-    <div class="offer-temp">
-      <v-container>
-        <v-row>
-          <v-col
-            v-for="(item, i) in items"
-            :key="i"
-            cols="3"
-            xs="6"
-            sm="6"
-            md="4"
-            lg="3"
-          >
-            <v-card light class="mx-auto item-list">
-              <div class="mob-def">
-                <v-avatar tile width="100%" height="160">
-                  <nuxt-link :to="'listing/' + item.left">
-                    <v-img :src="item.src"></v-img>
-                  </nuxt-link>
-                  <span class="itemid"> {{ item.left }}</span>
-                  <p class="left-out-tag">{{ item.left }} left</p>
-                </v-avatar>
-                <div class="listing-order">
-                  <div class="head-list">
-                    <div class="listing-head">
-                      <v-card-title class="headline"
-                        ><p>{{ item.title }}</p></v-card-title
-                      >
-                      <v-card-text
-                        class="listing-type"
-                        v-text="item.type"
-                      ></v-card-text>
-                    </div>
-                    <div class="listing-head">
-                      <div class="listing-right">
-                        <v-card-text class="rating">{{
-                          item.rating
-                        }}</v-card-text>
-                        <v-card-text class="listing-review">{{
-                          item.review
-                        }}</v-card-text>
+    <v-container>
+      <div class="row">
+        <v-col cols="12" sm="3" md="3" lg="3" class="py-0">
+          <div class="list-side-bar">
+            <div class="listing-sec-items">
+              <h3>Sort by</h3>
+              <v-radio-group v-model="sort" column class="mt-0">
+                <v-radio value="option-1" label="Distance" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="Popularity" color="#1F7087"></v-radio>
+                <v-radio value="option-3" label="Price (Low to High)" color="#1F7087"></v-radio>
+              </v-radio-group>
+            </div>
+            <div class="listing-sec-items">
+              <h3>Filter</h3>
+              <h4>Food Type</h4>
+              <v-radio-group v-model="column" column class="mt-0">
+                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-3" label="Both" color="#1F7087"></v-radio>
+              </v-radio-group>
+            </div>
+            <div class="listing-sec-items">
+              <h4>Meal Type</h4>
+              <v-radio-group v-model="column" column class="mt-0">
+                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-3" label="Both" color="#1F7087"></v-radio>
+              </v-radio-group>
+            </div>
+            <div class="listing-sec-items">
+              <h4>Pick-Up Time</h4>
+              <v-radio-group v-model="column" column class="mt-0">
+                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-3" label="Both" color="#1F7087"></v-radio>
+              </v-radio-group>
+            </div>
+            <div class="listing-sec-items">
+              <h4>Store Type</h4>
+              <v-radio-group v-model="column" column class="mt-0">
+                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+              </v-radio-group>
+            </div>
+            <div class="listing-sec-items">
+              <h4>Chain</h4>
+              <v-radio-group v-model="column" column class="mt-0">
+                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+              </v-radio-group>
+            </div>
+          </div>
+        </v-col>
+        <v-col cols="12" sm="9" md="9" lg="9" class="px-0 py-0">
+          <div class="offer-temp">
+            <v-row>
+              <v-col
+                v-for="(item, i) in items"
+                :key="i"
+                cols="12"
+                xs="6"
+                sm="6"
+                md="4"
+                lg="4"
+                class="py-0"
+              >
+                <v-card light class="mx-auto item-list mt-0">
+                  <div class="mob-def">
+                    <v-avatar tile width="100%" height="160">
+                      <nuxt-link :to="'listing/' + item.id">
+                        <v-img :src="item.storePicture"></v-img>
+                      </nuxt-link>
+                      <p class="left-out-tag">{{item.leftQuantity}} left</p>
+                    </v-avatar>
+                    <div class="listing-order">
+                      <div class="head-list">
+                        <div class="listing-head">
+                          <v-card-text class="listing-type" v-text="item.type"></v-card-text>
+                          <v-card-title class="headline">
+                            <p>{{item.hotelName}}</p>
+                          </v-card-title>
+                          <v-card-title class="deal px-0 py-0">
+                            <p>{{item.productName}}</p>
+                          </v-card-title>
+                          <v-card-text class="listing-price">
+                            <span class="nondis-price">NOK {{item.originalPrice}}</span>
+                            <span>NOK {{item.offerPrice}}</span>
+                          </v-card-text>
+                        </div>
+                        <div class="listing-head">
+                          <div class="listing-right">
+                            <v-card-text class="rating">4.5</v-card-text>
+                            <v-card-text class="listing-review">35 Reviews</v-card-text>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="listing-footer">
+                        <div class="listfoot-btn">
+                          <v-card-text class="listing-time">
+                            <span class="clock-icon">
+                              <v-icon>mdi-clock</v-icon>
+                            </span>
+                            <span>{{item.pickupTime}}</span>
+                          </v-card-text>
+                          <v-card-text class="listing-location">
+                            <span class="find-icon">
+                              <v-icon>mdi-map-marker</v-icon>
+                            </span>
+                            <span>{{item.address}}</span>
+                          </v-card-text>
+                          <v-btn class="order-btn mx-auto" small rounded dark>
+                            <span>Order now</span>
+                          </v-btn>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div class="listing-inner">
-                    <div>
-                      <v-card-text class="listing-price"
-                        ><span class="nondis-price">{{ item.price }}</span
-                        ><span>{{ item.offerprice }}</span></v-card-text
-                      >
-                      <v-card-text class="listing-time"
-                        ><span class="clock-icon"
-                          ><v-icon>mdi-clock</v-icon></span
-                        ><span>{{ item.time }}</span></v-card-text
-                      >
-                      <v-card-text class="listing-location"
-                        ><span class="find-icon"
-                          ><v-icon>mdi-map-marker</v-icon></span
-                        ><span>{{ item.location }}</span></v-card-text
-                      >
-                    </div>
-                  </div>
-                  <div class="listing-footer">
-                    <div class="listfoot-btn">
-                      <v-card-text class="listing-left"
-                        ><span class="left-icon"
-                          ><v-icon>mdi-share</v-icon></span
-                        ><span
-                          >Only {{ item.left }} left on Letme-save.com</span
-                        ></v-card-text
-                      >
-                      <v-btn
-                        class="order-btn"
-                        small
-                        rounded
-                        dark
-                        max-width="100"
-                        ><span class="order-icon"
-                          ><v-icon>mdi-cart-outline </v-icon></span
-                        ><span>Order now</span></v-btn
-                      >
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-container>
-      <div class="all-offers-btn text-center">
-        <v-btn rounded color="#104388" x-large="" dark>All offers</v-btn>
+                </v-card>
+              </v-col>
+            </v-row>
+            <!-- <div class="all-offers-btn text-center">
+              <v-btn rounded color="#104388" x-large dark>All offers</v-btn>
+            </div>-->
+          </div>
+        </v-col>
       </div>
-    </div>
+    </v-container>
   </div>
 </template>
 
@@ -106,195 +141,29 @@
 import InnerBanner from "~/components/InnerBanner";
 export default {
   components: {
-    InnerBanner
+    InnerBanner,
   },
   data: () => ({
-    rest: {
-      restaurant: "66"
-    },
-    items: [
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Sale offer",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      },
-      {
-        color: "#1F7087",
-        src:
-          "https://restaurantindia.s3.ap-south-1.amazonaws.com/s3fs-public/2019-06/shutterstock_307230266.jpg",
-        title: "Bare Restaurant",
-        rating: "4.5",
-        review: "34 Reviews",
-        category: "Best deal",
-        left: "10",
-        time: "Today 19:00 - 20:00",
-        type: "Sale offer",
-        price: "NOK 65",
-        offerprice: "NOK 25",
-        location: "2nd floor, OML mall"
-      }
-    ]
-  })
+    rest: {},
+    items: {},
+  }),
+  async mounted() {
+    try {
+      await this.$axios
+        .post("Mobile/User/GetOffer", {
+          OfferType: "73",
+          PickupStartTime: "00:00",
+          PickupEndTime: "23:59",
+          UserId: "0",
+        })
+        .then((response) => {
+          this.items = response.data.data;
+          this.rest = response.data.data.length;
+        });
+    } catch (e) {
+      console.log(e);
+    }
+  },
 };
 </script>
 
@@ -309,10 +178,19 @@ export default {
 
 .headline p {
   font-size: 20px;
-  padding-top: 15px;
+  padding-top: 8px;
   text-transform: capitalize;
-  margin-bottom: 5px;
+  margin-bottom: 0px;
   line-height: 1;
+  color: #0f4387;
+  font-weight: 500;
+  white-space: nowrap;
+  max-width: 190px;
+  overflow: hidden;
+}
+.listing-location {
+  white-space: nowrap;
+  overflow: hidden;
 }
 .headline {
   padding: 0;
@@ -322,12 +200,13 @@ export default {
   padding: 0;
   font-size: 16px;
   text-transform: capitalize;
-  color: #505050;
+  color: #fb6c05;
 }
 .listing-price span.nondis-price {
   color: #fb6c05;
   text-decoration: line-through;
   margin-right: 5px;
+  font-size: 14px;
 }
 .listing-price {
   padding: 0;
@@ -337,8 +216,12 @@ export default {
 }
 span.clock-icon .v-icon.v-icon {
   font-size: 20px;
-  color: #0f0f0f;
+  color: #0f4387;
   margin-right: 5px;
+}
+.listing-price span {
+  color: #0f4387;
+  font-weight: 500;
 }
 .listing-time {
   padding: 0;
@@ -347,7 +230,7 @@ span.clock-icon .v-icon.v-icon {
 }
 span.find-icon .v-icon.v-icon {
   font-size: 20px;
-  color: #fb6c05;
+  color: #0f4387;
   margin-right: 5px;
 }
 .listing-location {
@@ -359,10 +242,39 @@ span.find-icon .v-icon.v-icon {
 .listing-review {
   padding: 0;
 }
+.list-side-bar {
+  background: #f4f4f4;
+  padding: 1em;
+  border-radius: 10px;
+}
 .rating {
   background: #0f4387;
   color: #fff;
-  border-radius: 3px 3px 0 0;
+  border-radius: 5px 5px 0 0;
+  padding: 8px 0;
+}
+.deal p {
+  margin-bottom: 2px;
+  font-size: 17px;
+  color: grey;
+  font-weight: 400;
+}
+.list-side-bar h3 {
+  font-weight: 500;
+  color: #0f4387;
+  font-size: 18px;
+}
+.listing-sec-items h4 {
+  font-size: 17px;
+  color: #333;
+  font-weight: 500;
+}
+.v-card__text.listing-location {
+  margin-bottom: 1em;
+}
+.v-card__text.listing-time,
+.v-card__text.listing-location {
+  text-align: left;
 }
 span.rating-icon .v-icon.v-icon {
   font-size: 12px;
@@ -370,12 +282,12 @@ span.rating-icon .v-icon.v-icon {
   margin-right: 2px;
 }
 .listing-review {
-  color: grey;
-  font-size: 9px;
+  color: #333;
+  font-size: 12px;
   line-height: 1.1;
-  padding: 3px;
-  border-radius: 0 0 3px 3px;
+  border-radius: 0 0 5px 5px;
   background: #f4f4f4;
+  padding: 5px 0;
 }
 span.review-icon .v-icon.v-icon,
 span.left-icon .v-icon.v-icon {
@@ -384,7 +296,10 @@ span.left-icon .v-icon.v-icon {
   margin-right: 5px;
 }
 .v-card {
-  box-shadow: unset;
+  box-shadow: 0px 0px 35px rgba(0, 0, 0, 0.1);
+}
+.listing-order {
+  padding: 0.5em 0.5em 1em;
 }
 .all-offers-btn .v-btn--rounded {
   font-weight: 400;
@@ -401,6 +316,7 @@ span.left-icon .v-icon.v-icon {
 .listfoot-btn {
   border-top: 1px solid #e9e9eb;
   margin-top: 15px;
+  text-align: center;
 }
 span.order-icon .v-icon.v-icon {
   font-size: 12px;
@@ -408,19 +324,20 @@ span.order-icon .v-icon.v-icon {
   margin-right: 1px;
 }
 button.order-btn.v-btn.v-btn--contained.v-btn--rounded.theme--dark.v-size--small {
-  font-size: 10px;
+  font-size: 20px;
   text-transform: capitalize;
   font-weight: 400;
-  background: rgb(2, 0, 36);
-  background: linear-gradient(90deg, #ff8b4e 0%, #ff8b4e 35%, #ff6660 100%);
+  background: #fb6c05;
+  min-height: 40px;
+  min-width: 180px;
 }
 .list-head {
-  display: flex;
-  align-items: center;
   border-bottom: 1px solid #e9e9eb;
   padding-bottom: 8px;
   margin-top: 2em;
-  margin-bottom: -35px;
+}
+.v-avatar.v-avatar--tile {
+  border-radius: 5px 5px 0 0;
 }
 .list-head p {
   margin: 0;
@@ -433,7 +350,7 @@ button.order-btn.v-btn.v-btn--contained.v-btn--rounded.theme--dark.v-size--small
 .left-out-tag {
   position: absolute;
   bottom: -5px;
-  right: 4%;
+  left: 4%;
   background: #fb6c05;
   padding: 4px 12px;
   font-size: 14px;
@@ -442,12 +359,11 @@ button.order-btn.v-btn.v-btn--contained.v-btn--rounded.theme--dark.v-size--small
 }
 .head-list {
   display: grid;
-  grid-template-columns: 1fr 0.1fr;
+  grid-template-columns: 1fr 0.25fr;
 }
 .listing-right {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  margin-top: 15px;
+  grid-template-rows: max-content max-content;
   text-align: center;
 }
 @media (max-width: 767px) {

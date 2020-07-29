@@ -4,10 +4,10 @@
       <div class="login-left-right">
         <div class="login-left-sec">
           <div class="left-components">
-            <img src="~/assets/logo-light.png" alt="light-logo" />
-            <h4>Please choose your account type to Login or Create Account</h4>
-            <v-radio-group v-model="ex8" column dark>
-              <v-radio value="user" color="success" disabled>
+            <!-- <img src="~/assets/logo-light.png" alt="light-logo" /> -->
+            <h2 class="mb-10">Select your Role</h2>
+            <v-radio-group @change="setRoleHeading(userRole)" v-model="userRole" column dark>
+              <v-radio value="1" color="success">
                 <template v-slot:label>
                   <h5 class="radio-des">
                     User
@@ -15,7 +15,7 @@
                   </h5>
                 </template>
               </v-radio>
-              <v-radio value="food-partner" color="success" disabled>
+              <v-radio value="2" color="success">
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Food Partner
@@ -23,7 +23,7 @@
                   </h5>
                 </template>
               </v-radio>
-              <v-radio value="marketing-partner" color="success">
+              <v-radio value="3" color="success" disabled>
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Marketing Partner
@@ -31,7 +31,7 @@
                   </h5>
                 </template>
               </v-radio>
-              <v-radio value="host" color="success" disabled>
+              <v-radio value="4" color="success" disabled>
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Host
@@ -39,7 +39,7 @@
                   </h5>
                 </template>
               </v-radio>
-              <v-radio value="volunteers" color="success" disabled>
+              <v-radio value="5" color="success" disabled>
                 <template v-slot:label>
                   <h5 class="radio-des">
                     Volunteers
@@ -50,11 +50,135 @@
             </v-radio-group>
           </div>
         </div>
-        <div class="login-right-sec">
-          <h2>
-            Register as
-            <nuxt-link to="/how-it-works/information-for-food-partners" target="_blank">Food Partner</nuxt-link>
-          </h2>
+        <div class="login-right-sec user-reg" v-if="userRole == 1">
+          <h2 style="margin-bottom: 1em;">Register {{userRoleHeading}}</h2>
+          <div class="login-form-sec">
+            <v-form ref="form">
+              <v-text-field
+                label="User Name"
+                v-model="UserName"
+                :rules="[rules.required]"
+                outlined
+                name="UserName"
+                type="text"
+                class="login-form-feild"
+              ></v-text-field>
+              <v-text-field
+                label="Email ID"
+                v-model="UserEmail"
+                :rules="[rules.required, rules.email]"
+                outlined
+                name="UserEmail"
+                type="email"
+                class="login-form-feild"
+              ></v-text-field>
+              <v-text-field
+                label="Mobile Number"
+                v-model="MobileNo"
+                :rules="[rules.required]"
+                outlined
+                name="MobileNo"
+                type="text"
+                class="login-form-feild"
+              ></v-text-field>
+              <v-text-field
+                v-model="UserPassword"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.required, rules.min]"
+                :type="show1 ? 'text' : 'password'"
+                name="UserPassword"
+                label="Password"
+                outlined
+                @click:append="show1 = !show1"
+                class="login-form-feild"
+              ></v-text-field>
+              <v-text-field
+                v-model="ConfirmPassword"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                :rules="[rules.required, rules.repass]"
+                :type="show1 ? 'text' : 'password'"
+                name="ConfirmPassword"
+                label="Confirm Password"
+                outlined
+                @click:append="show1 = !show1"
+                class="login-form-feild"
+              ></v-text-field>
+              <v-autocomplete
+                :items="countryList"
+                item-text="name"
+                item-value="name"
+                return-object
+                :rules="[rules.required]"
+                label="Country"
+                v-model="country"
+                outlined
+                @change="getStates()"
+              ></v-autocomplete>
+              <v-autocomplete
+                :items="stateList"
+                item-text="name"
+                item-value="name"
+                return-object
+                :rules="[rules.required]"
+                label="Region"
+                outlined
+                v-model="region"
+                @change="getCity()"
+              ></v-autocomplete>
+              <v-combobox
+                :items="cityList"
+                item-text="name"
+                item-value="name"
+                :rules="[rules.required]"
+                label="City"
+                outlined
+                return-object
+                v-model="city"
+              ></v-combobox>
+              <div class="text-center">
+                <v-alert v-model="error" type="error" dismissible outlined text>{{errorMsg}}</v-alert>
+                <v-btn
+                  rounded
+                  color="#104388"
+                  x-large
+                  dark
+                  class="login-sub"
+                  @click="create"
+                  :loading="loading"
+                >Create Account</v-btn>
+                <p class="create-acc">
+                  Already have an account?
+                  <nuxt-link to="/account/login">Login</nuxt-link>
+                </p>
+              </div>
+              <div class="social-login">
+                <p>Register with</p>
+                <div class="social-image">
+                  <a href="#">
+                    <img src="~/assets/google.jpg" alt="light-logo" />
+                  </a>
+                  <a href="#">
+                    <img src="~/assets/facebook.jpg" alt="light-logo" />
+                  </a>
+                </div>
+              </div>
+              <div class="guest-user">
+                <nuxt-link to="/">Be a Guest User</nuxt-link>
+              </div>
+              <div class="login-policy text-center">
+                <p>
+                  By logging into an account you are agreeing with our
+                  <a
+                    href="#"
+                  >Term and Conditions</a> and
+                  <a href="#">Privacy Policy</a>
+                </p>
+              </div>
+            </v-form>
+          </div>
+        </div>
+        <div class="login-right-sec food-partner" v-if="userRole == 2">
+          <h2>Register {{userRoleHeading}}</h2>
           <p>Just 3 steps to begin your Save food and Save Money Journey</p>
           <div class="food-partner-instruction">
             <div class="instruction-inner">
@@ -140,36 +264,46 @@
 export default {
   data() {
     return {
+      userRole: "1",
+      userRoleHeading: "as a User",
       show1: false,
       show2: true,
       show3: false,
       show4: false,
-      ex8: "marketing-partner",
+      // ex8: "marketing-partner",
       error: false,
       errorMsg: null,
       loading: false,
       valid: false,
       StoreName: "test",
       UserEmail: "",
+      UserName: "",
+      MobileNo: "",
       UserPassword: "",
       ConfirmPassword: "",
+      country: "",
+      region: "",
+      city: "",
+      countryList: [],
+      stateList: [],
+      cityList: [],
       rules: {
-        required: value => !!value || "Required.",
+        required: (value) => !!value || "Required.",
         emailMatch: () => "The email and password you entered don't match",
-        min: value => {
+        min: (value) => {
           const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
           return (
             pattern.test(value) ||
             "Min. 8 characters with at least one capital letter, a number and a special character."
           );
         },
-        email: value => {
+        email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
         },
-        repass: confirmation =>
-          confirmation === this.UserPassword || "Passwords must match"
-      }
+        repass: (confirmation) =>
+          confirmation === this.UserPassword || "Passwords must match",
+      },
     };
   },
   methods: {
@@ -197,14 +331,109 @@ export default {
         }
         this.loading = false;
       }
-    }
-  }
+    },
+    async create() {
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        const uniqueEmail = await this.$axios.post(
+          "Mobile/Partner/CheckMailUnique",
+          { UserEmail: this.UserEmail }
+        );
+        if (uniqueEmail.data.code == 400) {
+          this.error = true;
+          this.errorMsg = uniqueEmail.data.message;
+          this.loading = false;
+          return;
+        }
+        try {
+          await this.$axios
+            .post("Mobile/User/InsertUser", {
+              UserFirstName: this.UserName,
+              UserLastName: this.UserName,
+              UserEmail: this.UserEmail,
+              Password: this.UserPassword,
+              UserState: this.region.id.toString(),
+              UserCountry: this.country.id.toString(),
+              UserCity: this.city.id.toString() || this.city,
+              UserPhoneNumber: this.MobileNo,
+            })
+            .then((response) => {
+              if (response.data.code == 200) {
+                this.$router.push("/account/login");
+              } else {
+                this.error = true;
+                this.errorMsg = "Email already exists";
+              }
+            });
+        } catch (e) {
+          console.log(e);
+        }
+        this.loading = false;
+      }
+    },
+    setRoleHeading(role) {
+      switch (role) {
+        case "1":
+          this.userRoleHeading = "as a User";
+          break;
+
+        case "2":
+          this.userRoleHeading = "as a Food Partner";
+          break;
+
+        case "3":
+          this.userRoleHeading = "as a Marketing Partner";
+          break;
+
+        case "4":
+          this.userRoleHeading = "as a Host";
+          break;
+
+        case "5":
+          this.userRoleHeading = "as a Volunteer";
+          break;
+
+        default:
+          this.userRoleHeading = "";
+          break;
+      }
+    },
+    getStates: function () {
+      console.log("country");
+      this.$axios
+        .post("/GetState", {
+          CountryId: this.country.id.toString(),
+        })
+        .then((response) => {
+          this.stateList = response.data.data;
+        });
+    },
+    getCity: function () {
+      this.$axios
+        .post("/GetCity", {
+          StateId: this.region.id.toString(),
+        })
+        .then((response) => {
+          this.cityList = response.data.data;
+        });
+    },
+  },
+  async mounted() {
+    await this.$axios.post("/GetCountry").then((response) => {
+      this.countryList = response.data.data;
+    });
+  },
 };
 </script>
 
 <style scoped>
 a {
   color: #104388;
+}
+.login-left-sec h2 {
+  font-weight: 400 !important;
+  font-size: 26px;
+  color: #ffffffd9;
 }
 p {
   color: #3b3b3b;
@@ -213,7 +442,7 @@ p {
   margin-bottom: 0 !important;
 }
 .v-item--active h5.radio-des {
-    color: #4caf50;
+  color: #4caf50;
 }
 p.forgot-pass > a,
 .login-policy > p > a {
@@ -223,7 +452,7 @@ p.forgot-pass > a,
 .login-policy > p {
   font-size: 20px;
   font-weight: 500;
-  margin: 3em 0 1.5em;
+  margin: 1em 0 0em;
 }
 p.forgot-pass {
   text-align: right;
@@ -239,15 +468,14 @@ p.create-acc {
 }
 p.create-acc > a {
   text-decoration: none;
-  color: orange;
+  color: #fba705;
 }
 button.login-sub {
-  margin-bottom: 1.5em;
+  margin-bottom: 1em;
   width: 250px;
   text-transform: capitalize;
   font-size: 24px !important;
   font-weight: 500;
-  margin-top: 1em;
 }
 .login-left-sec {
   padding: 5em 2em;
@@ -264,6 +492,23 @@ button.login-sub {
   align-items: center;
   border-radius: 10px;
   background: linear-gradient(to left, #fff 50%, #104388 50%);
+}
+.guest-user > a {
+  text-decoration: none;
+  font-size: 18px;
+  color: #fba705;
+  border: 2px solid #fba705;
+  padding: 10px 20px;
+  border-radius: 25px;
+}
+.guest-user > a:hover {
+  background: #fba705;
+  color: #fff;
+}
+.guest-user {
+  text-align: center;
+  margin-top: 2em;
+  margin-bottom: 2em;
 }
 .left-components > h4 {
   width: 70%;
@@ -345,6 +590,52 @@ p.instuction-content {
   color: #fff;
   line-height: 1.3;
 }
+.social-login[data-v-c3562c44] {
+  text-align: center;
+  margin: 2.5em 0;
+}
+.social-login > p {
+  overflow: hidden;
+  text-align: center;
+  font-weight: 500;
+  color: #104388;
+  margin-bottom: 2em;
+}
+.social-image {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 2em;
+  width: 80%;
+  margin: auto;
+}
+.social-image img {
+  width: 100%;
+}
+
+.social-login > p:before {
+  right: 1.5em;
+  margin-left: -50%;
+}
+
+.social-login > p:before,
+.social-login > p:after {
+  background-color: #acacac;
+  content: "";
+  display: inline-block;
+  height: 1px;
+  position: relative;
+  vertical-align: middle;
+  width: 50%;
+}
+.social-login > p:before {
+  right: 1.5em;
+  margin-left: -50%;
+}
+.social-login > p:after {
+  left: 1.5em;
+  margin-right: -50%;
+}
+
 @media (max-width: 1200px) {
   .left-components > h4 {
     width: 100%;
