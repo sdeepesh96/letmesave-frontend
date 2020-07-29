@@ -40,7 +40,7 @@
                 <img src="~/assets/direction.png" alt="direction" />
                 Direction
               </div>
-              <div class="btn">
+              <div @click="copyToClipboard" class="btn">
                 <img src="~/assets/copy.png" alt="copy Address" />
                 Copy Address
               </div>
@@ -72,12 +72,7 @@
                     <v-col class="text-center" cols="12" sm="3">
                       <div class="px-5 py-5 review-badge">
                         {{
-                        (
-                        (restuarantReviews.quality +
-                        restuarantReviews.location +
-                        restuarantReviews.price) /
-                        3
-                        )
+                        restuarantReviews.quality
                         }}
                       </div>
                       <div class="py-3 review-count">
@@ -202,11 +197,23 @@ export default {
         })
         .then((response) => {
           console.log(response.data);
-          this.restuarantReviews = response.data.totalAverageReview[0];
+          this.restuarantReviews = response.data.data[0];
         });
     } catch (error) {
       console.log(error);
     }
+  },
+  methods: {
+    async copyToClipboard() {
+      try {
+        // 1) Copy text
+        await navigator.clipboard.writeText(this.restuarantData.address);
+
+        // 2) Catch errors
+      } catch (err) {
+        console.error("Failed to copy: ", err);
+      }
+    },
   },
 };
 </script>
