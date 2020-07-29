@@ -1,0 +1,7 @@
+/* Input Blue Background */
+.v-text-field--outlined > .v-input__control > .v-input__slot {
+  background: #eaedf4 !important;
+}
+.qty-input input {
+  text-align: center;
+}
