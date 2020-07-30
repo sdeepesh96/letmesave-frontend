@@ -3,21 +3,22 @@
     <v-container>
       <v-card tile>
         <v-img :src="items.storePicture" height="300" class="grey darken-4"></v-img>
-
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="text-h1 blue-text">
               {{ items.hotelName }}
-              <span>{{items.type}}</span>
+              <span class="type">{{items.type}}</span>
             </h1>
             <h2 class="font-weight-regular">{{ items.productName }}</h2>
           </div>
           <div class="text-right">
             <h1 class="text-h1 blue-text">
-              <span style="font-size: .7em; text-decoration: line-through;">{{items.originalPrice}}</span>
-              {{ items.offerPrice }}
+              <span
+                style="font-size: .7em; text-decoration: line-through;"
+              >NOK {{items.originalPrice}}</span>
+              NOK {{ items.offerPrice }}
             </h1>
-            <nuxt-link to="#">Buy Now</nuxt-link>
+            <nuxt-link to="#" class="buy-now-btn">Buy Now</nuxt-link>
           </div>
         </div>
         <v-divider class="my-5"></v-divider>
@@ -163,6 +164,9 @@
           </v-row>
         </div>
       </v-card>
+      <div class="buynow-sec">
+        <nuxt-link to="#" class="buy-now-btn">Buy Now</nuxt-link>
+      </div>
     </v-container>
   </div>
 </template>
@@ -250,6 +254,17 @@ export default {
   font-weight: 500;
   font-size: 20px;
 }
+
+a.buy-now-btn {
+  background: #0f4387;
+  padding: 5px 10px;
+  color: #fff;
+  font-size: 20px;
+  margin-top: 5px;
+  display: block;
+  text-align: center;
+  border-radius: 5px;
+}
 .card-body-sec p.listing-price {
   font-size: 26px;
   font-weight: 500;
@@ -298,6 +313,9 @@ export default {
   font-weight: 500;
   margin-bottom: 10px;
 }
+.v-responsive.v-image.grey.darken-4 {
+  border-radius: 10px;
+}
 .list-head > a .v-icon.v-icon {
   margin-right: 20px;
   font-size: 48px;
@@ -335,6 +353,29 @@ export default {
   color: #333;
 }
 
+.v-card.v-card--flat.v-sheet.theme--light {
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+.blue-text > span.type {
+  font-size: 14px;
+  font-weight: 400;
+  background: #24b149;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 5px;
+  display: inline-block;
+}
+.buynow-sec > a {
+  float: right;
+  margin: 2em 0 2em !important;
+  width: 195px;
+}
+.v-rating.v-rating--readonly {
+  flex-grow: 1;
+}
+
 @media (max-width: 767px) {
   .list-head a {
     font-size: 16px;
@@ -342,6 +383,10 @@ export default {
   .list-head > a .v-icon.v-icon {
     margin-right: 20px;
     font-size: 28px;
+  }
+  h1.text-h1.blue-text {
+    font-size: 22px;
+    margin-top: 20px;
   }
 }
 

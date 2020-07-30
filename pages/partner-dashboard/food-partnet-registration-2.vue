@@ -264,7 +264,7 @@ export default {
       landmark: [],
       countryList: [],
       stateList: [],
-      cityList: []
+      cityList: [],
       // rules: {
       //   required: value => !!value || "Required.",
       //   email: value => {
@@ -282,7 +282,7 @@ export default {
           // let chainArr = this.Chain.map(item => item.id.toString());
           // let StoreTypeArr = this.StoreType.map(item => item.id.toString());
           // let ParkingArr = this.Parking.map(item => item.id.toString());
-          let PaymentArr = this.Payment.map(item => item.id.toString());
+          let PaymentArr = this.Payment.map((item) => item.id.toString());
           // let LandmarkArr = this.Landmark.map(item => item.id.toString());
           let chainArr = [];
           let StoreTypeArr = [];
@@ -324,13 +324,13 @@ export default {
               StorePicture: this.logoEncoded,
               CoverPicture: this.coverEncoded,
               UserId: this.userData.userID.toString(),
-              StoreDescription: "0"
+              StoreDescription: "0",
             })
-            .then(response => {
+            .then((response) => {
               if (response.data.code == 200) {
                 this.$router.push("/partner-dashboard");
               } else {
-                this.errorMsg = "Email already exists";
+                this.errorMsg = response.data.message;
               }
             });
         } catch (e) {
@@ -339,25 +339,25 @@ export default {
         this.loading = false;
       }
     },
-    getStates: function() {
+    getStates: function () {
       this.$axios
         .post("/GetState", {
-          CountryId: this.country.id.toString()
+          CountryId: this.country.id.toString(),
         })
-        .then(response => {
+        .then((response) => {
           this.stateList = response.data.data;
         });
     },
-    getCity: function() {
+    getCity: function () {
       this.$axios
         .post("/GetCity", {
-          StateId: this.region.id.toString()
+          StateId: this.region.id.toString(),
         })
-        .then(response => {
+        .then((response) => {
           this.cityList = response.data.data;
         });
     },
-    handleImage: function() {
+    handleImage: function () {
       this.createbase64Image(this.Logo);
     },
     async createbase64Image(fileObject) {
@@ -369,7 +369,7 @@ export default {
         this.logoEncoded = window.btoa(reader.result);
       };
     },
-    handleCover: function() {
+    handleCover: function () {
       this.createbase64Cover(this.Cover);
     },
     async createbase64Cover(fileObject) {
@@ -378,40 +378,40 @@ export default {
       reader.onload = () => {
         this.coverEncoded = window.btoa(reader.result);
       };
-    }
+    },
   },
   async mounted() {
-    await this.$axios.post("/GetCountry").then(response => {
+    await this.$axios.post("/GetCountry").then((response) => {
       this.countryList = response.data.data;
     });
     // Get Chain Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "10" })
-      .then(response => {
+      .then((response) => {
         this.chain = response.data.data;
       });
     // Get Store Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "17" })
-      .then(response => {
+      .then((response) => {
         this.storetype = response.data.data;
       });
     // Get Payment Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "57" })
-      .then(response => {
+      .then((response) => {
         this.payment = response.data.data;
       });
     // Get Parking Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "30" })
-      .then(response => {
+      .then((response) => {
         this.parking = response.data.data;
       });
     // Get Landmark Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "24" })
-      .then(response => {
+      .then((response) => {
         this.landmark = response.data.data;
       });
   },
@@ -422,9 +422,9 @@ export default {
   },
   computed: {
     ...mapGetters({
-      userData: "userData"
-    })
-  }
+      userData: "userData",
+    }),
+  },
 };
 </script>
 <style scoped>

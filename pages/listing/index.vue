@@ -73,58 +73,58 @@
                 lg="4"
                 class="py-0"
               >
-                <v-card light class="mx-auto item-list mt-0">
-                  <div class="mob-def">
-                    <v-avatar tile width="100%" height="160">
-                      <nuxt-link :to="'listing/' + item.id">
+                <nuxt-link :to="'listing/' + item.id">
+                  <v-card light class="mx-auto item-list mt-0">
+                    <div class="mob-def">
+                      <v-avatar tile width="100%" height="160">
                         <v-img :src="item.storePicture"></v-img>
-                      </nuxt-link>
-                      <p class="left-out-tag">{{item.leftQuantity}} left</p>
-                    </v-avatar>
-                    <div class="listing-order">
-                      <div class="head-list">
-                        <div class="listing-head">
-                          <v-card-text class="listing-type" v-text="item.type"></v-card-text>
-                          <v-card-title class="headline">
-                            <p>{{item.hotelName}}</p>
-                          </v-card-title>
-                          <v-card-title class="deal px-0 py-0">
-                            <p>{{item.productName}}</p>
-                          </v-card-title>
-                          <v-card-text class="listing-price">
-                            <span class="nondis-price">NOK {{item.originalPrice}}</span>
-                            <span>NOK {{item.offerPrice}}</span>
-                          </v-card-text>
+                        <p class="left-out-tag">{{item.leftQuantity}} left</p>
+                      </v-avatar>
+                      <div class="listing-order">
+                        <div class="head-list">
+                          <div class="listing-head">
+                            <v-card-text class="listing-type" v-text="item.type"></v-card-text>
+                            <v-card-title class="headline">
+                              <p>{{item.hotelName}}</p>
+                            </v-card-title>
+                            <v-card-title class="deal px-0 py-0">
+                              <p>{{item.productName}}</p>
+                            </v-card-title>
+                            <v-card-text class="listing-price">
+                              <span class="nondis-price">NOK {{item.originalPrice}}</span>
+                              <span>NOK {{item.offerPrice}}</span>
+                            </v-card-text>
+                          </div>
+                          <div class="listing-head">
+                            <div class="listing-right">
+                              <v-card-text class="rating">4.5</v-card-text>
+                              <v-card-text class="listing-review">35 Reviews</v-card-text>
+                            </div>
+                          </div>
                         </div>
-                        <div class="listing-head">
-                          <div class="listing-right">
-                            <v-card-text class="rating">4.5</v-card-text>
-                            <v-card-text class="listing-review">35 Reviews</v-card-text>
+                        <div class="listing-footer">
+                          <div class="listfoot-btn">
+                            <v-card-text class="listing-time">
+                              <span class="clock-icon">
+                                <v-icon>mdi-clock</v-icon>
+                              </span>
+                              <span>{{item.pickupTime}}</span>
+                            </v-card-text>
+                            <v-card-text class="listing-location">
+                              <span class="find-icon">
+                                <v-icon>mdi-map-marker</v-icon>
+                              </span>
+                              <span>{{item.address}}</span>
+                            </v-card-text>
+                            <v-btn class="order-btn mx-auto" small rounded dark to="/">
+                              <span>Order now</span>
+                            </v-btn>
                           </div>
                         </div>
                       </div>
-                      <div class="listing-footer">
-                        <div class="listfoot-btn">
-                          <v-card-text class="listing-time">
-                            <span class="clock-icon">
-                              <v-icon>mdi-clock</v-icon>
-                            </span>
-                            <span>{{item.pickupTime}}</span>
-                          </v-card-text>
-                          <v-card-text class="listing-location">
-                            <span class="find-icon">
-                              <v-icon>mdi-map-marker</v-icon>
-                            </span>
-                            <span>{{item.address}}</span>
-                          </v-card-text>
-                          <v-btn class="order-btn mx-auto" small rounded dark>
-                            <span>Order now</span>
-                          </v-btn>
-                        </div>
-                      </div>
                     </div>
-                  </div>
-                </v-card>
+                  </v-card>
+                </nuxt-link>
               </v-col>
             </v-row>
             <!-- <div class="all-offers-btn text-center">
@@ -323,11 +323,12 @@ span.order-icon .v-icon.v-icon {
   color: #fff;
   margin-right: 1px;
 }
-button.order-btn.v-btn.v-btn--contained.v-btn--rounded.theme--dark.v-size--small {
+button.order-btn.v-btn.v-btn--contained.v-btn--rounded.theme--dark.v-size--small,
+a.order-btn {
   font-size: 20px;
   text-transform: capitalize;
   font-weight: 400;
-  background: #fb6c05;
+  background-color: #fb6c05 !important;
   min-height: 40px;
   min-width: 180px;
 }
