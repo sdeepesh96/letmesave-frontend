@@ -68,7 +68,7 @@
           </v-col>
         </v-row>
         <div class="all-offers-btn text-center">
-          <v-btn rounded color="#104388" x-large dark to="/lis">All offers</v-btn>
+          <v-btn rounded color="#104388" x-large dark to="/listing">All offers</v-btn>
         </div>
       </div>
     </v-container>

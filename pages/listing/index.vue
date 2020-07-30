@@ -76,9 +76,9 @@
                 <v-card light class="mx-auto item-list mt-0">
                   <div class="mob-def">
                     <v-avatar tile width="100%" height="160">
-                      <nuxt-link :to="'listing/' + item.id">
-                        <v-img :src="item.storePicture"></v-img>
-                      </nuxt-link>
+                      <!-- <nuxt-link :to="'listing/' + item.id"> -->
+                      <v-img :src="item.storePicture"></v-img>
+                      <!-- </nuxt-link> -->
                       <p class="left-out-tag">{{item.leftQuantity}} left</p>
                     </v-avatar>
                     <div class="listing-order">
