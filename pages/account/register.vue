@@ -362,7 +362,7 @@ export default {
                 this.$router.push("/account/login");
               } else {
                 this.error = true;
-                this.errorMsg = "Email already exists";
+                this.errorMsg = response.data.message;
               }
             });
         } catch (e) {

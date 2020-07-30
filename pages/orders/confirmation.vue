@@ -1,7 +1,7 @@
 <template>
   <div>
     <InnerBanner />
-    <v-container>
+    <v-container style="max-width: 850px;">
       <div class="list-head">
         <p>Order Confirmation Recipt</p>
       </div>
@@ -174,5 +174,35 @@ export default {
 
 .order-pay {
   margin-bottom: 0 !important;
+}
+.order-id div:last-child > p:last-child {
+  font-size: 18px;
+  font-weight: 500;
+}
+.order-id p {
+  font-size: 15px;
+}
+.order-item > div:first-child > p:first-child,
+.order-item > div:last-child > p,
+.order-paid > p:last-child,
+.order-pay > p:last-child {
+  font-size: 18px;
+  font-weight: 500;
+}
+.address p:last-child,
+.pickup p:last-child {
+  font-size: 18px;
+}
+.address p:first-child,
+.pickup p:first-child {
+  font-size: 15px;
+}
+.order-paid > p:first-child,
+.order-pay > p:first-child {
+  font-size: 15px;
+}
+.address p,
+.pickup p {
+  font-weight: 500;
 }
 </style>

@@ -151,17 +151,17 @@ export default {
       designation: "",
       designationList: [],
       alternumber: "",
-      countryList: [], 
+      countryList: [],
       stateList: [],
       cityList: [],
       rules: {
-        required: value => !!value || "Required.",
+        required: (value) => !!value || "Required.",
         emailMatch: () => "The email and password you entered don't match",
-        email: value => {
+        email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        }
-      }
+        },
+      },
     };
   },
   methods: {
@@ -186,9 +186,9 @@ export default {
               ContactNumber: this.number,
               AlternativeContactNumber: this.alternumber,
               ReferralCode: this.ReferralCode,
-              Website: this.Website
+              Website: this.Website,
             })
-            .then(response => {
+            .then((response) => {
               if (response.data.code == 200) {
                 this.$router.push("/account/food-partner-confirmation");
               } else {
@@ -202,41 +202,41 @@ export default {
         this.loading = false;
       }
     },
-    getStates: function() {
+    getStates: function () {
       console.log("country");
       this.$axios
         .post("/GetState", {
-          CountryId: this.country.id.toString()
+          CountryId: this.country.id.toString(),
         })
-        .then(response => {
+        .then((response) => {
           this.stateList = response.data.data;
         });
     },
-    getCity: function() {
+    getCity: function () {
       this.$axios
         .post("/GetCity", {
-          StateId: this.region.id.toString()
+          StateId: this.region.id.toString(),
         })
-        .then(response => {
+        .then((response) => {
           this.cityList = response.data.data;
         });
-    }
-  }, 
+    },
+  },
   computed: {
     ...mapGetters({
       // userData: "userData",
       UserEmail: "userEmail",
-      UserPassword: "userPassword"
-    })
+      UserPassword: "userPassword",
+    }),
   },
   async mounted() {
-    await this.$axios.post("/GetCountry").then(response => {
+    await this.$axios.post("/GetCountry").then((response) => {
       this.countryList = response.data.data;
     });
     // Get Designation
     await this.$axios
       .post("GetSearchValue", { ParentId: "86" })
-      .then(response => {
+      .then((response) => {
         this.designationList = response.data.data;
       });
   },
@@ -244,7 +244,7 @@ export default {
     if (!store.state.userData) {
       return redirect("/account/register");
     }
-  }
+  },
 };
 </script>
 <style scoped>
