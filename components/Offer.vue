@@ -58,7 +58,7 @@
                           </span>
                           <span>{{item.address}}</span>
                         </v-card-text>
-                        <v-btn class="order-btn mx-auto" small rounded dark to="/">
+                        <v-btn class="order-btn mx-auto" small rounded dark>
                           <span>Order now</span>
                         </v-btn>
                       </div>
