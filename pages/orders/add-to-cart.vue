@@ -15,11 +15,11 @@
           </p>
         </div>
         <div class="order-summary-right">
-          <h4>{{order.restaurant}}</h4>
-          <h5>{{order.type}}</h5>
+          <h4>{{order.hotelName}}</h4>
+          <h5>{{order.productName}}</h5>
           <p>
             <img src="~/assets/clock.png" /> Pick Up
-            <span>{{order.time}}</span>
+            <span>{{order.pickupTime}}</span>
           </p>
           <div class="order-summary-inner">
             <div class="order-item">
@@ -31,19 +31,18 @@
                     hide-details
                     outlined
                     class="qty-input"
-                    v-model="how_many_person"
+                    v-model="productCount"
                     label
                     dense
                     prepend-inner-icon="mdi-minus"
                     append-icon="mdi-plus"
-                    value="1"
-                    @click:append="increment"
-                    @click:prepend-inner="increment"
+                    @click:append="productCount++"
+                    @click:prepend-inner="(productCount<=1) ? '' : productCount--"
                   ></v-text-field>
                   <!-- <v-btn color="#eaedf4">+</v-btn> -->
                 </div>
                 <div>
-                  <v-radio-group v-model="row" row color="#104388">
+                  <v-radio-group v-model="orderreserve" row color="#1F7087">
                     <v-radio label="Reserve Table" value="ReserveTable"></v-radio>
                     <v-radio label="Self Pick-up" value="Selfpick-up"></v-radio>
                   </v-radio-group>
@@ -52,18 +51,20 @@
             </div>
             <div class="order-total">
               <p>Total</p>
-              <p>NOK {{order.total}}</p>
+              <p>NOK {{(productCount * order.offerPrice)}}</p>
             </div>
             <div class="order-paid">
               <p>Pay online (20%)</p>
-              <p>NOK {{order.paid}}</p>
+              <p>NOK {{20/100*(productCount * order.offerPrice) }}</p>
             </div>
             <div class="order-pay">
               <p>Pay while pick-up (80%)</p>
-              <p>NOK {{order.pay}}</p>
+              <p>NOK {{80/100*(productCount * order.offerPrice) }}</p>
             </div>
             <div class="add-note">
-              <p>Add more deals with Oppdal Hotel with same pick-up time</p>
+              <p>
+                <nuxt-link to="/listing">Add more deals with Oppdal Hotel with same pick-up time</nuxt-link>
+              </p>
             </div>
             <div class="order-summary-foot text-center">
               <p>
@@ -81,23 +82,25 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import InnerBanner from "~/components/InnerBanner";
 export default {
   components: {
     InnerBanner,
   },
   data: () => ({
-    order: {
-      restaurant: "Oppdal Hotel",
-      time: "Sunday, May 24, 20.00 - 21.00",
-      type: "Special Dinner Deal",
-      price1: "20",
-      price2: "30",
-      total: "50",
-      pay: "20",
-      paid: "30",
-    },
+    productCount: 1,
+    orderreserve: "ReserveTable",
+    order: "",
   }),
+  mounted() {
+    this.order = this.$store.state.cart.productData;
+  },
+  computed: {
+    ...mapGetters({
+      productData: "productData",
+    }),
+  },
 };
 </script>
 
@@ -221,7 +224,7 @@ export default {
   margin: 0;
 }
 
-.add-note > p {
+.add-note > p > a {
   text-align: center;
   width: max-content;
   padding: 0.7em;
@@ -229,7 +232,8 @@ export default {
   background: #f89400;
   color: #fff;
   border-radius: 5px;
-  margin-top: 1em;
+  margin: 1em auto 0;
+  display: block;
 }
 
 .order-total,
@@ -244,7 +248,7 @@ export default {
 }
 
 .order-summary-foot {
-  margin-top: 2em;
+  margin-top: 1.5em;
 }
 
 .order-summary-foot > p > a {
@@ -276,8 +280,8 @@ export default {
   p {
     font-size: 14px;
   }
-  .add-note > p {
-    font-size: 13px;
+  .add-note > p > a {
+    font-size: 12px;
   }
 }
 @media (max-width: 767px) {
@@ -287,8 +291,8 @@ export default {
   .order-summary {
     grid-template-columns: 1fr;
   }
-  .add-note > p {
-    font-size: 13px;
+  .add-note > p > a {
+    font-size: 12px;
   }
 }
 </style>

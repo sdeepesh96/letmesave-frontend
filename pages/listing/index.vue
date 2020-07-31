@@ -21,41 +21,74 @@
             </div>
             <div class="listing-sec-items">
               <h3>Filter</h3>
+              <h4>Offer Type</h4>
+              <v-radio-group v-model="ordertype" column class="mt-0" @change="getoffertype()">
+                <!-- <v-radio value="73" label="Sale Food" color="#1F7087"></v-radio>
+                <v-radio value="74" label="Save Offer" color="#1F7087"></v-radio>
+                <v-radio value="96" label="Promotions" color="#1F7087"></v-radio>-->
+                <v-radio
+                  v-for="(order, i) in ordertypes"
+                  :key="i"
+                  :label="`${order.name}`"
+                  :value="`${order.id}`"
+                  color="#1F7087"
+                ></v-radio>
+              </v-radio-group>
+            </div>
+            <div class="listing-sec-items">
               <h4>Food Type</h4>
-              <v-radio-group v-model="column" column class="mt-0">
-                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-3" label="Both" color="#1F7087"></v-radio>
+              <v-radio-group v-model="foodtype" column class="mt-0" @change="getoffertype()">
+                <v-radio
+                  v-for="(food, i) in foodtypes"
+                  :key="i"
+                  :label="`${food.name}`"
+                  :value="`${food.id}`"
+                  color="#1F7087"
+                ></v-radio>
               </v-radio-group>
             </div>
             <div class="listing-sec-items">
               <h4>Meal Type</h4>
-              <v-radio-group v-model="column" column class="mt-0">
-                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-3" label="Both" color="#1F7087"></v-radio>
+              <v-radio-group v-model="mealtype" column class="mt-0" @change="getoffertype()">
+                <v-radio
+                  v-for="(meal, i) in mealtypes"
+                  :key="i"
+                  :label="`${meal.name}`"
+                  :value="`${meal.id}`"
+                  color="#1F7087"
+                ></v-radio>
               </v-radio-group>
             </div>
             <div class="listing-sec-items">
               <h4>Pick-Up Time</h4>
-              <v-radio-group v-model="column" column class="mt-0">
-                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-3" label="Both" color="#1F7087"></v-radio>
+              <v-radio-group v-model="pickup" column class="mt-0">
+                <v-radio value="option-1" label="Today" color="#1F7087"></v-radio>
+                <v-radio value="option-2" label="This Week" color="#1F7087"></v-radio>
+                <v-radio value="option-3" label="This Month" color="#1F7087"></v-radio>
               </v-radio-group>
             </div>
             <div class="listing-sec-items">
               <h4>Store Type</h4>
-              <v-radio-group v-model="column" column class="mt-0">
-                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+              <v-radio-group v-model="storetype" column class="mt-0" @change="getoffertype()">
+                <v-radio
+                  v-for="(store, i) in storetypes"
+                  :key="i"
+                  :label="`${store.name}`"
+                  :value="i"
+                  color="#1F7087"
+                ></v-radio>
               </v-radio-group>
             </div>
             <div class="listing-sec-items">
               <h4>Chain</h4>
-              <v-radio-group v-model="column" column class="mt-0">
-                <v-radio value="option-1" label="Vegetarian" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="Non Vegetarian" color="#1F7087"></v-radio>
+              <v-radio-group v-model="chain" column class="mt-0" @change="getoffertype()">
+                <v-radio
+                  v-for="(chain, i) in chaintypes"
+                  :key="i"
+                  :label="`${chain.name}`"
+                  :value="i"
+                  color="#1F7087"
+                ></v-radio>
               </v-radio-group>
             </div>
           </div>
@@ -73,7 +106,7 @@
                 lg="4"
                 class="py-0"
               >
-                <nuxt-link :to="'listing/' + item.id">
+                <nuxt-link :to="'listing/' +item.typeId +'-' +item.id">
                   <v-card light class="mx-auto item-list mt-0">
                     <div class="mob-def">
                       <v-avatar tile width="100%" height="160">
@@ -146,23 +179,108 @@ export default {
   data: () => ({
     rest: {},
     items: {},
+    sort: "",
+    ordertype: "73",
+    foodtype: "",
+    mealtype: "",
+    pickup: "",
+    storetype: "",
+    chain: "",
+    ordertypes: [],
+    foodtypes: [],
+    mealtypes: [],
+    storetypes: [],
+    chaintypes: [],
   }),
-  async mounted() {
-    try {
-      await this.$axios
-        .post("Mobile/User/GetOffer", {
-          OfferType: "73",
-          PickupStartTime: "00:00",
-          PickupEndTime: "23:59",
-          UserId: "0",
-        })
-        .then((response) => {
-          this.items = response.data.data;
-          this.rest = response.data.data.length;
-        });
-    } catch (e) {
-      console.log(e);
-    }
+  methods: {
+    async getoffertype() {
+      try {
+        await this.$axios
+          .post("Mobile/User/GetOffer", {
+            OfferType: this.ordertype,
+            mealType: this.mealtype,
+            foodType: this.foodtype,
+            storeType: this.storetype.toString(),
+            chainName: this.chain.toString(),
+            PickupStartTime: "00:00",
+            PickupEndTime: "23:59",
+            UserId: "0",
+          })
+          .then((response) => {
+            this.items = response.data.data;
+            this.rest = response.data.data.length;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async ordertypedata() {
+      try {
+        await this.$axios
+          .post("GetSearchValue", { ParentId: "72" })
+          .then((response) => {
+            this.ordertypes = response.data.data;
+            // this.ordertypes.pop();
+            this.ordertype = response.data.data[0].id.toString();
+            // console.log(response.data.data);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async mealtypedata() {
+      try {
+        await this.$axios
+          .post("GetSearchValue", { ParentId: "38" })
+          .then((response) => {
+            this.mealtypes = response.data.data;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async foodtypedata() {
+      try {
+        await this.$axios
+          .post("GetSearchValue", { ParentId: "34" })
+          .then((response) => {
+            this.foodtypes = response.data.data;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async storetypedata() {
+      try {
+        await this.$axios
+          .post("GetSearchValue", { ParentId: "17" })
+          .then((response) => {
+            this.storetypes = response.data.data;
+            this.storetypes.pop();
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async chaintypedata() {
+      try {
+        await this.$axios
+          .post("GetSearchValue", { ParentId: "10" })
+          .then((response) => {
+            this.chaintypes = response.data.data;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  mounted() {
+    this.ordertypedata();
+    this.getoffertype();
+    this.mealtypedata();
+    this.foodtypedata();
+    this.storetypedata();
+    this.chaintypedata();
   },
 };
 </script>
@@ -258,6 +376,9 @@ span.find-icon .v-icon.v-icon {
   font-size: 17px;
   color: grey;
   font-weight: 400;
+  max-width: 175px;
+  white-space: nowrap;
+  overflow: hidden;
 }
 .list-side-bar h3 {
   font-weight: 500;
