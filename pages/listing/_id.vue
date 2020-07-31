@@ -2,7 +2,10 @@
   <div>
     <v-container>
       <v-card tile>
-        <v-img :src="items.storePicture" height="300" class="grey darken-4"></v-img>
+        <div class="header-image">
+          <v-img :src="items.storePicture" height="300" class="grey darken-4"></v-img>
+          <p>{{items.leftQuantity}} Left</p>
+        </div>
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="text-h1 blue-text">
@@ -18,7 +21,7 @@
               >NOK {{items.originalPrice}}</span>
               NOK {{ items.offerPrice }}
             </h1>
-            <nuxt-link to="#" class="buy-now-btn">Buy Now</nuxt-link>
+            <v-btn @click="productData" class="buy-now-btn" color="#0f4387" dark>Buy Now</v-btn>
           </div>
         </div>
         <v-divider class="my-5"></v-divider>
@@ -49,7 +52,7 @@
           </div>
 
           <v-row class="pt-5">
-            <v-col class="pr-5" cols="12" sm="6">
+            <v-col class="pr-5" cols="12" sm="7" lg="6">
               <h3 class="h3 blue-text font-weight-medium">Summary</h3>
               <p>{{ items.summaryContent }}</p>
               <h3 class="h3 blue-text font-weight-medium">What save food bag may contain?</h3>
@@ -71,11 +74,9 @@
                 <v-card-text>
                   <v-row>
                     <v-col class="text-center" cols="12" sm="3">
-                      <div class="px-5 py-5 review-badge">
-                        {{
-                        restuarantReviews.quality
-                        }}
-                      </div>
+                      <div
+                        class="px-5 py-5 review-badge"
+                      >{{((restuarantReviews.quality+restuarantReviews.location+restuarantReviews.price)/3).toFixed(1)}}</div>
                       <div class="py-3 review-count">
                         39
                         <br />Reviews
@@ -91,7 +92,9 @@
                           color="warning"
                           readonly
                         ></v-rating>
-                        <div class="blue-text font-weight-medium">{{ restuarantReviews.quality }}</div>
+                        <div
+                          class="blue-text font-weight-medium"
+                        >{{ restuarantReviews.quality.toFixed(1) }}</div>
                       </div>
                       <div class="d-flex justify-end align-center">
                         <div class="flex-grow-1">Location</div>
@@ -101,7 +104,9 @@
                           color="warning"
                           readonly
                         ></v-rating>
-                        <div class="blue-text font-weight-medium">{{ restuarantReviews.location}}</div>
+                        <div
+                          class="blue-text font-weight-medium"
+                        >{{ restuarantReviews.location.toFixed(1)}}</div>
                       </div>
                       <div class="d-flex justify-end align-center">
                         <div class="flex-grow-1">Price</div>
@@ -111,14 +116,16 @@
                           color="warning"
                           readonly
                         ></v-rating>
-                        <div class="blue-text font-weight-medium">{{ restuarantReviews.price }}</div>
+                        <div
+                          class="blue-text font-weight-medium"
+                        >{{ restuarantReviews.price.toFixed(1) }}</div>
                       </div>
                     </v-col>
                   </v-row>
                 </v-card-text>
               </v-card>
             </v-col>
-            <v-col cols="12" sm="6">
+            <v-col cols="12" sm="5" lg="6">
               <h3 class="h3 blue-text font-weight-medium">Other Information</h3>
               <div class="pt-3 d-flex other-info-box">
                 <div>
@@ -150,7 +157,7 @@
                 <div>
                   <div class="subtitle-2 blue-text">Accepted Payment Method</div>
                   <div class="mb-5">
-                    <span>Paypal</span>
+                    <span>{{items.acceptPayment}}</span>
                   </div>
                 </div>
                 <div>
@@ -165,7 +172,7 @@
         </div>
       </v-card>
       <div class="buynow-sec">
-        <nuxt-link to="#" class="buy-now-btn">Buy Now</nuxt-link>
+        <v-btn @click="productData" class="buy-now-btn" color="#0f4387" dark>Buy Now</v-btn>
       </div>
     </v-container>
   </div>
@@ -175,32 +182,38 @@ export default {
   data: () => ({
     items: {},
     qualityRating: 4.3,
-    restuarantReviews: {},
+    restuarantReviews: {
+      quality: 5,
+      location: 5,
+      price: 5,
+    },
   }),
   async mounted() {
+    // console.log(this.$route.params.typeId);
+    var routeparams = this.$route.params.id.split("-");
     try {
       await this.$axios
         .post("/Mobile/User/GetOffer", {
-          ProductId: this.$route.params.id,
-          OfferType: "73",
+          ProductId: routeparams[1],
+          OfferType: routeparams[0],
           PickupStartTime: "00:00",
           PickupEndTime: "23:59",
           UserId: "0",
         })
         .then((response) => {
-          console.log(response.data.data);
           this.items = response.data.data[0];
         });
     } catch (e) {
       console.log(e);
     }
+
     try {
       await this.$axios
         .post("Mobile/user/GetReview", {
-          PartnerId: this.$route.params.id,
+          PartnerId: routeparams[1],
         })
         .then((response) => {
-          console.log(response.data);
+          // console.log(response.data);
           this.restuarantReviews = response.data.data[0];
         });
     } catch (error) {
@@ -217,6 +230,10 @@ export default {
       } catch (err) {
         console.error("Failed to copy: ", err);
       }
+    },
+    productData() {
+      this.$store.commit("cart/SET_PRODUCT_DATA", this.items);
+      this.$router.push("/orders/add-to-cart");
     },
   },
 };
@@ -255,15 +272,27 @@ export default {
   font-size: 20px;
 }
 
-a.buy-now-btn {
-  background: #0f4387;
-  padding: 5px 10px;
-  color: #fff;
+.buynow-sec button,
+button.buy-now-btn.v-btn.v-btn--contained.theme--dark.v-size--default {
   font-size: 20px;
   margin-top: 5px;
+  height: 36px;
+  min-width: 185px;
+  padding: 0 16px;
   display: block;
-  text-align: center;
+}
+.header-image > p {
+  position: absolute;
+  bottom: 1%;
+  right: 2%;
+  background: #fec207;
+  padding: 2px 25px;
+  color: #fff;
+  font-size: 18px;
   border-radius: 5px;
+}
+.header-image {
+  position: relative;
 }
 .card-body-sec p.listing-price {
   font-size: 26px;
@@ -367,7 +396,7 @@ a.buy-now-btn {
   border-radius: 5px;
   display: inline-block;
 }
-.buynow-sec > a {
+.buynow-sec > button {
   float: right;
   margin: 2em 0 2em !important;
   width: 195px;
@@ -376,6 +405,11 @@ a.buy-now-btn {
   flex-grow: 1;
 }
 
+@media (min-width: 768px) and (max-width: 1023px) {
+  .review-badge[data-v-e2998f74] {
+    font-size: 1.5em;
+  }
+}
 @media (max-width: 767px) {
   .list-head a {
     font-size: 16px;
@@ -387,6 +421,14 @@ a.buy-now-btn {
   h1.text-h1.blue-text {
     font-size: 22px;
     margin-top: 20px;
+  }
+  .buynow-sec button[data-v-e2998f74],
+  button.buy-now-btn.v-btn.v-btn--contained.theme--dark.v-size--default[data-v-e2998f74] {
+    font-size: 16px;
+    min-width: auto;
+  }
+  .address-bar[data-v-e2998f74] {
+    padding: 0.5em 0em;
   }
 }
 
