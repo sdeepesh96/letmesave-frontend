@@ -15,7 +15,7 @@
             lg="3"
             class="py-0"
           >
-            <nuxt-link :to="'listing/' + item.id">
+            <nuxt-link :to="'listing/' +item.typeId +'-' +item.id">
               <v-card light class="mx-auto item-list mt-0">
                 <div class="mob-def">
                   <v-avatar tile width="100%" height="160">
