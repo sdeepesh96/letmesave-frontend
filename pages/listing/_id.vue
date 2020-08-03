@@ -76,7 +76,7 @@
                     <v-col class="text-center" cols="12" sm="3">
                       <div
                         class="px-5 py-5 review-badge"
-                      >{{((restuarantReviews.quality+restuarantReviews.location+restuarantReviews.price)/3).toFixed(1)}}</div>
+                      >{{((restuarantReviews.quality+restuarantReviews.location+restuarantReviews.price)/3)}}</div>
                       <div class="py-3 review-count">
                         39
                         <br />Reviews
@@ -92,9 +92,7 @@
                           color="warning"
                           readonly
                         ></v-rating>
-                        <div
-                          class="blue-text font-weight-medium"
-                        >{{ restuarantReviews.quality.toFixed(1) }}</div>
+                        <div class="blue-text font-weight-medium">{{ restuarantReviews.quality }}</div>
                       </div>
                       <div class="d-flex justify-end align-center">
                         <div class="flex-grow-1">Location</div>
@@ -104,9 +102,7 @@
                           color="warning"
                           readonly
                         ></v-rating>
-                        <div
-                          class="blue-text font-weight-medium"
-                        >{{ restuarantReviews.location.toFixed(1)}}</div>
+                        <div class="blue-text font-weight-medium">{{ restuarantReviews.location}}</div>
                       </div>
                       <div class="d-flex justify-end align-center">
                         <div class="flex-grow-1">Price</div>
@@ -116,9 +112,7 @@
                           color="warning"
                           readonly
                         ></v-rating>
-                        <div
-                          class="blue-text font-weight-medium"
-                        >{{ restuarantReviews.price.toFixed(1) }}</div>
+                        <div class="blue-text font-weight-medium">{{ restuarantReviews.price}}</div>
                       </div>
                     </v-col>
                   </v-row>
@@ -213,8 +207,7 @@ export default {
           PartnerId: routeparams[1],
         })
         .then((response) => {
-          // console.log(response.data);
-          this.restuarantReviews = response.data.data[0];
+          // this.restuarantReviews = response.data.data[0];
         });
     } catch (error) {
       console.log(error);
