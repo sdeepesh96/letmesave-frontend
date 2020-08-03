@@ -453,8 +453,10 @@ export default {
 }
 .card-img-sec img {
   width: 100%;
+  height: 180px;
   border-radius: 5px 5px 0 0;
   cursor: pointer;
+  object-fit: cover;
 }
 .card-body-sec {
   padding: 8px 1em 1em;
