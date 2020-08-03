@@ -456,44 +456,44 @@ export default {
         {
           id: 1,
           label: "M",
-          value: "Monday"
+          value: "Monday",
         },
         {
           id: 2,
           label: "T",
-          value: "Tuesday"
+          value: "Tuesday",
         },
         {
           id: 3,
           label: "W",
-          value: "Wednesday"
+          value: "Wednesday",
         },
         {
           id: 4,
           label: "T",
-          value: "Thursday"
+          value: "Thursday",
         },
         {
           id: 5,
           label: "F",
-          value: "Friday"
+          value: "Friday",
         },
         {
           id: 6,
           label: "S",
-          value: "Saturday"
+          value: "Saturday",
         },
         {
           id: 7,
           label: "S",
-          value: "Sunday"
-        }
+          value: "Sunday",
+        },
       ],
       notAvailableDates: [],
       OfferImage: null,
       offerImageEncoded: null,
       offerImageDataString: "",
-      restuarantData: {}
+      restuarantData: {},
     };
   },
   async mounted() {
@@ -501,7 +501,7 @@ export default {
     try {
       await this.$axios
         .post("GetSearchValue", { ParentId: "72" })
-        .then(response => {
+        .then((response) => {
           this.offerTypes = response.data.data;
         });
     } catch (error) {
@@ -511,7 +511,7 @@ export default {
     try {
       await this.$axios
         .post("GetSearchValue", { ParentId: "34" })
-        .then(response => {
+        .then((response) => {
           this.foodTypes = response.data.data;
         });
     } catch (error) {
@@ -521,7 +521,7 @@ export default {
     try {
       await this.$axios
         .post("GetSearchValue", { ParentId: "38" })
-        .then(response => {
+        .then((response) => {
           this.mealTypes = response.data.data;
         });
     } catch (error) {
@@ -531,9 +531,9 @@ export default {
     try {
       await this.$axios
         .post("Mobile/Partner/GetPartnerDetailsById", {
-          PartnerId: this.$store.state.userData.userID
+          PartnerId: this.$store.state.userData.userID,
         })
-        .then(response => {
+        .then((response) => {
           this.restuarantData = response.data.data;
         });
     } catch (error) {
@@ -573,9 +573,9 @@ export default {
             DealFromDate: this.dates[0],
             DealToDate: this.dates[1],
             ExcludeDates: "-",
-            ExcludeDayOrder: "-"
+            ExcludeDayOrder: "-",
           })
-          .then(response => {
+          .then((response) => {
             console.log(response.data);
             if (response.data.code == 200) {
               this.alertType = "success";
@@ -593,7 +593,7 @@ export default {
 
       this.loading = false;
     },
-    handleImage: function() {
+    handleImage: function () {
       this.createbase64Image(this.OfferImage);
     },
     async createbase64Image(fileObject) {
@@ -617,12 +617,12 @@ export default {
       } catch (err) {
         console.error("Failed to copy: ", err);
       }
-    }
+    },
   },
   computed: {
     previewOfferType() {
       if (this.offerTypes.length > 0 && this.offerType != "") {
-        let temp = this.offerTypes.find(obj => obj.id == this.offerType);
+        let temp = this.offerTypes.find((obj) => obj.id == this.offerType);
         return temp.name;
       } else {
         return "";
@@ -630,7 +630,7 @@ export default {
     },
     previewFoodType() {
       if (this.foodTypes.length > 0 && this.FoodType != "") {
-        let temp = this.foodTypes.find(obj => obj.id == this.FoodType);
+        let temp = this.foodTypes.find((obj) => obj.id == this.FoodType);
         return temp.name;
       } else {
         return "";
@@ -638,13 +638,13 @@ export default {
     },
     previewMealType() {
       if (this.mealTypes.length > 0 && this.MealType != "") {
-        let temp = this.mealTypes.find(obj => obj.id == this.MealType);
+        let temp = this.mealTypes.find((obj) => obj.id == this.MealType);
         return temp.name;
       } else {
         return "";
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

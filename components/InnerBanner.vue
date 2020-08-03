@@ -6,10 +6,15 @@
           <v-col cols="12" sm="1"></v-col>
           <v-col cols="12" sm="10" style="padding-top:0;">
             <div class="banner-form">
-              <v-radio-group row>
-                <v-radio color="#fff" dark label="Save Food" value="radio-1"></v-radio>
-                <v-radio color="#fff" dark label="Sale Offer" value="radio-2"></v-radio>
-                <v-radio color="#fff" dark label="Promotions" value="radio-3"></v-radio>
+              <v-radio-group row v-model="ordertype">
+                <v-radio
+                  v-for="(order, i) in ordertypes"
+                  :key="i"
+                  :label="`${order.name}`"
+                  :value="`${order.id}`"
+                  color="#fff"
+                  dark
+                ></v-radio>
               </v-radio-group>
               <div class="banner-form-in">
                 <div>
@@ -20,24 +25,44 @@
                     height="47px"
                     append-icon="mdi-image-filter-center-focus"
                     class="location"
+                    disabled
+                    dense
+                    outlined
                   ></v-text-field>
                 </div>
                 <div class="banner-form-inner">
                   <div>
-                    <v-select label="Dinner" hide-details dense solo height="47px"></v-select>
+                    <v-select
+                      label="Select Meal type"
+                      hide-details
+                      dense
+                      solo
+                      height="47px"
+                      v-model="MealType"
+                      :items="mealTypes"
+                      item-text="name"
+                      item-value="id"
+                      outlined
+                    ></v-select>
                   </div>
                   <div>
-                    <v-select label="Pick any time this week" hide-details dense solo height="47px"></v-select>
+                    <v-select
+                      label="Pick any time this week"
+                      hide-details
+                      dense
+                      solo
+                      height="47px"
+                      v-model="pickup"
+                      :items="items"
+                      item-text="name"
+                      item-value="id"
+                      outlined
+                    ></v-select>
                   </div>
                   <div>
-                    <v-btn
-                      min-width="100%"
-                      small
-                      min-height="47px"
-                      color="#104388"
-                      dark
-                      to="/listing"
-                    >Search</v-btn>
+                    <nuxt-link
+                      :to="'search'+'?'+'ordertype='+this.ordertype +'&'+'MealType='+this.MealType"
+                    >Search</nuxt-link>
                   </div>
                 </div>
               </div>
@@ -49,7 +74,45 @@
     </v-form>
   </div>
 </template>
-
+<script>
+export default {
+  data: () => ({
+    ordertype: "73",
+    MealType: "",
+    pickup: "",
+    ordertypes: [],
+    mealTypes: [],
+    items: ["Today", "This Week", "This Month"],
+  }),
+  methods: {
+    async ordertypedata() {
+      try {
+        await this.$axios
+          .post("GetSearchValue", { ParentId: "72" })
+          .then((response) => {
+            this.ordertypes = response.data.data;
+            this.ordertype = response.data.data[0].id.toString();
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  mounted() {
+    this.ordertypedata();
+    // Get Meal Types
+    try {
+      this.$axios
+        .post("GetSearchValue", { ParentId: "38" })
+        .then((response) => {
+          this.mealTypes = response.data.data;
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  },
+};
+</script>
 <style scoped>
 .banner-search .col-sm-8,
 .banner-search .col-sm-2,
@@ -87,6 +150,32 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-image: url("../assets/listing-banner.jpg");
+}
+
+.banner-form-inner a {
+  background-color: #104388;
+  border-color: #104388;
+  font-size: 18px;
+  color: #fff;
+  width: 100%;
+  align-items: center;
+  border-radius: 4px;
+  display: inline-flex;
+  flex: 0 0 auto;
+  font-weight: 400;
+  letter-spacing: 0.0892857143em;
+  justify-content: center;
+  outline: 0;
+  position: relative;
+  text-decoration: none;
+  text-indent: 0.0892857143em;
+  text-transform: unset;
+  transition-duration: 0.28s;
+  vertical-align: middle;
+  white-space: nowrap;
+  box-shadow: 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 2px 2px 0 rgba(0, 0, 0, 0.14),
+    0 1px 5px 0 rgba(0, 0, 0, 0.12);
+  height: 100%;
 }
 
 .banner-form .v-input--radio-group.v-input--radio-group--row .v-radio {
