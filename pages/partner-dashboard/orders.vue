@@ -52,8 +52,8 @@
             <div class="order-item">
               <div class="order-name">
                 <!-- <p class="tag">{{ item.type }}</p> -->
-                <!-- <h4 class="title">{{ item.title }}</h4> -->
-                <p class="date-id">{{ item.order_id }}</p>
+                <h4 class="title">{{ item.order_id }}</h4>
+                <!-- <p class="date-id">{{ item.date }} | {{ item.id }}</p> -->
                 <p class="date-id">{{ item.purchase_date }}</p>
               </div>
               <div class="order-person">
@@ -64,15 +64,17 @@
               </div>
               <div class="order-amount">
                 <p>
-                  Paid <span>{{ item.amount_paid }} NOK</span>
+                  Paid <span>{{ item.paid_online }} NOK</span>
                 </p>
                 <p>
-                  To be collected <span>{{ item.to_collect }} NOK</span>
+                  To be collected <span>{{ item.paid_on_store }} NOK</span>
                 </p>
               </div>
               <div class="order-status">
-                <nuxt-link to="#" class="details">View order details</nuxt-link>
-                <nuxt-link to="#" class="status">{{ item.status }}</nuxt-link>
+                <div @click="getOrderDetail(item.id)" class="details">
+                  View order details
+                </div>
+                <div class="status">{{ item.status }}</div>
               </div>
             </div>
           </v-col>
@@ -88,68 +90,7 @@ export default {
   layout: "partner-dashboard",
   data: () => ({
     items: ["Today", "Yesterday"],
-    values: [
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80"
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80"
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80"
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80"
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80"
-      }
-    ]
+    values: []
   }),
   mounted() {
     this.getOrderData();
@@ -169,6 +110,11 @@ export default {
       } catch (error) {
         console.log(error);
       }
+    },
+    getOrderDetail(orderId) {
+      this.$router.push(
+        `/partner-dashboard/order-detail?orderId=${parseInt(orderId)}`
+      );
     }
   }
 };
@@ -292,7 +238,7 @@ a.bottom-more {
 .order-amount {
   text-align: right;
   align-items: end;
-  margin: auto 0 0;
+  /* margin: auto 0 0; */
 }
 .order-amount p {
   line-height: 1.5;
@@ -304,8 +250,8 @@ a.bottom-more {
 .order-amount p span {
   font-weight: 900;
 }
-.order-status a.details,
-.order-status a.status {
+.order-status .details,
+.order-status .status {
   display: block;
   text-align: center;
   text-decoration: none;
@@ -314,17 +260,18 @@ a.bottom-more {
   margin: 4px auto;
   padding: 3px 10px;
   border-radius: 5px;
+  cursor: pointer;
 }
-.order-status a.details {
+.order-status .details {
   background: #24b149;
 }
-.order-status a.details:hover {
+.order-status .details:hover {
   background: #22c34c;
 }
-.order-status a.status {
+.order-status .status {
   background: #104388;
 }
-.order-status a.status:hover {
+.order-status .status:hover {
   background: #124c9b;
 }
 @media (max-width: 1023px) {
