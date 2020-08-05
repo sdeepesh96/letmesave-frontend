@@ -80,6 +80,12 @@
                   :loading="loading"
                 >Update Profile</v-btn>
               </div>
+              <v-snackbar v-model="snackbar" top color="#0f4387">
+                Profile Updated
+                <template>
+                  <v-btn text @click="snackbar = false" color="#fff">Close</v-btn>
+                </template>
+              </v-snackbar>
             </v-form>
           </div>
         </v-col>
@@ -96,6 +102,7 @@ export default {
   data() {
     return {
       error: false,
+      snackbar: false,
       errorMsg: null,
       valid: false,
       loading: false,
@@ -136,7 +143,7 @@ export default {
             })
             .then((response) => {
               if (response.data.code == 200) {
-                this.$router.push("/user/activities");
+                this.snackbar = true;
               }
             });
         } catch (e) {
