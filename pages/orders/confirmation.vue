@@ -62,6 +62,7 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import InnerBanner from "~/components/InnerBanner";
 export default {
   components: {
@@ -83,6 +84,9 @@ export default {
       address: "Oppdal Hotel, Oppdal, Norway",
     },
   }),
+  mounted() {
+    this.headerid = this.$store.state.cart.headerData;
+  },
 };
 </script>
 

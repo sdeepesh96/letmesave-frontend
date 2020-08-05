@@ -130,13 +130,27 @@ export const getters = {
 };
 
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
+  nuxtServerInit({
+    commit
+  }, {
+    req
+  }) {
     if (!req.headers.cookie) {
       return;
     }
     const cookiesObj = cookie.parse(req.headers.cookie);
-    const { id, userID, userAccessToken, userName } = cookiesObj;
-    const userData = { id, userID, userAccessToken, userName };
+    const {
+      id,
+      userID,
+      userAccessToken,
+      userName
+    } = cookiesObj;
+    const userData = {
+      id,
+      userID,
+      userAccessToken,
+      userName
+    };
 
     if (userData) {
       commit("SET_USER_DATA", userData);

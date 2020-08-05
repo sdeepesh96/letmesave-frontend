@@ -11,6 +11,10 @@ a {
   text-decoration: none;
 }
 
+.v-btn {
+  text-transform: unset !important;
+}
+
 @media(max-width: 767px) {
   .v-label {
     font-size: 13px;

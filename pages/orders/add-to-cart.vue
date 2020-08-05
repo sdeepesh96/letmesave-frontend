@@ -42,9 +42,9 @@
                   <!-- <v-btn color="#eaedf4">+</v-btn> -->
                 </div>
                 <div>
-                  <v-radio-group v-model="orderreserve" row color="#1F7087">
-                    <v-radio label="Reserve Table" value="ReserveTable"></v-radio>
-                    <v-radio label="Self Pick-up" value="Selfpick-up"></v-radio>
+                  <v-radio-group v-model="orderreserve" row>
+                    <v-radio label="Reserve Table" value="1" color="#1F7087"></v-radio>
+                    <v-radio label="Self Pick-up" value="0" color="#1F7087"></v-radio>
                   </v-radio-group>
                 </div>
               </div>
@@ -63,7 +63,7 @@
             </div>
             <div class="add-note">
               <p>
-                <nuxt-link to="/listing">Add more deals with Oppdal Hotel with same pick-up time</nuxt-link>
+                <nuxt-link to="#">Add more deals with {{order.hotelName}} with same pick-up time</nuxt-link>
               </p>
             </div>
             <div class="order-summary-foot text-center">
@@ -72,7 +72,51 @@
                 <nuxt-link to="#">Term of Use</nuxt-link>
               </p>
               <p>You will recieve order number and confirmation message in app after payment</p>
-              <v-btn to="#" color="#104388" dark width="150px">Order Summary</v-btn>
+              <v-btn to="#" color="#104388" dark width="150px" @click="opendialog">Order Summary</v-btn>
+              <v-row justify="center">
+                <v-dialog v-model="dialog" persistent max-width="600px">
+                  <v-card>
+                    <v-card-title>
+                      <span class="headline">Add User Details</span>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-container>
+                        <v-form ref="form">
+                          <v-text-field
+                            label="User Name*"
+                            v-model="UserName"
+                            :rules="[rules.required]"
+                            name="UserName"
+                            type="text"
+                            class="login-form-feild"
+                          ></v-text-field>
+                          <v-text-field
+                            label="Email ID"
+                            v-model="UserEmail"
+                            name="UserEmail"
+                            type="email"
+                            class="login-form-feild"
+                          ></v-text-field>
+                          <v-text-field
+                            label="Mobile Number*"
+                            v-model="MobileNo"
+                            :rules="[rules.required]"
+                            name="MobileNo"
+                            type="text"
+                            class="login-form-feild"
+                          ></v-text-field>
+                        </v-form>
+                      </v-container>
+                      <small>*indicates required field</small>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-spacer></v-spacer>
+                      <v-btn color="#104388" text @click="dialog = false">Close</v-btn>
+                      <v-btn color="#104388" text @click="localuser">Save</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+              </v-row>
             </div>
           </div>
         </div>
@@ -89,12 +133,133 @@ export default {
     InnerBanner,
   },
   data: () => ({
+    dialog: false,
     productCount: 1,
-    orderreserve: "ReserveTable",
+    orderreserve: "",
     order: "",
+    UserName: "",
+    UserEmail: "",
+    MobileNo: "",
+    userDetails: {},
+    // AltMobileNo: "",
+    rules: {
+      required: (value) => !!value || "Required.",
+      email: (value) => {
+        const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return pattern.test(value) || "Invalid e-mail.";
+      },
+    },
   }),
+  methods: {
+    async addtocart() {
+      // this.dialog = false;
+      let localuserdata = localStorage.getItem("userData");
+      let localuserdataobj = JSON.parse(localuserdata);
+      let storeuser = "";
+      if (this.$store.state.userData) {
+        let storeuser = this.$store.state.userData.userID;
+      }
+      console.log(localuserdataobj);
+      try {
+        await this.$axios
+          .post("/Mobile/User/AddtoCart", {
+            Amount: (this.productCount * this.order.offerPrice).toString(),
+            Phone: localuserdataobj.Phoneno,
+            Name: localuserdataobj.Name,
+            Email: localuserdataobj.Email,
+            type: this.order.typeId,
+            PartnerId: this.order.hotelId.toString(),
+            // HeaderId: "",
+            UserId: "",
+            ItemDetail: [
+              {
+                ProductId: this.order.id.toString(),
+                Quantity: this.productCount.toString(),
+                Type: this.order.typeId.toString(),
+                Amount: this.order.offerPrice.toString(),
+                ReserveTable: this.orderreserve,
+              },
+            ],
+          })
+          .then((response) => {
+            this.$router.push("/orders/summary");
+            console.log(response.data);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async useraddtocart() {
+      try {
+        await this.$axios
+          .post("/Mobile/User/AddtoCart", {
+            Amount: (this.productCount * this.order.offerPrice).toString(),
+            Phone: "",
+            Name: "",
+            Email: "",
+            type: this.order.typeId,
+            // HeaderId: "",
+            PartnerId: this.order.hotelId.toString(),
+            UserId: this.$store.state.userData.userID.toString(),
+            ItemDetail: [
+              {
+                ProductId: this.order.id.toString(),
+                Quantity: this.productCount.toString(),
+                Type: this.order.typeId.toString(),
+                Amount: this.order.offerPrice.toString(),
+                ReserveTable: this.orderreserve,
+              },
+            ],
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.$router.push("/orders/summary");
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async opendialog() {
+      if (!this.$store.state.userData) {
+        let localuserdata = window.localStorage.getItem("userData");
+        let localuserdataobj = JSON.parse(localuserdata);
+        if (localuserdata) {
+          this.addtocart();
+        } else {
+          this.dialog = true;
+        }
+      } else {
+        this.useraddtocart();
+      }
+    },
+    localuser() {
+      let userData = {
+        Name: this.UserName,
+        Phoneno: this.MobileNo,
+        Email: this.UserEmail,
+      };
+      localStorage.setItem("userData", JSON.stringify(userData));
+      this.dialog = false;
+      this.addtocart();
+    },
+    async getuserdata() {
+      try {
+        await this.$axios
+          .post("/Mobile/User/Profile", {
+            Id: this.$store.state.userData.id.toString(),
+            AccessToken: this.$store.state.userData.userAccessToken,
+          })
+          .then((response) => {
+            this.userDetails = response.data.data[0];
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
   mounted() {
     this.order = this.$store.state.cart.productData;
+    this.getuserdata();
   },
   computed: {
     ...mapGetters({
@@ -259,6 +424,11 @@ export default {
 .order-summary-foot p {
   max-width: 450px;
   margin: 0 auto 20px;
+}
+
+.v-application .headline {
+  color: #104388;
+  font-size: 20px !important;
 }
 
 @media (min-width: 1200px) {

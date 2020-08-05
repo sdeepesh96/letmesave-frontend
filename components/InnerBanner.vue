@@ -61,7 +61,7 @@
                   </div>
                   <div>
                     <nuxt-link
-                      :to="'search'+'?'+'ordertype='+this.ordertype +'&'+'MealType='+this.MealType"
+                      :to="'/search'+'?'+'ordertype='+this.ordertype +'&'+'MealType='+this.MealType"
                     >Search</nuxt-link>
                   </div>
                 </div>

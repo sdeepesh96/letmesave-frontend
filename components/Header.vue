@@ -25,9 +25,7 @@
                 <nuxt-link to="/how-it-works/information-for-users">
                   <v-list-item>Information for users</v-list-item>
                 </nuxt-link>
-                <nuxt-link
-                  to="/how-it-works/information-for-marketing-partners"
-                >
+                <nuxt-link to="/how-it-works/information-for-marketing-partners">
                   <v-list-item>Information for marketing partners</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="/how-it-works/information-for-hosts">
@@ -78,9 +76,7 @@
           <div class="menu-item">
             <v-menu open-on-hover bottom offset-y>
               <template v-slot:activator="{ on }">
-                <v-btn text small color="#104388" v-on="on"
-                  >Spread a word</v-btn
-                >
+                <v-btn text small color="#104388" v-on="on">Spread a word</v-btn>
               </template>
             </v-menu>
           </div>
@@ -94,36 +90,59 @@
               </template>
 
               <v-list class="menu-style">
-                <nuxt-link
-                  :to="{ path: '/account/login', query: { role: '1' } }"
-                >
+                <nuxt-link :to="{ path: '/account/login', query: { role: '1' } }">
                   <v-list-item>Login/Register as user</v-list-item>
                 </nuxt-link>
-                <nuxt-link
-                  :to="{ path: '/account/login', query: { role: '2' } }"
-                >
+                <nuxt-link :to="{ path: '/account/login', query: { role: '2' } }">
                   <v-list-item>Login/Register as food partner</v-list-item>
                 </nuxt-link>
-                <nuxt-link
-                  :to="{ path: '/account/login', query: { role: '3' } }"
-                >
+                <nuxt-link :to="{ path: '/account/login', query: { role: '3' } }">
                   <v-list-item>Login/Register as marketing partner</v-list-item>
                 </nuxt-link>
-                <nuxt-link
-                  :to="{ path: '/account/login', query: { role: '4' } }"
-                >
+                <nuxt-link :to="{ path: '/account/login', query: { role: '4' } }">
                   <v-list-item>Login/Register as a host</v-list-item>
                 </nuxt-link>
-                <nuxt-link
-                  :to="{ path: '/account/login', query: { role: '5' } }"
-                >
+                <nuxt-link :to="{ path: '/account/login', query: { role: '5' } }">
                   <v-list-item>Login/Register as a volunteer</v-list-item>
                 </nuxt-link>
               </v-list>
             </v-menu>
           </div>
           <div v-else class="menu-item">
-            <v-btn
+            <v-menu open-on-hover bottom offset-y>
+              <template v-slot:activator="{ on }">
+                <v-btn small color="#104388" class="ma-2 white--text" v-on="on">
+                  My Account
+                  <v-icon right dark>mdi-menu-down</v-icon>
+                </v-btn>
+              </template>
+
+              <v-list class="menu-style">
+                <nuxt-link to="/user/profile">
+                  <v-list-item>My Profile</v-list-item>
+                </nuxt-link>
+                <nuxt-link to="#">
+                  <v-list-item>My Orders</v-list-item>
+                </nuxt-link>
+                <nuxt-link to="/user/settings">
+                  <v-list-item>Settings</v-list-item>
+                </nuxt-link>
+                <nuxt-link to="#">
+                  <v-list-item>Invite Friends</v-list-item>
+                </nuxt-link>
+                <nuxt-link to="#">
+                  <v-list-item>Refer a Store</v-list-item>
+                </nuxt-link>
+                <nuxt-link to="#">
+                  <v-list-item>Send Feedback</v-list-item>
+                </nuxt-link>
+                <v-btn @click="logout" small color="#104388" class="ma-2 white--text">
+                  Logout
+                  <v-icon small right dark>mdi-logout</v-icon>
+                </v-btn>
+              </v-list>
+            </v-menu>
+            <!-- <v-btn
               @click="logout"
               small
               color="#104388"
@@ -131,7 +150,7 @@
             >
               Logout
               <v-icon small right dark>mdi-logout</v-icon>
-            </v-btn>
+            </v-btn>-->
           </div>
           <div class="menu-item">
             <v-menu open-on-hover bottom offset-y>
@@ -280,7 +299,7 @@ export default {
     return {
       drawer: null,
 
-      test: false
+      test: false,
     };
   },
   methods: {
@@ -292,8 +311,8 @@ export default {
       cookies.remove("userAccessToken");
       cookies.remove("userName");
       this.$router.push("/");
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -15,79 +15,50 @@
           </p>
         </div>
         <div class="order-summary-right">
-          <h4>{{order.restaurant}}</h4>
-          <p>
-            <img src="~/assets/clock.png" /> Pick Up
-            <span>{{order.time}}</span>
-          </p>
           <div class="order-summary-inner">
-            <div class="order-item">
+            <div class="order-item" v-for="(item, i) in items" :key="i">
               <div>
-                <h5>{{order.type}}</h5>
-                <p>Nok {{order.price1}}</p>
+                <h5>{{item.productName}}</h5>
+                <p>Nok {{item.amount}}</p>
               </div>
               <div>
                 <div>
-                  <!-- <v-btn color="#eaedf4">-</v-btn> -->
                   <v-text-field
                     hide-details
                     outlined
                     class="qty-input"
-                    v-model="how_many_person"
+                    :value="item.quantity"
                     label
                     dense
                     prepend-inner-icon="mdi-minus"
                     append-icon="mdi-plus"
-                    value="1"
-                    @click:append="increment"
-                    @click:prepend-inner="increment"
+                    @click:append="item.quantity++"
+                    @click:prepend-inner="(item.quantity<=1) ? '' : item.quantity--"
                   ></v-text-field>
-                  <!-- <v-btn color="#eaedf4">+</v-btn> -->
                 </div>
                 <div>
-                  <p>Nok {{order.price2}}</p>
+                  <p>Nok {{item.amount * item.quantity}}</p>
+                  <v-btn
+                    @click="deleteItem(item, i)"
+                    text
+                    class="delete-text"
+                    color="#0f4387"
+                  >Delete</v-btn>
                 </div>
               </div>
             </div>
-            <div class="order-item">
-              <div>
-                <h5>{{order.type}}</h5>
-                <p>Nok {{order.price2}}</p>
-              </div>
-              <div>
-                <div>
-                  <!-- <v-btn color="#eaedf4">-</v-btn> -->
-                  <v-text-field
-                    hide-details
-                    outlined
-                    class="qty-input"
-                    v-model="how_many_person"
-                    label
-                    dense
-                    prepend-inner-icon="mdi-minus"
-                    append-icon="mdi-plus"
-                    value="1"
-                    @click:append="increment"
-                    @click:prepend-inner="increment"
-                  ></v-text-field>
-                  <!-- <v-btn color="#eaedf4">+</v-btn> -->
-                </div>
-                <div>
-                  <p>Nok {{order.price2}}</p>
-                </div>
-              </div>
-            </div>
+
             <div class="order-total">
               <p>Total</p>
-              <p>NOK {{order.total}}</p>
+              <p>NOK {{cartTotal}}</p>
             </div>
             <div class="order-paid">
               <p>Pay online (20%)</p>
-              <p>NOK {{order.paid}}</p>
+              <p>NOK {{20/100*(cartTotal) }}</p>
             </div>
             <div class="order-pay">
               <p>Pay while pick-up (80%)</p>
-              <p>NOK {{order.pay}}</p>
+              <p>NOK {{80/100*(cartTotal) }}</p>
             </div>
             <div class="order-summary-foot text-center">
               <p>
@@ -95,7 +66,13 @@
                 <nuxt-link to="#">Term of Use</nuxt-link>
               </p>
               <p>You will recieve order number and confirmation message in app after payment</p>
-              <v-btn to="#" color="#104388" dark width="150px">Pay Now</v-btn>
+              <v-btn @click="placeorder" color="#104388" dark width="150px">Pay Now</v-btn>
+              <v-snackbar v-model="snackbar" top color="#0f4387">
+                Order place successfully
+                <template>
+                  <v-btn text @click="snackbar = false" color="#fff">Close</v-btn>
+                </template>
+              </v-snackbar>
             </div>
           </div>
         </div>
@@ -111,17 +88,96 @@ export default {
     InnerBanner,
   },
   data: () => ({
-    order: {
-      restaurant: "Oppdal Hotel",
-      time: "Sunday, May 24, 20.00 - 21.00",
-      type: "Special Dinner Deal",
-      price1: "20",
-      price2: "30",
-      total: "50",
-      pay: "20",
-      paid: "30",
-    },
+    snackbar: false,
+    items: [],
+    productCount: "",
+    headerId: "",
   }),
+  computed: {
+    cartTotal() {
+      return this.items.reduce(
+        (subTotal, item) => item.amount * item.quantity + subTotal,
+        0
+      );
+    },
+  },
+  methods: {
+    async deleteItem(tobeDeleted, i) {
+      try {
+        this.items = this.items.filter((item, index) => index !== i);
+        await this.$axios
+          .post("/Mobile/User/UpdateCart", {
+            TotalAmount: this.cartTotal.toString(),
+            ItemDetail: this.items,
+            HeaderId: this.headerId,
+          })
+          .then((response) => {
+            // this.items = response.data.data;
+            // this.totalAmount = response.data.totalAmount;
+            // console.log(this.productCount);
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async placeorder() {
+      try {
+        await this.$axios
+          .post("/Mobile/User/PlaceOrder", {
+            ItemDetail: this.items,
+            HeaderId: this.headerId,
+          })
+          .then((response) => {
+            if (response.data.code == 200) {
+              this.snackbar = true;
+              // this.$router.push("/orders/confirmation");
+            }
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async usercart() {
+      try {
+        await this.$axios
+          .post("/Mobile/User/GetAddToCart", {
+            UserId: this.$store.state.userData.userID.toString(),
+            Phone: "",
+          })
+          .then((response) => {
+            this.items = response.data.data;
+            this.totalAmount = response.data.totalAmount;
+            this.headerId = response.data.headerId;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+    async guestcart() {
+      let localuserdata = localStorage.getItem("userData");
+      let localuserdataobj = JSON.parse(localuserdata);
+      try {
+        await this.$axios
+          .post("/Mobile/User/GetAddToCart", {
+            UserId: "0",
+            Phone: localuserdataobj.Phoneno,
+          })
+          .then((response) => {
+            this.items = response.data.data;
+            this.totalAmount = response.data.totalAmount;
+          });
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
+  async mounted() {
+    if (this.$store.state.userData) {
+      this.usercart();
+    } else {
+      this.guestcart();
+    }
+  },
 };
 </script>
 
@@ -187,6 +243,7 @@ export default {
 
 .order-item > div:last-child > div {
   display: flex;
+  justify-content: space-between;
 }
 .order-item {
   display: grid;
@@ -202,13 +259,6 @@ export default {
   margin-right: 10px !important;
 }
 
-.order-item > div > div > button {
-  padding: 0 !important;
-  min-width: 30px !important;
-  margin: 5px 0 !important;
-  height: 30px !important;
-  font-size: 28px !important;
-}
 .order-item h5 {
   font-weight: 400;
   font-size: 18px;
@@ -247,6 +297,18 @@ export default {
 
 .order-summary-foot {
   margin-top: 3em;
+}
+
+button.delete-text {
+  font-size: 14px;
+  line-height: 0;
+  letter-spacing: 0;
+  margin-top: 12px;
+  float: right;
+  text-align: right;
+  height: 0 !important;
+  min-width: auto !important;
+  padding: 0 !important;
 }
 
 .order-summary-foot > p > a {
