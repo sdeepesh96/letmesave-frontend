@@ -4,10 +4,19 @@
       <v-row>
         <v-col cols="12" sm="6">
           <v-radio-group v-model="offerType" mandatory row>
-            <v-radio v-for="item in offerTypes" :key="item.id" :label="item.name" :value="item.id"></v-radio>
+            <v-radio
+              v-for="item in offerTypes"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></v-radio>
           </v-radio-group>
         </v-col>
-        <v-col cols="12" sm="6" class="d-flex align-center justify-end text-right">
+        <v-col
+          cols="12"
+          sm="6"
+          class="d-flex align-center justify-end text-right"
+        >
           <v-btn color="warning" large class="px-8 black--text">TIPS?</v-btn>
         </v-col>
       </v-row>
@@ -38,37 +47,65 @@
               <h3 class="headline blue-text">Offer Price</h3>
               <strong>Note save food posts:</strong>
               <ol>
-                <li>You cannot set offer price less than 30% of actual price</li>
-                <li>You can set offer price 0 if you want to give free food. for this, you need to contact our team in advance.</li>
+                <li>
+                  You cannot set offer price less than 30% of actual price
+                </li>
+                <li>
+                  You can set offer price 0 if you want to give free food. for
+                  this, you need to contact our team in advance.
+                </li>
               </ol>
               <v-row>
                 <v-col cols="12" sm="4">
-                  <v-text-field hide-details v-model="OriginalPrice" label="Actual Price" outlined></v-text-field>
+                  <v-text-field
+                    hide-details
+                    v-model="OriginalPrice"
+                    label="Actual Price"
+                    outlined
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4">
-                  <v-text-field hide-details v-model="OfferPrice" label="Offer Price" outlined></v-text-field>
+                  <v-text-field
+                    hide-details
+                    v-model="OfferPrice"
+                    label="Offer Price"
+                    outlined
+                  ></v-text-field>
                 </v-col>
                 <v-col cols="12" sm="4">
-                  <v-text-field hide-details v-model="Quantity" label="Quantity" outlined></v-text-field>
+                  <v-text-field
+                    hide-details
+                    v-model="Quantity"
+                    label="Quantity"
+                    outlined
+                  ></v-text-field>
                 </v-col>
-                <v-col
-                  cols="12"
-                  sm="12"
-                  class="red-text"
-                >Min offer price should be greater than or equal to 10.8 NOK(30% of the acutal price).</v-col>
+                <v-col cols="12" sm="12" class="red-text"
+                  >Min offer price should be greater than or equal to 10.8
+                  NOK(30% of the acutal price).</v-col
+                >
               </v-row>
               <h3 class="headline blue-text">Food Type</h3>
               <v-item-group v-model="FoodType" mandatory>
                 <v-row>
-                  <v-col v-for="item in foodTypes" :key="item.id" cols="12" md="4">
-                    <v-item :value="item.id" v-slot:default="{ active, toggle }">
+                  <v-col
+                    v-for="item in foodTypes"
+                    :key="item.id"
+                    cols="12"
+                    md="4"
+                  >
+                    <v-item
+                      :value="item.id"
+                      v-slot:default="{ active, toggle }"
+                    >
                       <v-card
                         :color="active ? 'success' : '#eaedf4'"
                         :dark="active"
                         class="d-flex align-center select-card px-4 py-3"
                         @click="toggle"
                         flat
-                      >{{item.name}}</v-card>
+                        >{{ item.name }}</v-card
+                      >
                     </v-item>
                   </v-col>
                 </v-row>
@@ -76,15 +113,24 @@
               <h3 class="headline blue-text">Meal Type</h3>
               <v-item-group v-model="MealType" mandatory>
                 <v-row>
-                  <v-col v-for="item in mealTypes" :key="item.id" cols="12" md="4">
-                    <v-item :value="item.id" v-slot:default="{ active, toggle }">
+                  <v-col
+                    v-for="item in mealTypes"
+                    :key="item.id"
+                    cols="12"
+                    md="4"
+                  >
+                    <v-item
+                      :value="item.id"
+                      v-slot:default="{ active, toggle }"
+                    >
                       <v-card
                         :color="active ? 'success' : '#eaedf4'"
                         :dark="active"
                         class="d-flex align-center select-card px-4 py-3"
                         @click="toggle"
                         flat
-                      >{{item.name}}</v-card>
+                        >{{ item.name }}</v-card
+                      >
                     </v-item>
                   </v-col>
                 </v-row>
@@ -95,7 +141,9 @@
               <h3 class="headline blue-text">Offer Available Time</h3>
               <v-row>
                 <v-col cols="12" sm="4">
-                  <div class="fill-height d-flex align-center">Monday - Friday</div>
+                  <div class="fill-height d-flex align-center">
+                    Monday - Friday
+                  </div>
                 </v-col>
                 <v-col cols="12" sm="4">
                   <v-text-field
@@ -163,17 +211,38 @@
                 </v-col>
               </v-row>
               <h3 class="headline blue-text">Offer Available Dates</h3>
-              <v-date-picker
-                no-title
-                color="primary"
-                v-model="dates"
-                class="elevation-0 datepicker-outline my-3"
-                reactive
-                full-width
-                range
-              ></v-date-picker>
+
               <v-row>
                 <v-col cols="12" sm="12">Available Dates</v-col>
+
+                <v-dialog
+                  ref="dialog"
+                  v-model="modal"
+                  :return-value.sync="date"
+                  persistent
+                  width="290px"
+                >
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-text-field
+                      v-model="date"
+                      label="Picker in dialog"
+                      prepend-icon="event"
+                      readonly
+                      v-bind="attrs"
+                      v-on="on"
+                    ></v-text-field>
+                  </template>
+                  <v-date-picker v-model="date" scrollable>
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="modal = false"
+                      >Cancel</v-btn
+                    >
+                    <v-btn text color="primary" @click="$refs.dialog.save(date)"
+                      >OK</v-btn
+                    >
+                  </v-date-picker>
+                </v-dialog>
+
                 <v-col cols="12" sm="6">
                   <v-text-field
                     hide-details
@@ -196,30 +265,53 @@
                 </v-col>
               </v-row>
 
+              <v-date-picker
+                no-title
+                color="primary"
+                v-model="dates"
+                class="elevation-0 datepicker-outline my-3"
+                reactive
+                full-width
+                range
+              ></v-date-picker>
+
               <p>Not Available Dates (Every Week)</p>
               <v-item-group v-model="notAvailableDates" multiple>
                 <div class="day-grid">
                   <div v-for="item in notAvailable" :key="item.id">
-                    <v-item :value="item.id" v-slot:default="{ active, toggle }">
+                    <v-item
+                      :value="item.id"
+                      v-slot:default="{ active, toggle }"
+                    >
                       <v-card
                         :color="active ? 'success' : ''"
                         :dark="active"
                         class="d-flex align-center justify-center select-card px-4 py-3"
                         @click="toggle"
                         outlined
-                      >{{item.label}}</v-card>
+                        >{{ item.label }}</v-card
+                      >
                     </v-item>
                   </div>
                 </div>
               </v-item-group>
-              <p
-                class="mt-3"
-              >Note: If any special dates - offer is not available then please click those dates and uncheck the solid circle from the above calender</p>
+              <p class="mt-3">
+                Note: If any special dates - offer is not available then please
+                click those dates and uncheck the solid circle from the above
+                calender
+              </p>
             </v-col>
           </v-row>
         </v-form>
       </v-card>
-      <v-alert :type="alertType" outlined dismissible class="mt-5" v-model="alert">{{alertMsg}}</v-alert>
+      <v-alert
+        :type="alertType"
+        outlined
+        dismissible
+        class="mt-5"
+        v-model="alert"
+        >{{ alertMsg }}</v-alert
+      >
       <div class="text-center my-5">
         <!-- <v-btn color="warning" class="px-10" x-large rounded>Preview</v-btn> -->
         <v-dialog
@@ -229,7 +321,15 @@
           transition="dialog-bottom-transition"
         >
           <template v-slot:activator="{ on, attrs }">
-            <v-btn color="warning" class="px-10" x-large rounded v-bind="attrs" v-on="on">Preview</v-btn>
+            <v-btn
+              color="warning"
+              class="px-10"
+              x-large
+              rounded
+              v-bind="attrs"
+              v-on="on"
+              >Preview</v-btn
+            >
           </template>
           <v-card>
             <v-toolbar dark color="#003680">
@@ -240,27 +340,38 @@
               </v-btn>
             </v-toolbar>
 
-            <v-img :src="offerImageDataString" height="300" class="grey darken-4"></v-img>
+            <v-img
+              :src="offerImageDataString"
+              height="300"
+              class="grey darken-4"
+            ></v-img>
             <v-container>
               <div class="d-flex justify-space-between">
                 <div>
-                  <h1 class="text-h1 blue-text">{{restuarantData.legal_name}}</h1>
-                  <h2 class="font-weight-regular">{{OrderName}}</h2>
+                  <h1 class="text-h1 blue-text">
+                    {{ restuarantData.legal_name }}
+                  </h1>
+                  <h2 class="font-weight-regular">{{ OrderName }}</h2>
                 </div>
                 <div class="text-right">
-                  <v-btn color="success" elevation="0">{{previewOfferType}}</v-btn>
+                  <v-btn color="success" elevation="0">{{
+                    previewOfferType
+                  }}</v-btn>
                   <h1 class="text-h1 blue-text">
                     <span
                       style="font-size: .7em; text-decoration: line-through;"
-                    >{{restuarantData.currency}} {{OriginalPrice}}</span>
-                    {{restuarantData.currency}} {{OfferPrice}}
+                      >{{ restuarantData.currency }} {{ OriginalPrice }}</span
+                    >
+                    {{ restuarantData.currency }} {{ OfferPrice }}
                   </h1>
                 </div>
               </div>
               <v-divider class="my-5"></v-divider>
               <div class="pb-2">
                 <div class="d-flex align-center">
-                  <v-icon large class="mr-3" color="#003680">mdi-clock-outline</v-icon>
+                  <v-icon large class="mr-3" color="#003680"
+                    >mdi-clock-outline</v-icon
+                  >
                   <strong class="mr-5">Pick Up</strong>
                   <div>Sunday, May 24, 20.00 - 21.00</div>
                 </div>
@@ -268,10 +379,16 @@
             </v-container>
             <div class="blue-bg pt-5">
               <v-container>
-                <div class="address-bar d-flex justify-space-between align-center">
+                <div
+                  class="address-bar d-flex justify-space-between align-center"
+                >
                   <div class="d-flex align-center">
-                    <img class="location-icon mx-2" src="~/assets/Group.png" alt="Group" />
-                    {{restuarantData.address}}
+                    <img
+                      class="location-icon mx-2"
+                      src="~/assets/Group.png"
+                      alt="Group"
+                    />
+                    {{ restuarantData.address }}
                   </div>
                   <div class="d-flex align-center">
                     <div class="btn">
@@ -288,13 +405,29 @@
                 <v-row class="pt-5">
                   <v-col class="pr-5" cols="12" sm="6">
                     <h3 class="h3 blue-text font-weight-medium">Summary</h3>
-                    <p>{{SummaryContent}}</p>
-                    <h3 class="h3 blue-text font-weight-medium">What save food bag may contain?</h3>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, vel nemo rem ea explicabo fugiat cumque harum vero, corporis voluptate iste accusantium perferendis hic quibusdam, quis non aperiam amet et?</p>
-                    <h3 class="h3 blue-text font-weight-medium">Why "Save Food" bag?</h3>
-                    <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veritatis, vel nemo rem ea explicabo fugiat cumque harum vero, corporis voluptate iste accusantium perferendis hic quibusdam, quis non aperiam amet et?</p>
+                    <p>{{ SummaryContent }}</p>
+                    <h3 class="h3 blue-text font-weight-medium">
+                      What save food bag may contain?
+                    </h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Veritatis, vel nemo rem ea explicabo fugiat cumque harum
+                      vero, corporis voluptate iste accusantium perferendis hic
+                      quibusdam, quis non aperiam amet et?
+                    </p>
+                    <h3 class="h3 blue-text font-weight-medium">
+                      Why "Save Food" bag?
+                    </h3>
+                    <p>
+                      Lorem, ipsum dolor sit amet consectetur adipisicing elit.
+                      Veritatis, vel nemo rem ea explicabo fugiat cumque harum
+                      vero, corporis voluptate iste accusantium perferendis hic
+                      quibusdam, quis non aperiam amet et?
+                    </p>
                     <v-card flat>
-                      <v-card-title class="blue-text">Why "Save Food" Bag?</v-card-title>
+                      <v-card-title class="blue-text"
+                        >Why "Save Food" Bag?</v-card-title
+                      >
                       <v-card-text>
                         <v-row>
                           <v-col class="text-center" cols="12" sm="3">
@@ -314,7 +447,9 @@
                                 color="warning"
                                 readonly
                               ></v-rating>
-                              <div class="blue-text font-weight-medium">{{qualityRating}}</div>
+                              <div class="blue-text font-weight-medium">
+                                {{ qualityRating }}
+                              </div>
                             </div>
                             <div class="d-flex justify-end align-center">
                               <div class="flex-grow-1">Location</div>
@@ -324,7 +459,9 @@
                                 color="warning"
                                 readonly
                               ></v-rating>
-                              <div class="blue-text font-weight-medium">{{qualityRating}}</div>
+                              <div class="blue-text font-weight-medium">
+                                {{ qualityRating }}
+                              </div>
                             </div>
                             <div class="d-flex justify-end align-center">
                               <div class="flex-grow-1">Price</div>
@@ -334,7 +471,9 @@
                                 color="warning"
                                 readonly
                               ></v-rating>
-                              <div class="blue-text font-weight-medium">{{qualityRating}}</div>
+                              <div class="blue-text font-weight-medium">
+                                {{ qualityRating }}
+                              </div>
                             </div>
                           </v-col>
                         </v-row>
@@ -342,15 +481,17 @@
                     </v-card>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <h3 class="h3 blue-text font-weight-medium">Other Information</h3>
+                    <h3 class="h3 blue-text font-weight-medium">
+                      Other Information
+                    </h3>
                     <div class="pt-3 d-flex other-info-box">
                       <div>
                         <div class="subtitle-2 blue-text">Food Type</div>
-                        <div class="mb-5">{{previewFoodType}}</div>
+                        <div class="mb-5">{{ previewFoodType }}</div>
                       </div>
                       <div>
                         <div class="subtitle-2 blue-text">Meal Type</div>
-                        <div class="mb-5">{{previewMealType}}</div>
+                        <div class="mb-5">{{ previewMealType }}</div>
                       </div>
                       <div>
                         <div class="subtitle-2 blue-text">Chain</div>
@@ -358,7 +499,8 @@
                           <span
                             v-for="item in restuarantData.chain"
                             :key="item.id"
-                          >{{item.others || item.name}}</span>
+                            >{{ item.others || item.name }}</span
+                          >
                         </div>
                       </div>
                       <div>
@@ -367,7 +509,8 @@
                           <span
                             v-for="item in restuarantData.store_type"
                             :key="item.id"
-                          >{{item.others || item.name}}</span>
+                            >{{ item.others || item.name }}</span
+                          >
                         </div>
                       </div>
                       <div>
@@ -376,16 +519,26 @@
                           <span
                             v-for="item in restuarantData.parking"
                             :key="item.id"
-                          >{{item.others || item.name}}</span>
+                            >{{ item.others || item.name }}</span
+                          >
                         </div>
                       </div>
                       <div>
-                        <div class="subtitle-2 blue-text">Accepted Payment Method</div>
+                        <div class="subtitle-2 blue-text">
+                          Accepted Payment Method
+                        </div>
                         <div class="mb-5">
                           <span
-                            v-for="(item, index) in restuarantData.payment_method"
+                            v-for="(item,
+                            index) in restuarantData.payment_method"
                             :key="item.id"
-                          >{{ (item.name=="Others") ? item.others : item.name}}{{ (index == (restuarantData.payment_method.length - 1)) ? "." : ", "}}</span>
+                            >{{ item.name == "Others" ? item.others : item.name
+                            }}{{
+                              index == restuarantData.payment_method.length - 1
+                                ? "."
+                                : ", "
+                            }}</span
+                          >
                         </div>
                       </div>
                       <div>
@@ -394,7 +547,8 @@
                           <span
                             v-for="item in restuarantData.landmark"
                             :key="item.id"
-                          >{{item.others || item.name}}</span>
+                            >{{ item.others || item.name }}</span
+                          >
                         </div>
                       </div>
                     </div>
@@ -413,7 +567,8 @@
           x-large
           rounded
           @click="submit"
-        >Submit</v-btn>
+          >Submit</v-btn
+        >
       </div>
     </v-container>
   </v-content>

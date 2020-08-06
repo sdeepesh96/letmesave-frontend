@@ -58,7 +58,7 @@
           <p>
             {{ orderHeader.billing_to_name }}
           </p>
-          <p>Phone: {{ orderHeader.phone }}</p>
+          <p>Phone: {{ orderHeader.billing_to_phone }}</p>
           <p>
             {{ orderHeader.offer_time }}
           </p>
