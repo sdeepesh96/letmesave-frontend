@@ -70,6 +70,7 @@
                   <v-radio label="Others" value="2"></v-radio>
                 </v-radio-group>
               </div>
+              <v-text-field outlined v-model="menu_details_text"></v-text-field>
 
               <h3 class="headline blue-text">Offer Price</h3>
               <strong>Note save food posts:</strong>
@@ -124,13 +125,14 @@
                   append-icon="%"
                 ></v-text-field>
               </div>
-              <v-textarea
+              <!-- <v-textarea
                 v-model="discount_description"
                 outlined
                 label="Any Conditions"
                 value
                 rows="3"
-              ></v-textarea>
+              ></v-textarea> -->
+              <p>Any Conditions?</p>
 
               <v-row>
                 <v-col cols="12" sm="6">
@@ -655,6 +657,7 @@ export default {
       mealTypes: [],
       how_many_person: 1,
       menu_details: "",
+      menu_details_text: "",
       discount: "",
       discount_description: "",
       discount_condition_price: "",
