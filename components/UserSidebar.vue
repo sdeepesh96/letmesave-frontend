@@ -16,14 +16,16 @@
     </v-list>
     <v-list dense>
       <v-list-item-group color="primary">
-        <v-list-item>
-          <v-list-item-icon>
-            <img src="~/assets/clock.png" />
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>My Orders</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <nuxt-link to="/user/my-orders">
+          <v-list-item>
+            <v-list-item-icon>
+              <img src="~/assets/clock.png" />
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>My Orders</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </nuxt-link>
       </v-list-item-group>
     </v-list>
     <v-list dense>
