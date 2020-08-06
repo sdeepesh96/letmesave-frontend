@@ -18,27 +18,27 @@
                 <div class="order-item">
                   <div class="order-name">
                     <p class="tag">{{item.type}}</p>
-                    <h4 class="title">{{item.title}}</h4>
-                    <p class="date-id">{{item.date}} | {{item.id}}</p>
+                    <h4 class="title">{{item.store_name}}</h4>
+                    <p class="date-id">{{item.address}} | {{item.id}}</p>
                   </div>
                   <div class="order-person">
-                    <p>{{item.name}}</p>
-                    <p>{{item.order_id}}</p>
-                    <p>{{item.order_date}} | {{item.order_time}}</p>
+                    <p>{{item.purchase_date}}</p>
+                    <p>#{{item.order_id}}</p>
+                    <!-- <p>{{item.order_date}} | {{item.order_time}}</p> -->
                   </div>
                   <div class="order-amount">
                     <p>
-                      Paid
-                      <span>{{item.amount_paid}} NOK</span>
+                      Total
+                      <span>{{item.amount}} NOK</span>
                     </p>
-                    <p>
+                    <!-- <p>
                       To be collected
                       <span>{{item.to_collect}} NOK</span>
-                    </p>
+                    </p>-->
                   </div>
                   <div class="order-status">
-                    <nuxt-link to="#" class="details">View order details</nuxt-link>
-                    <nuxt-link to="#" class="status">Pending</nuxt-link>
+                    <div @click="getOrderDetail(item.id)" class="details">View order details</div>
+                    <p class="status">{{item.order_status}}</p>
                   </div>
                 </div>
               </v-col>
@@ -58,69 +58,31 @@ export default {
     UserSidebar,
   },
   data: () => ({
-    values: [
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80",
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80",
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80",
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80",
-      },
-      {
-        type: "Save Food",
-        title: "Special Dinner Deal",
-        date: "Nov 23, 2020",
-        id: "#1234567890",
-        name: "Martin",
-        order_id: "1234567890",
-        order_date: "Nov 23, 2020",
-        order_time: "19.00 - 20.00",
-        amount_paid: "20",
-        to_collect: "80",
-      },
-    ],
+    values: [],
   }),
+  mounted() {
+    this.getOrderData();
+  },
+  methods: {
+    async getOrderData() {
+      try {
+        await this.$axios
+          .post("/Mobile/User/GetHistory", {
+            UserId: this.$store.state.userData.userID.toString(),
+            // AccessToken: this.$store.state.userData.userAccessToken,
+          })
+          .then((response) => {
+            this.values = response.data.data;
+            console.log(response.data.data);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+    getOrderDetail(orderId) {
+      this.$router.push(`/user/order-details?orderId=${parseInt(orderId)}`);
+    },
+  },
 };
 </script>
 <style scoped>
@@ -170,7 +132,7 @@ export default {
 .order-item {
   display: grid;
   grid-template-columns: 2fr 2fr 1.5fr 1.5fr;
-  grid-gap: 2em;
+  grid-gap: 1em;
   width: 100%;
   background: #eaedf6;
   padding: 1em;
@@ -224,7 +186,9 @@ export default {
   font-weight: 900;
 }
 .order-status a.details,
-.order-status a.status {
+.order-status a.status,
+.order-status p.status,
+.details {
   display: block;
   text-align: center;
   text-decoration: none;
@@ -234,16 +198,21 @@ export default {
   padding: 3px 10px;
   border-radius: 5px;
 }
-.order-status a.details {
+.order-status a.details,
+.details {
   background: #24b149;
+  cursor: pointer;
 }
-.order-status a.details:hover {
+.order-status a.details:hover,
+.details {
   background: #22c34c;
 }
-.order-status a.status {
+.order-status a.status,
+.order-status p.status {
   background: #104388;
 }
-.order-status a.status:hover {
+.order-status a.status:hover,
+.order-status p.status {
   background: #124c9b;
 }
 @media (max-width: 1023px) {

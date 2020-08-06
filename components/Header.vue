@@ -121,7 +121,7 @@
                 <nuxt-link to="/user/profile">
                   <v-list-item>My Profile</v-list-item>
                 </nuxt-link>
-                <nuxt-link to="#">
+                <nuxt-link to="/user/my-orders">
                   <v-list-item>My Orders</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="/user/settings">
