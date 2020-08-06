@@ -7,11 +7,28 @@
           <v-icon>mdi-plus</v-icon>New Post
         </nuxt-link>
       </div>
+      <v-alert
+        :type="alertType"
+        outlined
+        dismissible
+        class="mt-5"
+        v-model="alert"
+        >{{ alertMsg }}</v-alert
+      >
     </v-container>
+
     <div class="offer-temp">
       <v-container>
         <v-row>
-          <v-col v-for="(item, i) in items" :key="i" cols="12" xs="6" sm="6" md="4" lg="3">
+          <v-col
+            v-for="(item, i) in items"
+            :key="i"
+            cols="12"
+            xs="6"
+            sm="6"
+            md="4"
+            lg="3"
+          >
             <div class="post-list">
               <div @click="getDetails(item)" class="card-img-sec">
                 <img :src="item.offerimage" />
@@ -52,7 +69,12 @@
     </div>
 
     <!-- PREVIEW DIALOG -->
-    <v-dialog v-model="previewDialog" fullscreen hide-overlay transition="dialog-bottom-transition">
+    <v-dialog
+      v-model="previewDialog"
+      fullscreen
+      hide-overlay
+      transition="dialog-bottom-transition"
+    >
       <!-- <template v-slot:activator="{ on, attrs }">
         <v-btn color="warning" class="px-10" x-large rounded v-bind="attrs" v-on="on">Preview</v-btn>
       </template>-->
@@ -65,7 +87,11 @@
           </v-btn>
         </v-toolbar>
 
-        <v-img :src="currentPostDataSmall.offerimage" height="300" class="grey darken-4"></v-img>
+        <v-img
+          :src="currentPostDataSmall.offerimage"
+          height="300"
+          class="grey darken-4"
+        ></v-img>
         <v-container>
           <div class="d-flex justify-space-between">
             <div>
@@ -74,15 +100,11 @@
             </div>
             <div class="text-right">
               <v-btn color="success" elevation="0">
-                {{
-                currentPostDataSmall.type
-                }}
+                {{ currentPostDataSmall.type }}
               </v-btn>
               <h1 class="text-h1 blue-text">
                 <span style="font-size: .7em; text-decoration: line-through;">
-                  {{
-                  currentPostDataSmall.actual_amount
-                  }}
+                  {{ currentPostDataSmall.actual_amount }}
                 </span>
                 {{ currentPostDataSmall.offer_amount }}
               </h1>
@@ -91,7 +113,9 @@
           <v-divider class="my-5"></v-divider>
           <div class="pb-2">
             <div class="d-flex align-center">
-              <v-icon large class="mr-3" color="#003680">mdi-clock-outline</v-icon>
+              <v-icon large class="mr-3" color="#003680"
+                >mdi-clock-outline</v-icon
+              >
               <strong class="mr-5">Pick Up</strong>
               <div>Sunday, May 24, 20.00 - 21.00</div>
             </div>
@@ -101,7 +125,11 @@
           <v-container>
             <div class="address-bar d-flex justify-space-between align-center">
               <div class="d-flex align-center">
-                <img class="location-icon mx-2" src="~/assets/Group.png" alt="Group" />
+                <img
+                  class="location-icon mx-2"
+                  src="~/assets/Group.png"
+                  alt="Group"
+                />
                 {{ restuarantData.address }}
               </div>
               <div class="d-flex align-center">
@@ -120,14 +148,18 @@
               <v-col class="pr-5" cols="12" sm="6">
                 <h3 class="h3 blue-text font-weight-medium">Summary</h3>
                 <p>{{ currentPostData.summary_content }}</p>
-                <h3 class="h3 blue-text font-weight-medium">What save food bag may contain?</h3>
+                <h3 class="h3 blue-text font-weight-medium">
+                  What save food bag may contain?
+                </h3>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Veritatis, vel nemo rem ea explicabo fugiat cumque harum vero,
                   corporis voluptate iste accusantium perferendis hic quibusdam,
                   quis non aperiam amet et?
                 </p>
-                <h3 class="h3 blue-text font-weight-medium">Why "Save Food" bag?</h3>
+                <h3 class="h3 blue-text font-weight-medium">
+                  Why "Save Food" bag?
+                </h3>
                 <p>
                   Lorem, ipsum dolor sit amet consectetur adipisicing elit.
                   Veritatis, vel nemo rem ea explicabo fugiat cumque harum vero,
@@ -135,16 +167,18 @@
                   quis non aperiam amet et?
                 </p>
                 <v-card flat>
-                  <v-card-title class="blue-text">Why "Save Food" Bag?</v-card-title>
+                  <v-card-title class="blue-text"
+                    >Why "Save Food" Bag?</v-card-title
+                  >
                   <v-card-text>
                     <v-row>
                       <v-col class="text-center" cols="12" sm="3">
                         <div class="px-5 py-5 review-badge">
                           {{
-                          (restuarantReviews.quality +
-                          restuarantReviews.location +
-                          restuarantReviews.price) /
-                          3
+                            (restuarantReviews.quality +
+                              restuarantReviews.location +
+                              restuarantReviews.price) /
+                              3
                           }}
                         </div>
                         <div class="py-3 review-count">
@@ -162,7 +196,9 @@
                             color="warning"
                             readonly
                           ></v-rating>
-                          <div class="blue-text font-weight-medium">{{ restuarantReviews.quality }}</div>
+                          <div class="blue-text font-weight-medium">
+                            {{ restuarantReviews.quality }}
+                          </div>
                         </div>
                         <div class="d-flex justify-end align-center">
                           <div class="flex-grow-1">Location</div>
@@ -172,7 +208,9 @@
                             color="warning"
                             readonly
                           ></v-rating>
-                          <div class="blue-text font-weight-medium">{{ restuarantReviews.location }}</div>
+                          <div class="blue-text font-weight-medium">
+                            {{ restuarantReviews.location }}
+                          </div>
                         </div>
                         <div class="d-flex justify-end align-center">
                           <div class="flex-grow-1">Price</div>
@@ -182,7 +220,9 @@
                             color="warning"
                             readonly
                           ></v-rating>
-                          <div class="blue-text font-weight-medium">{{ restuarantReviews.price }}</div>
+                          <div class="blue-text font-weight-medium">
+                            {{ restuarantReviews.price }}
+                          </div>
                         </div>
                       </v-col>
                     </v-row>
@@ -190,7 +230,9 @@
                 </v-card>
               </v-col>
               <v-col cols="12" sm="6">
-                <h3 class="h3 blue-text font-weight-medium">Other Information</h3>
+                <h3 class="h3 blue-text font-weight-medium">
+                  Other Information
+                </h3>
                 <div class="pt-3 d-flex other-info-box">
                   <div>
                     <div class="subtitle-2 blue-text">Food Type</div>
@@ -206,7 +248,8 @@
                       <span
                         v-for="item in restuarantData.chain"
                         :key="item.id"
-                      >{{ item.others || item.name }}</span>
+                        >{{ item.others || item.name }}</span
+                      >
                     </div>
                   </div>
                   <div>
@@ -215,7 +258,8 @@
                       <span
                         v-for="item in restuarantData.store_type"
                         :key="item.id"
-                      >{{ item.others || item.name }}</span>
+                        >{{ item.others || item.name }}</span
+                      >
                     </div>
                   </div>
                   <div>
@@ -224,18 +268,24 @@
                       <span
                         v-for="item in restuarantData.parking"
                         :key="item.id"
-                      >{{ item.others || item.name }}</span>
+                        >{{ item.others || item.name }}</span
+                      >
                     </div>
                   </div>
                   <div>
-                    <div class="subtitle-2 blue-text">Accepted Payment Method</div>
+                    <div class="subtitle-2 blue-text">
+                      Accepted Payment Method
+                    </div>
                     <div class="mb-5">
-                      <span v-for="(item, index) in restuarantData.payment_method" :key="item.id">
+                      <span
+                        v-for="(item, index) in restuarantData.payment_method"
+                        :key="item.id"
+                      >
                         {{ item.name == "Others" ? item.others : item.name
                         }}{{
-                        index == restuarantData.payment_method.length - 1
-                        ? "."
-                        : ", "
+                          index == restuarantData.payment_method.length - 1
+                            ? "."
+                            : ", "
                         }}
                       </span>
                     </div>
@@ -246,7 +296,8 @@
                       <span
                         v-for="item in restuarantData.landmark"
                         :key="item.id"
-                      >{{ item.others || item.name }}</span>
+                        >{{ item.others || item.name }}</span
+                      >
                     </div>
                   </div>
                 </div>
@@ -276,16 +327,21 @@ export default {
     currentPostDataSmall: {},
     currentFoodType: {},
     currentMealType: {},
-    restuarantReviews: {},
+    restuarantReviews: {}
   }),
   async mounted() {
     try {
       await this.$axios
         .post("mobile/partner/GetPostOrderList", {
           Id: this.$store.state.userData.id.toString(),
-          AccessToken: this.$store.state.userData.userAccessToken,
+          AccessToken: this.$store.state.userData.userAccessToken
         })
-        .then((response) => {
+        .then(response => {
+          if (response.data.code == 400) {
+            this.alertType = "error";
+            this.alertMsg = response.data.message;
+            this.alert = true;
+          }
           this.items = response.data.data;
         });
     } catch (error) {
@@ -296,9 +352,9 @@ export default {
     try {
       await this.$axios
         .post("Mobile/Partner/GetPartnerDetailsById", {
-          PartnerId: this.$store.state.userData.userID.toString(),
+          PartnerId: this.$store.state.userData.userID.toString()
         })
-        .then((response) => {
+        .then(response => {
           this.restuarantData = response.data.data;
         });
     } catch (error) {
@@ -309,9 +365,9 @@ export default {
     try {
       await this.$axios
         .post("Mobile/Partner/GetReview", {
-          UserId: this.$store.state.userData.userID.toString(),
+          UserId: this.$store.state.userData.userID.toString()
         })
-        .then((response) => {
+        .then(response => {
           console.log(response.data);
           this.restuarantReviews = response.data.totalAverageReview[0];
         });
@@ -328,27 +384,27 @@ export default {
           RawData: {
             Id: this.$store.state.userData.id.toString(),
             AccessToken: this.$store.state.userData.userAccessToken,
-            PostOrderId: PostOrder.id.toString(),
-          },
+            PostOrderId: PostOrder.id.toString()
+          }
         })
-        .then((response) => {
+        .then(response => {
           console.log(response.data);
           this.currentPostData = response.data.data[0];
         })
         .then(async () => {
           let foodTypes = await this.$axios.post("GetSearchValue", {
-            ParentId: "34",
+            ParentId: "34"
           });
           this.currentFoodType = foodTypes.data.data.find(
-            (obj) => obj.id == this.currentPostData.food_type
+            obj => obj.id == this.currentPostData.food_type
           );
         })
         .then(async () => {
           let mealTypes = await this.$axios.post("GetSearchValue", {
-            ParentId: "38",
+            ParentId: "38"
           });
           this.currentMealType = mealTypes.data.data.find(
-            (obj) => obj.id == this.currentPostData.meal_type
+            obj => obj.id == this.currentPostData.meal_type
           );
         });
     },
@@ -361,8 +417,8 @@ export default {
       } catch (err) {
         console.error("Failed to copy: ", err);
       }
-    },
-  },
+    }
+  }
 };
 </script>
 
@@ -377,8 +433,10 @@ export default {
 }
 .card-img-sec img {
   width: 100%;
+  height: 180px;
   border-radius: 5px 5px 0 0;
   cursor: pointer;
+  object-fit: cover;
 }
 .card-body-sec {
   padding: 8px 1em 1em;
