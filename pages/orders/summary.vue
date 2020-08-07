@@ -66,6 +66,8 @@
                 <nuxt-link to="#">Term of Use</nuxt-link>
               </p>
               <p>You will recieve order number and confirmation message in app after payment</p>
+              <v-alert v-model="error" type="error" dismissible outlined text>{{ errorMsg }}</v-alert>
+
               <v-btn @click="placeorder" color="#104388" dark width="150px">Pay Now</v-btn>
               <v-snackbar v-model="snackbar" top color="#0f4387">
                 Order place successfully
@@ -92,6 +94,8 @@ export default {
     items: [],
     productCount: "",
     headerId: "",
+    error: false,
+    errorMsg: null,
   }),
   computed: {
     cartTotal() {
@@ -131,6 +135,11 @@ export default {
             if (response.data.code == 200) {
               this.snackbar = true;
               // this.$router.push("/orders/confirmation");
+            } else if (response.data.code == 400) {
+              this.error = true;
+              this.errorMsg = response.data.message;
+              // this.loading = false;
+              return;
             }
           });
       } catch (e) {
