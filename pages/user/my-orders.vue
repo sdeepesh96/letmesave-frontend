@@ -83,6 +83,11 @@ export default {
       this.$router.push(`/user/order-details?orderId=${parseInt(orderId)}`);
     },
   },
+  middleware({ store, redirect }) {
+    if (!store.state.userData) {
+      return redirect("/account/login");
+    }
+  },
 };
 </script>
 <style scoped>
