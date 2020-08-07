@@ -137,6 +137,10 @@ export default {
     dialog: false,
     reason: "",
     reasontypes: "",
+    error: false,
+    errorMsg: null,
+    loading: false,
+    valid: false,
     orderHeader: {},
     orderDetails: [],
     order: {},
@@ -165,21 +169,24 @@ export default {
     },
     async cancel() {
       //   this.dialog = true;
-      try {
-        await this.$axios
-          .post("Mobile/User/CancelOrder", {
-            Reason: this.reason.toString(),
-            Status: "78",
-            OrderId: this.orderHeader.id.toString(),
-          })
-          .then((response) => {
-            if (response.data.code == 200) {
-              this.dialog = false;
-              this.$router.push("/user/my-orders");
-            }
-          });
-      } catch (error) {
-        console.log(error);
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        try {
+          await this.$axios
+            .post("Mobile/User/CancelOrder", {
+              Reason: this.reason.toString(),
+              Status: "78",
+              OrderId: this.orderHeader.id.toString(),
+            })
+            .then((response) => {
+              if (response.data.code == 200) {
+                this.dialog = false;
+                this.$router.push("/user/my-orders");
+              }
+            });
+        } catch (error) {
+          console.log(error);
+        }
       }
     },
   },

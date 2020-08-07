@@ -124,16 +124,19 @@
                 <nuxt-link to="/user/my-orders">
                   <v-list-item>My Orders</v-list-item>
                 </nuxt-link>
+                <nuxt-link to="/user/activities">
+                  <v-list-item>Activities</v-list-item>
+                </nuxt-link>
                 <nuxt-link to="/user/settings">
                   <v-list-item>Settings</v-list-item>
                 </nuxt-link>
-                <nuxt-link to="#">
+                <!-- <nuxt-link to="#">
                   <v-list-item>Invite Friends</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="#">
                   <v-list-item>Refer a Store</v-list-item>
-                </nuxt-link>
-                <nuxt-link to="#">
+                </nuxt-link>-->
+                <nuxt-link to="/user/feedback">
                   <v-list-item>Send Feedback</v-list-item>
                 </nuxt-link>
                 <v-btn @click="logout" small color="#104388" class="ma-2 white--text">

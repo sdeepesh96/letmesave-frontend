@@ -14,30 +14,30 @@
           <h3 class="order-title">Latest Deals</h3>
           <div class="user-order" v-for="(order, i) in orders" :key="i">
             <div class="order-head">
-              <p class="order-status">{{order.status}}</p>
+              <p class="order-status">Pending for Pick-Up</p>
               <p class="order-id">
                 Order ID
-                <span>{{order.id}}</span>
+                <span>{{order.order_id}}</span>
               </p>
             </div>
             <div class="order-details">
               <div class="order-detail-head">
                 <div>
-                  <h4>{{order.hotel}}</h4>
-                  <p>{{order.type}}</p>
+                  <h4>{{order.store_name}}</h4>
+                  <p>{{order.product_name}}</p>
                 </div>
                 <div>
-                  <p class="order-price">{{order.price}}</p>
+                  <p class="order-price">{{order.amount}} NOK</p>
                 </div>
               </div>
               <div class="order-details-foot">
                 <p>
-                  <img src="~/assets/clock.png" />
+                  <img src="~/assets/location.svg" />
                   {{order.address}}
                 </p>
                 <p>
                   <img src="~/assets/clock.png" />
-                  {{order.pickup}}
+                  {{order.purchase_date}}
                 </p>
               </div>
             </div>
@@ -46,21 +46,27 @@
           <div class="order-details near" v-for="(near, i) in nears" :key="i">
             <div class="order-detail-head">
               <div>
-                <h4>{{near.hotel}}</h4>
-                <p>{{near.type}}</p>
+                <h4>
+                  {{near.hotelName}}
+                  <span>{{near.type}}</span>
+                </h4>
+                <p>{{near.productName}}</p>
               </div>
               <div>
-                <p class="order-price">{{near.price}}</p>
+                <p class="order-price">
+                  <span>{{near.originalPrice}} NOK</span>
+                  {{near.offerPrice}} NOK
+                </p>
               </div>
             </div>
             <div class="order-details-foot">
               <p>
-                <img src="~/assets/clock.png" />
+                <img src="~/assets/location.svg" />
                 {{near.address}}
               </p>
               <p>
                 <img src="~/assets/clock.png" />
-                {{near.pickup}}
+                {{near.pickupTime}}
               </p>
             </div>
           </div>
@@ -76,48 +82,30 @@ export default {
     UserSidebar,
   },
   data: () => ({
-    orders: [
-      {
-        status: "Pending for Pick-Up",
-        id: "123456",
-        hotel: "Oppdal Hotel",
-        type: "Excellent deal (1 qty), Excellent deal (2 qty)",
-        price: "90 NOK",
-        address: "Oppdal Hotel, Oppdal, Norway",
-        pickup: "Sunday, May 24, 20.00 - 21.00",
-      },
-    ],
-    nears: [
-      {
-        hotel: "Oppdal Hotel",
-        type: "Excellent deal (1 qty), Excellent deal (2 qty)",
-        price: "90 NOK",
-        address: "Oppdal Hotel, Oppdal, Norway",
-        pickup: "Sunday, May 24, 20.00 - 21.00",
-      },
-      {
-        hotel: "Oppdal Hotel",
-        type: "Excellent deal (1 qty), Excellent deal (2 qty)",
-        price: "90 NOK",
-        address: "Oppdal Hotel, Oppdal, Norway",
-        pickup: "Sunday, May 24, 20.00 - 21.00",
-      },
-      {
-        hotel: "Oppdal Hotel",
-        type: "Excellent deal (1 qty), Excellent deal (2 qty)",
-        price: "90 NOK",
-        address: "Oppdal Hotel, Oppdal, Norway",
-        pickup: "Sunday, May 24, 20.00 - 21.00",
-      },
-      {
-        hotel: "Oppdal Hotel",
-        type: "Excellent deal (1 qty), Excellent deal (2 qty)",
-        price: "90 NOK",
-        address: "Oppdal Hotel, Oppdal, Norway",
-        pickup: "Sunday, May 24, 20.00 - 21.00",
-      },
-    ],
+    orders: [],
+    nears: [],
   }),
+  methods: {
+    async activities() {
+      try {
+        await this.$axios
+          .post("Mobile/User/GetActivity", {
+            Id: this.$store.state.userData.id.toString(),
+            AccessToken: this.$store.state.userData.userAccessToken,
+          })
+          .then((response) => {
+            console.log(response.data);
+            this.orders = response.data.pending;
+            this.nears = response.data.favouriteList;
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  mounted() {
+    this.activities();
+  },
 };
 </script>
 <style scoped>
@@ -161,6 +149,7 @@ p.order-id {
 .user-order {
   border: 1px solid #eaedf6;
   border-radius: 10px;
+  margin-bottom: 1em;
 }
 .order-head {
   padding: 1em;
@@ -182,8 +171,13 @@ p.order-id {
   padding-top: 1em;
 }
 p.order-price {
-  font-size: 18px;
+  font-size: 22px;
   font-weight: 500;
+  color: #003680;
+}
+p.order-price > span {
+  text-decoration: line-through;
+  font-size: 18px;
 }
 .order-details.near {
   margin-bottom: 0.5em;
@@ -196,6 +190,16 @@ h3.order-title {
   width: 20px;
   margin-bottom: -5px;
   margin-right: 2px;
+}
+.order-detail-head h4 > span {
+  font-size: 14px;
+  font-weight: 400;
+  background: #24b149;
+  color: #fff;
+  padding: 2px 10px;
+  border-radius: 5px;
+  display: inline-block;
+  margin-left: 5px;
 }
 
 @media (max-width: 767px) {
