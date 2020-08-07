@@ -6,7 +6,12 @@
           <div class="left-components">
             <!-- <img src="~/assets/logo-light.png" alt="light-logo" /> -->
             <h2 class="mb-10">Select your Role</h2>
-            <v-radio-group @change="setRoleHeading(userRole)" v-model="userRole" column dark>
+            <v-radio-group
+              @change="setRoleHeading(userRole)"
+              v-model="userRole"
+              column
+              dark
+            >
               <v-radio value="1" color="success">
                 <template v-slot:label>
                   <h5 class="radio-des">
@@ -93,7 +98,14 @@
                 <a href="#">Forgot Password?</a>
               </p>
               <div class="text-center">
-                <v-alert v-model="error" type="error" dismissible outlined text>{{ errorMsg }}</v-alert>
+                <v-alert
+                  v-model="error"
+                  type="error"
+                  dismissible
+                  outlined
+                  text
+                  >{{ errorMsg }}</v-alert
+                >
                 <v-btn
                   rounded
                   color="#104388"
@@ -102,7 +114,8 @@
                   class="login-sub"
                   @click="submit"
                   :loading="loading"
-                >Login</v-btn>
+                  >Login</v-btn
+                >
                 <p class="create-acc">
                   Don't have an account?
                   <nuxt-link to="/account/register">Create account</nuxt-link>
@@ -122,9 +135,7 @@
               <div class="login-policy text-center">
                 <p>
                   By logging into an account you are agreeing with our
-                  <a
-                    href="#"
-                  >Term and Conditions</a> and
+                  <a href="#">Term and Conditions</a> and
                   <a href="#">Privacy Policy</a>
                 </p>
               </div>
@@ -157,14 +168,14 @@ export default {
       valid: false,
       loading: false,
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters",
         emailMatch: () => "The email and password you entered don't match",
-        email: (value) => {
+        email: value => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        },
-      },
+        }
+      }
     };
   },
   mounted() {
@@ -180,7 +191,7 @@ export default {
           const { data } = await this.$axios.post("CheckLogin", {
             UserName: this.UserEmail,
             UserPassword: this.UserPassword,
-            UserRole: this.userRole,
+            UserRole: this.userRole
           });
           //   Invalid Credentials
           if (data.code == 400) {
@@ -212,7 +223,7 @@ export default {
                 id,
                 userID,
                 userAccessToken,
-                userName,
+                userName
               });
               this.$router.push(
                 "/partner-dashboard/food-partnet-registration-2"
@@ -255,13 +266,13 @@ export default {
           this.userRoleHeading = "";
           break;
       }
-    },
+    }
   },
   middleware({ store, redirect }) {
     if (store.state.userData) {
       return redirect("/");
     }
-  },
+  }
 };
 </script>
 
