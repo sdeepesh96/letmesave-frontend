@@ -1,8 +1,11 @@
 <template>
   <div>
     <v-container style="max-width: 850px;">
-      <div class="list-head">
+      <div class="list-head d-flex justify-space-between">
         <p>Order Details</p>
+        <div class="tag">
+          {{ orderHeader.order_status }}
+        </div>
       </div>
       <div class="order-details">
         <div class="order-id">
@@ -117,6 +120,15 @@ export default {
 </script>
 
 <style scoped>
+.tag {
+  color: #fff;
+  background: #3eba5e;
+  width: max-content;
+  padding: 0 20px;
+  border-radius: 5px;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
 .list-head {
   border-bottom: 1px solid #e9e9eb;
   padding-bottom: 8px;
