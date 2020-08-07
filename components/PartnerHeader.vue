@@ -8,8 +8,8 @@
           </nuxt-link>
         </v-toolbar-title>
         <p class="left hotel-name" v-for="(item, i) in items" :key="i">
-          {{item.title}}:
-          <span>{{item.id}}</span>
+          {{ item.title }}:
+          <span>{{ item.id }}</span>
         </p>
         <v-spacer></v-spacer>
         <v-toolbar-items class="hidden-sm-and-down">
@@ -28,9 +28,17 @@
           <div class="menu-item">
             <v-menu open-on-hover bottom offset-y>
               <template v-slot:activator="{ on }">
-                <v-btn text small color="#104388" v-on="on" :to=" '/partner-dashboard/profile'">
+                <v-btn
+                  text
+                  small
+                  color="#104388"
+                  v-on="on"
+                  :to="'/partner-dashboard/profile'"
+                >
                   <v-icon right dark>mdi-silverware-variant</v-icon>
-                  <p class="hotel-name" v-for="(item, i) in items" :key="i">{{item.title}}</p>
+                  <p class="hotel-name" v-for="(item, i) in items" :key="i">
+                    {{ item.title }}
+                  </p>
                 </v-btn>
               </template>
             </v-menu>
@@ -38,9 +46,15 @@
           <div class="menu-item">
             <v-menu open-on-hover bottom offset-y>
               <template v-slot:activator="{ on }">
-                <v-btn text small color="#104388" v-on="on">
+                <v-btn
+                  to="/partner-dashboard/more"
+                  text
+                  small
+                  color="#104388"
+                  v-on="on"
+                >
                   <v-icon right dark>mdi-dots-horizontal</v-icon>
-More
+                  More
                 </v-btn>
               </template>
             </v-menu>
@@ -66,11 +80,13 @@ More
         <nuxt-link to="#">
           <v-list-group append-icon="mdi-silverware-variant">
             <template v-slot:activator>
-              <p class="hotel-name" v-for="(item, i) in items" :key="i">{{item.title}}</p>
+              <p class="hotel-name" v-for="(item, i) in items" :key="i">
+                {{ item.title }}
+              </p>
             </template>
           </v-list-group>
         </nuxt-link>
-        <nuxt-link to="#">
+        <nuxt-link to="/partner-dashboard/more">
           <v-list-group append-icon="mdi-dots-horizontal">
             <template v-slot:activator>More</template>
           </v-list-group>
@@ -213,13 +229,3 @@ p.hotel-name.left {
   }
 }
 </style>
-
-
-
-
-
-
-
-
-
-
