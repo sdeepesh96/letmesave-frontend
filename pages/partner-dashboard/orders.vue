@@ -15,7 +15,7 @@
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
             <nuxt-link to=""
-              ><h4>5</h4>
+              ><h4>{{ orderData.saveFood }}</h4>
               <p>Save food</p></nuxt-link
             >
           </div></v-col
@@ -23,7 +23,7 @@
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
             <nuxt-link to="#"
-              ><h4>5</h4>
+              ><h4>{{ orderData.salesOffer }}</h4>
               <p>Sale Offer</p></nuxt-link
             >
           </div></v-col
@@ -31,7 +31,7 @@
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
             <nuxt-link to="#"
-              ><h4>5</h4>
+              ><h4>{{ orderData.promotion }}</h4>
               <p>Promotions</p></nuxt-link
             >
           </div></v-col
@@ -90,7 +90,8 @@ export default {
   layout: "partner-dashboard",
   data: () => ({
     items: ["Today", "Yesterday"],
-    values: []
+    values: [],
+    orderData: {}
   }),
   mounted() {
     this.getOrderData();
@@ -101,9 +102,13 @@ export default {
         await this.$axios
           .post("Mobile/Partner/GetOrderList", {
             Id: this.$store.state.userData.id.toString(),
-            AccessToken: this.$store.state.userData.userAccessToken
+            AccessToken: this.$store.state.userData.userAccessToken,
+            FromDate: "",
+            ToDate: "",
+            Type: ""
           })
           .then(response => {
+            this.orderData = response.data;
             this.values = response.data.data;
             console.log(response.data.data);
           });
