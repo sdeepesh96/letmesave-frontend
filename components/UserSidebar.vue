@@ -112,14 +112,16 @@
     </v-list>
     <v-list dense>
       <v-list-item-group color="primary">
-        <v-list-item>
-          <v-list-item-icon>
-            <img src="~/assets/logout.svg" />
-          </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title>Logout</v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
+        <div @click="logout">
+          <v-list-item>
+            <v-list-item-icon>
+              <img src="~/assets/logout.svg" />
+            </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title>Logout</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </div>
       </v-list-item-group>
     </v-list>
     <v-dialog v-model="inviteFriend" persistent max-width="400px">
@@ -194,6 +196,8 @@
 </template>
 
 <script>
+import cookies from "vue-cookies";
+
 export default {
   data: () => ({
     friendStatus: false,
@@ -255,6 +259,15 @@ export default {
           console.log(error);
         }
       }
+    },
+    logout() {
+      this.$store.commit("SET_USER_DATA", null);
+      // cookies.remove("userData");
+      cookies.remove("id");
+      cookies.remove("userID");
+      cookies.remove("userAccessToken");
+      cookies.remove("userName");
+      this.$router.push("/");
     },
   },
 };
