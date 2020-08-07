@@ -204,6 +204,11 @@ export default {
       console.log(e);
     }
   },
+  middleware({ store, redirect }) {
+    if (!store.state.userData) {
+      return redirect("/account/login");
+    }
+  },
 };
 </script>
 

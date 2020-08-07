@@ -106,6 +106,11 @@ export default {
   mounted() {
     this.activities();
   },
+  middleware({ store, redirect }) {
+    if (!store.state.userData) {
+      return redirect("/account/login");
+    }
+  },
 };
 </script>
 <style scoped>

@@ -270,11 +270,6 @@ export default {
       this.$router.push("/");
     },
   },
-  middleware({ store, redirect }) {
-    if (!store.state.userData) {
-      return redirect("/account/login");
-    }
-  },
 };
 </script>
 <style scoped>

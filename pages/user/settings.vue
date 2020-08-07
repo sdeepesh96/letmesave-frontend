@@ -119,6 +119,11 @@ export default {
   mounted() {
     this.order = this.$store.state.cart.productData;
   },
+  middleware({ store, redirect }) {
+    if (!store.state.userData) {
+      return redirect("/account/login");
+    }
+  },
 };
 </script>
 <style scoped >
