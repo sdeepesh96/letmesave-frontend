@@ -14,43 +14,52 @@
               @change="getOrdersData"
               outlined
               dense
-              width="130px"
+              min-width="150px"
             ></v-select>
           </div>
         </div>
+
+        <!-- Filter by Day -->
         <v-row>
-          <v-col v-for="(item, i) in ordersData" :key="i" cols="12">
-            <h4 v-if="filterBy == 0" class="head-date">
-              {{ item.month_name }}
+          <v-col v-for="(years, name) in ordersData" :key="name" cols="12">
+            <h4 class="head-date">
+              {{ name }}
             </h4>
-            <h4 v-else class="head-date">
-              {{ item.year }}
-            </h4>
-            <div class="order-item">
-              <div class="order-item-left">
-                <div class="order-name">
-                  <p class="date-id">{{ item.total_orders }}</p>
-                </div>
-                <div class="order-type">
-                  <h4>{{ item.day_name || item.month_name }}</h4>
-                  <!-- <p class="tag">{{ item.type }}</p> -->
-                </div>
-              </div>
-              <div class="order-item-right">
-                <div class="order-amount">
-                  <p>
-                    Payments <span>{{ item.payments }} NOK</span>
-                  </p>
-                </div>
-                <div class="order-amount">
-                  <p>
-                    Refunds <span>{{ item.refund }} NOK</span>
-                  </p>
-                </div>
-                <div class="order-amount">
-                  <p>
-                    Total Amount <span>{{ item.total_amount }} NOK</span>
-                  </p>
+
+            <div v-for="(month, monthName) in years" :key="monthName">
+              <h4 v-if="filterBy == 0" class="head-date">
+                {{ monthName }}
+              </h4>
+
+              <div v-for="(item, dayName) in month" :key="dayName">
+                <div class="order-item">
+                  <div class="order-item-left">
+                    <div class="order-name">
+                      <p class="date-id">{{ item.user.total_orders }}</p>
+                    </div>
+                    <div class="order-type">
+                      <h4>{{ item.user.day_name || item.user.month_name }}</h4>
+                      <!-- <p class="tag">{{ item.user.type }}</p> -->
+                    </div>
+                  </div>
+                  <div class="order-item-right">
+                    <div class="order-amount">
+                      <p>
+                        Payments <span>{{ item.user.payments }} NOK</span>
+                      </p>
+                    </div>
+                    <div class="order-amount">
+                      <p>
+                        Refunds <span>{{ item.user.refund }} NOK</span>
+                      </p>
+                    </div>
+                    <div class="order-amount">
+                      <p>
+                        Total Amount
+                        <span>{{ item.user.total_amount }} NOK</span>
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -73,10 +82,11 @@ export default {
       },
       {
         value: 1,
-        label: "month"
+        label: "Month"
       }
     ],
-    ordersData: []
+    ordersData: [],
+    temp: null
   }),
   mounted() {
     this.getOrdersData();
@@ -92,10 +102,35 @@ export default {
           })
           .then(response => {
             this.ordersData = response.data.data;
+            this.generateData(this.ordersData);
           });
       } catch (error) {
         console.log(error);
       }
+    },
+    generateData(yearobj) {
+      let yearArray = [];
+
+      for (const year in yearobj) {
+        // for (const month in year) {
+        yearArray.push(yearobj[year]);
+        // }
+      }
+
+      // for (const year in yearobj) {
+      //   yearArray.push(yearobj[year]);
+      // }
+
+      // let result = Object.keys(obj).map(key => [Number(key), obj[key]]);
+
+      // let yearArray = Object.keys(yearobj).map(function(k) {
+      //   return yearobj[k];
+      // });
+
+      // let yearArray = [].concat(...result.map(Object.values));
+
+      console.log(yearArray);
+      this.temp = yearArray;
     }
   }
 };
@@ -161,11 +196,17 @@ export default {
   font-weight: 500;
   color: #104388;
 }
+.order-name {
+  justify-self: start;
+}
 .order-name > p.date-id {
-  color: #4a4a4a;
+  color: #fff;
   margin-bottom: 10px;
   font-weight: 500;
   margin: 0;
+  background: #3eba5e;
+  padding: 5px 10px;
+  border-radius: 3px;
 }
 .order-type p {
   color: #4a4a4a;
@@ -202,7 +243,7 @@ export default {
 }
 .order-item-left {
   display: grid;
-  grid-template-columns: max-content max-content;
+  grid-template-columns: 4em 1fr;
   grid-gap: 2em;
   align-items: center;
 }
