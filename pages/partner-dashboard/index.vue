@@ -104,6 +104,7 @@
 <script>
 export default {
   layout: "partner-dashboard",
+
   data: () => ({
     items: ["Today", "Yesterday"],
     values: [],

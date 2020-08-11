@@ -177,7 +177,9 @@ export default {
     try {
       await this.$axios
         .post("/Mobile/partner/GetPartnerDetailsById", {
-          PartnerId: this.$store.state.userData.userID
+          PartnerId: this.$store.state.userData.userID,
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken
         })
         .then(response => {
           console.log(response.data.data);

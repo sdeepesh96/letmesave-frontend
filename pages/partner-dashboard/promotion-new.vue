@@ -741,7 +741,9 @@ export default {
     try {
       await this.$axios
         .post("Mobile/Partner/GetPartnerDetailsById", {
-          PartnerId: this.$store.state.userData.userID
+          PartnerId: this.$store.state.userData.userID,
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken
         })
         .then(response => {
           this.restuarantData = response.data.data;
@@ -757,6 +759,9 @@ export default {
         await this.$axios
           .post("Mobile/Partner/InsertPromotions", {
             partner_id: this.$store.state.userData.userID.toString(),
+            Id: this.$store.state.userData.id.toString(),
+            AccessToken: this.$store.state.userData.userAccessToken,
+
             offer_title: this.OrderName,
             summary: this.SummaryContent,
 

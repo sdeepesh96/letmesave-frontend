@@ -1,9 +1,9 @@
 <template>
   <v-app>
     <PartnerHeader />
-    <PartnerSubheader/>
+    <PartnerSubheader />
     <nuxt />
-    <Footer/>
+    <Footer />
   </v-app>
 </template>
 
@@ -12,8 +12,12 @@ import PartnerHeader from "@/components/PartnerHeader.vue";
 import PartnerSubheader from "@/components/PartnerSubheader.vue";
 import Footer from "@/components/Footer.vue";
 export default {
+  middleware: "partner-authentication",
+
   components: {
-    PartnerHeader,Footer,PartnerSubheader
+    PartnerHeader,
+    Footer,
+    PartnerSubheader
   }
 };
 </script>
