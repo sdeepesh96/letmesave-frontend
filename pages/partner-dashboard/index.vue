@@ -7,42 +7,51 @@
           :items="items"
           label="Select Date"
           outlined
-          dense
           background-color="#fff"
-          min-height="40"
+          @change="getDateFilteredData"
+          return-object=""
         ></v-select>
       </div>
       <v-row>
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
-            <nuxt-link to=""
-              ><h4>5</h4>
-              <p>Save food</p></nuxt-link
+            <div
+              :class="{ active: isActive == 73 }"
+              @click="getFilteredData(73)"
             >
+              <h4>{{ orderData.saveFood }}</h4>
+              <p>Save food</p>
+            </div>
           </div></v-col
         >
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
-            <nuxt-link to="#"
-              ><h4>5</h4>
-              <p>Sale Offer</p></nuxt-link
+            <div
+              :class="{ active: isActive == 74 }"
+              @click="getFilteredData(74)"
             >
+              <h4>{{ orderData.salesOffer }}</h4>
+              <p>Sale Offer</p>
+            </div>
           </div></v-col
         >
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
-            <nuxt-link to="#"
-              ><h4>5</h4>
-              <p>Promotions</p></nuxt-link
+            <div
+              :class="{ active: isActive == 96 }"
+              @click="getFilteredData(96)"
             >
+              <h4>{{ orderData.promotion }}</h4>
+              <p>Promotions</p>
+            </div>
           </div></v-col
         >
         <v-col cols="6" xs="6" sm="3" md="3" lg="3"
           ><div class="partner-tab">
-            <nuxt-link to="#"
-              ><img src="~/assets/statistics1.png" alt="Statistics" />
-              <p>Statistics</p></nuxt-link
-            >
+            <div>
+              <img src="~/assets/statistics1.png" alt="Statistics" />
+              <p>Statistics</p>
+            </div>
           </div></v-col
         >
       </v-row>
@@ -52,7 +61,13 @@
           <v-col v-for="(item, i) in values" :key="i" cols="12">
             <div class="order-item">
               <div class="order-name">
-                <!-- <p class="tag">{{ item.type }}</p> -->
+                <p
+                  v-for="(type, index) in item.order_deals"
+                  :key="index"
+                  class="tag"
+                >
+                  {{ type }}
+                </p>
                 <h4 class="title">{{ item.order_id }}</h4>
                 <!-- <p class="date-id">{{ item.date }} | {{ item.id }}</p> -->
                 <p class="date-id">{{ item.purchase_date }}</p>
@@ -89,9 +104,12 @@
 <script>
 export default {
   layout: "partner-dashboard",
+
   data: () => ({
     items: ["Today", "Yesterday"],
-    values: []
+    values: [],
+    orderData: {},
+    isActive: null
   }),
   mounted() {
     this.getOrderData();
@@ -105,8 +123,10 @@ export default {
             AccessToken: this.$store.state.userData.userAccessToken
           })
           .then(response => {
+            this.orderData = response.data;
+
             this.values = response.data.data;
-            console.log(response.data.data);
+            // console.log(response.data.data);
           });
       } catch (error) {
         console.log(error);
@@ -116,6 +136,42 @@ export default {
       this.$router.push(
         `/partner-dashboard/order-detail?orderId=${parseInt(orderId)}`
       );
+    },
+    async getFilteredData(id) {
+      this.isActive = id;
+      await this.$axios
+        .post("Mobile/Partner/GetOrderList", {
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken,
+          FromDate: "",
+          ToDate: "",
+          Type: id.toString()
+        })
+        .then(response => {
+          this.values = response.data.data;
+        });
+    },
+    async getDateFilteredData(item) {
+      let date = null;
+      if (item == "Today") {
+        date = new Date().toISOString().slice(0, 10);
+      } else {
+        date = new Date();
+        date.setDate(date.getDate() - 1);
+        date = date.toISOString().slice(0, 10);
+      }
+      this.isActive = null;
+      await this.$axios
+        .post("Mobile/Partner/GetOrderList", {
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken,
+          FromDate: date,
+          ToDate: date,
+          Type: ""
+        })
+        .then(response => {
+          this.values = response.data.data;
+        });
     }
   }
 };
@@ -136,24 +192,25 @@ export default {
   font-weight: 500;
   color: #3a3a3b;
 }
-.partner-tab > a > p {
+.partner-tab > div > p {
   display: block;
   font-size: 26px;
   text-transform: uppercase;
   font-weight: 400;
   margin-top: -30px;
 }
-.partner-tab > a > img {
+.partner-tab > div > img {
   width: 64px;
   margin: auto;
 }
-.partner-tab > a > h4 {
+.partner-tab > div > h4 {
   display: block;
   font-weight: 600;
   font-size: 38px;
   line-height: 1.5;
 }
-.partner-tab > a {
+.partner-tab > div {
+  cursor: pointer;
   color: #104388;
   background: #fff;
   text-align: center;
@@ -178,7 +235,7 @@ a.bottom-more {
   margin-top: 2em;
   margin-bottom: 2em;
 }
-.partner-tab > a.nuxt-link-exact-active.nuxt-link-active {
+.partner-tab > div.active {
   border: 5px solid #6585b2;
   transform: scale(1.1);
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),

@@ -367,7 +367,9 @@ export default {
     try {
       await this.$axios
         .post("Mobile/Partner/GetPartnerDetailsById", {
-          PartnerId: this.$store.state.userData.userID.toString()
+          PartnerId: this.$store.state.userData.userID.toString(),
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken
         })
         .then(response => {
           this.restuarantData = response.data.data;
@@ -380,7 +382,9 @@ export default {
     try {
       await this.$axios
         .post("Mobile/Partner/GetReview", {
-          UserId: this.$store.state.userData.userID.toString()
+          UserId: this.$store.state.userData.userID.toString(),
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken
         })
         .then(response => {
           // console.log(response.data);

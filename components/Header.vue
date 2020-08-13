@@ -80,7 +80,7 @@
               </template>
             </v-menu>
           </div>
-          <div class="menu-item" v-if="!this.$store.state.userData">
+          <div class="menu-item" v-if="!$store.state.userData">
             <v-menu open-on-hover bottom offset-y>
               <template v-slot:activator="{ on }">
                 <v-btn small color="#104388" class="ma-2 white--text" v-on="on">

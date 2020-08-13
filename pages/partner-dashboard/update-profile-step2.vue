@@ -27,9 +27,24 @@
                 outlined
                 class="login-form-feild"
               ></v-text-field>
-              <v-text-field label="Country" v-model="country" outlined class="login-form-feild"></v-text-field>
-              <v-text-field label="Region" v-model="region" outlined class="login-form-feild"></v-text-field>
-              <v-text-field label="City" outlined v-model="city" class="login-form-feild"></v-text-field>
+              <v-text-field
+                label="Country"
+                v-model="country"
+                outlined
+                class="login-form-feild"
+              ></v-text-field>
+              <v-text-field
+                label="Region"
+                v-model="region"
+                outlined
+                class="login-form-feild"
+              ></v-text-field>
+              <v-text-field
+                label="City"
+                outlined
+                v-model="city"
+                class="login-form-feild"
+              ></v-text-field>
               <v-text-field
                 label="Invoicing Email"
                 v-model="InvoicingEmail"
@@ -155,7 +170,11 @@
                 multiple
                 required
               ></v-combobox>
-              <v-text-field label="If others please specify" outlined v-model="PaymentOthers"></v-text-field>
+              <v-text-field
+                label="If others please specify"
+                outlined
+                v-model="PaymentOthers"
+              ></v-text-field>
               <v-file-input
                 accept="image/png, image/jpeg"
                 placeholder="(Recomended size: 512 X 512 pixels, Format PNG, JPG/JPEG)"
@@ -175,7 +194,9 @@
               ></v-file-input>
             </div>
           </div>
-          <v-alert v-model="error" type="error" dismissible outlined text>{{errorMsg}}</v-alert>
+          <v-alert v-model="error" type="error" dismissible outlined text>{{
+            errorMsg
+          }}</v-alert>
           <div class="text-center">
             <v-btn
               rounded
@@ -185,7 +206,8 @@
               class="login-sub"
               @click="submit"
               :loading="loading"
-            >Submit</v-btn>
+              >Submit</v-btn
+            >
           </div>
         </v-form>
       </div>
@@ -255,6 +277,8 @@ export default {
           LandmarkArr.push(this.Landmark.id);
           await this.$axios
             .post("/Mobile/Partner/UpdateProfile", {
+              Id: this.$store.state.userData.id.toString(),
+              AccessToken: this.$store.state.userData.userAccessToken,
               LegalName: this.LegalName,
               CompanyAddress: this.CompanyAddress,
               BankPostalCode: this.BankPostalCode,
@@ -364,7 +388,9 @@ export default {
     try {
       await this.$axios
         .post("/Mobile/partner/GetPartnerDetailsById", {
-          PartnerId: this.$store.state.userData.userID
+          PartnerId: this.$store.state.userData.userID,
+          Id: this.$store.state.userData.id.toString(),
+          AccessToken: this.$store.state.userData.userAccessToken
         })
         .then(response => {
           this.LegalName = response.data.data.legal_name;
