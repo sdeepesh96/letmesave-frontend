@@ -32,7 +32,9 @@
               <v-list-item>
                 <nuxt-link to="/how-it-works/food-alergies">Food alergies</nuxt-link>
               </v-list-item>
-              <v-list-item>Safty</v-list-item>
+              <v-list-item>
+                <nuxt-link to="/how-it-works/safety">Safety</nuxt-link>
+              </v-list-item>
             </v-list>
           </v-col>
           <v-col cols="12" md="3" sm="6">
@@ -86,8 +88,12 @@
           <v-col cols="12" md="3" sm="6">
             <v-list>
               <v-subheader>Legal</v-subheader>
-              <v-list-item>Terms and conditions</v-list-item>
-              <v-list-item>Data and privacy policy</v-list-item>
+              <v-list-item>
+                <nuxt-link to="/legal/terms-and-conditions">Terms and conditions</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link to="/legal/privacy-policy">Data and privacy policy</nuxt-link>
+              </v-list-item>
 
               <v-subheader style="margin-top:20px;">Follow us on</v-subheader>
               <v-list-item>
