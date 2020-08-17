@@ -25,20 +25,18 @@
                 <nuxt-link to="/how-it-works/information-for-users">
                   <v-list-item>Information for users</v-list-item>
                 </nuxt-link>
-                <nuxt-link to="/how-it-works/information-for-marketing-partners">
-                  <v-list-item>Information for marketing partners</v-list-item>
-                </nuxt-link>
+
                 <nuxt-link to="/how-it-works/information-for-hosts">
                   <v-list-item>Information for host</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="/how-it-works/information-for-volunteers">
                   <v-list-item>Information for volunteers</v-list-item>
                 </nuxt-link>
-                <nuxt-link to="#">
-                  <v-list-item>Green awareness</v-list-item>
+                <nuxt-link to="/how-it-works/earn-with-us">
+                  <v-list-item>Earn with us</v-list-item>
                 </nuxt-link>
-                <nuxt-link to="/how-it-works/food-alergies">
-                  <v-list-item>Food alergies</v-list-item>
+                <nuxt-link to="/how-it-works/care-for-earth">
+                  <v-list-item>Care for earth</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="/how-it-works/faq">
                   <v-list-item>FAQ</v-list-item>
@@ -55,6 +53,9 @@
                 </v-btn>
               </template>
               <v-list class="menu-style">
+                <nuxt-link to="/our-community/message-from-our-founder">
+                  <v-list-item>Message from our founder</v-list-item>
+                </nuxt-link>
                 <nuxt-link to="/our-community/our-mission">
                   <v-list-item>Our mission</v-list-item>
                 </nuxt-link>
@@ -68,7 +69,7 @@
                   <v-list-item>Gallery</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="#">
-                  <v-list-item>Contact Letme-save.com</v-list-item>
+                  <v-list-item>Contact us</v-list-item>
                 </nuxt-link>
               </v-list>
             </v-menu>
@@ -199,21 +200,22 @@
             <nuxt-link to="/how-it-works/information-for-users">
               <v-list-item>Information for users</v-list-item>
             </nuxt-link>
-            <nuxt-link to="/how-it-works/information-for-marketing-partners">
-              <v-list-item>Information for marketing partners</v-list-item>
-            </nuxt-link>
+
             <nuxt-link to="/how-it-works/information-for-hosts">
               <v-list-item>Information for host</v-list-item>
             </nuxt-link>
             <nuxt-link to="/how-it-works/information-for-volunteers">
               <v-list-item>Information for volunteers</v-list-item>
             </nuxt-link>
-            <nuxt-link to="#">
-              <v-list-item>Green awareness</v-list-item>
+            <nuxt-link to="/how-it-works/earn-with-us">
+              <v-list-item>Earn with us</v-list-item>
             </nuxt-link>
-            <nuxt-link to="/how-it-works/food-alergies">
+            <nuxt-link to="/how-it-works/care-for-earth">
+              <v-list-item>Care for earth</v-list-item>
+            </nuxt-link>
+            <!-- <nuxt-link to="/how-it-works/food-alergies">
               <v-list-item>Food alergies</v-list-item>
-            </nuxt-link>
+            </nuxt-link>-->
             <nuxt-link to="/how-it-works/faq">
               <v-list-item>FAQ</v-list-item>
             </nuxt-link>
@@ -224,6 +226,9 @@
             <v-list-item-title>Our community</v-list-item-title>
           </template>
           <v-list class="menu-style">
+            <nuxt-link to="/our-community/message-from-our-founder">
+              <v-list-item>Message from our founder</v-list-item>
+            </nuxt-link>
             <nuxt-link to="/our-community/our-mission">
               <v-list-item>Our mission</v-list-item>
             </nuxt-link>
@@ -237,7 +242,7 @@
               <v-list-item>Gallery</v-list-item>
             </nuxt-link>
             <nuxt-link to="#">
-              <v-list-item>Contact Letme-save.com</v-list-item>
+              <v-list-item>Contact us</v-list-item>
             </nuxt-link>
           </v-list>
         </v-list-group>

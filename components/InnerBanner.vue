@@ -183,7 +183,7 @@ export default {
 }
 @media (max-width: 767px) {
   .banner-form .v-input--radio-group.v-input--radio-group--row .v-radio {
-    margin-right: 10px;
+    margin-right: 5px;
   }
 }
 </style>

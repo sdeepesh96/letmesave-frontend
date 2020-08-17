@@ -50,7 +50,7 @@ export default {
   /*
    ** Nuxt.js modules
    */
-  modules: ["@nuxtjs/axios", "@nuxtjs/proxy"],
+  modules: ["@nuxtjs/axios", "@nuxtjs/proxy", "vue-social-sharing/nuxt"],
   // axios configuration
   axios: {
     // baseURL: "http://localhost:3000/api"
@@ -75,6 +75,6 @@ export default {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, ctx) { }
   }
 };
