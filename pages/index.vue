@@ -56,7 +56,9 @@
     <Offer />
     <!-- <BestSale/> -->
     <div class="discover-sec">
-      <h4>Discover more about Letme-save.com</h4>
+      <h4>
+        <nuxt-link to="/our-community/since-youre-here">Discover more about Letme-save.com</nuxt-link>
+      </h4>
       <p>Why do I need to be part of this community?</p>
     </div>
     <v-container>
@@ -64,25 +66,27 @@
         <h4>Opportunity Center</h4>
         <v-row>
           <v-col cols="6" class="mob-col">
-            <nuxt-link to="#">
+            <nuxt-link to="/how-it-works/earn-with-us">
               <div class="opp-center">
                 <div class="opp-center-img">
                   <img src="~/assets/pic-10.jpg" />
                 </div>
                 <div class="opp-center-con">
                   <p>Earn with us</p>
+                  <p class="sub">"Become our marketing ambassador"</p>
                 </div>
               </div>
             </nuxt-link>
           </v-col>
           <v-col cols="6" class="mob-col">
-            <nuxt-link to="#">
+            <nuxt-link to="/how-it-works/care-for-earth">
               <div class="opp-center">
                 <div class="opp-center-img">
                   <img src="~/assets/pic-11.jpg" />
                 </div>
                 <div class="opp-center-con">
-                  <p>Become an agent</p>
+                  <p>Care for earth</p>
+                  <p class="sub">"Become our green ambassador"</p>
                 </div>
               </div>
             </nuxt-link>
@@ -174,6 +178,14 @@ export default {
   font-size: 14px;
   font-weight: 400;
   margin-top: 2px;
+}
+.opp-center-con p {
+  margin: 0;
+  font-size: 24px;
+}
+.opp-center-con p.sub {
+  font-size: 18px;
+  margin-top: 5px;
 }
 .category-head h4 {
   text-align: center;

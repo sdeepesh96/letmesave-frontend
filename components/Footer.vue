@@ -7,66 +7,80 @@
             <v-list>
               <v-subheader>How Letme-save.com works</v-subheader>
               <v-list-item>
-                <nuxt-link to="/how-it-works/information-for-food-partners"
-                  >Information for food partners</nuxt-link
-                >
+                <nuxt-link
+                  to="/how-it-works/information-for-food-partners"
+                >Information for food partners</nuxt-link>
               </v-list-item>
               <v-list-item>
-                <nuxt-link to="/how-it-works/information-for-users"
-                  >Information for users</nuxt-link
-                >
+                <nuxt-link to="/how-it-works/information-for-users">Information for users</nuxt-link>
               </v-list-item>
               <v-list-item>
-                <nuxt-link to="/how-it-works/information-for-marketing-partners"
-                  >Information for marketing partners</nuxt-link
-                >
+                <nuxt-link to="/how-it-works/information-for-host">Information for host</nuxt-link>
               </v-list-item>
-              <v-list-item>Green awareness</v-list-item>
               <v-list-item>
-                <nuxt-link to="/how-it-works/food-alergies"
-                  >Food alergies</nuxt-link
-                >
+                <nuxt-link to="/how-it-works/information-for-volunteers">Information for volunteers</nuxt-link>
               </v-list-item>
-              <v-list-item>Safty</v-list-item>
+              <v-list-item>
+                <nuxt-link to="/how-it-works/earn-with-us">Earn with us</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link to="/how-it-works/care-for-earth">Care for earth</nuxt-link>
+              </v-list-item>
               <v-list-item>
                 <nuxt-link to="/how-it-works/faq">FAQ</nuxt-link>
               </v-list-item>
+              <v-list-item>
+                <nuxt-link to="/how-it-works/food-alergies">Food alergies</nuxt-link>
+              </v-list-item>
+              <v-list-item>Safty</v-list-item>
             </v-list>
           </v-col>
           <v-col cols="12" md="3" sm="6">
             <v-list>
               <v-subheader>Our community</v-subheader>
 
-              <v-list-item>Find food</v-list-item>
-              <v-list-item>Find offers</v-list-item>
-              <v-list-item>Green awareness</v-list-item>
-              <v-list-item>Becomes our ambassadors</v-list-item>
-              <v-list-item>Becomes our marketing partner</v-list-item>
+              <v-list-item>
+                <nuxt-link to="/listing">Find food</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link to="/listing">Find offer</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link to="/our-community/message-from-our-founder">Message from our founder</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link to="/our-community/our-mission">Our mission</nuxt-link>
+              </v-list-item>
+              <v-list-item>Blog</v-list-item>
+              <v-list-item>
+                <nuxt-link to="/our-community/since-youre-here">Since you're here</nuxt-link>
+              </v-list-item>
               <v-list-item>Gallery</v-list-item>
               <v-list-item>
-                <nuxt-link to="/our-community/our-mission"
-                  >Our mission</nuxt-link
-                >
+                <nuxt-link to="/our-community/spread-a-word">Spread a word</nuxt-link>
               </v-list-item>
               <v-list-item>Contact Us</v-list-item>
             </v-list>
           </v-col>
           <v-col cols="12" md="3" sm="6">
             <v-list>
-              <v-subheader>Login as a</v-subheader>
+              <v-subheader>Login/Register as a</v-subheader>
 
-              <v-list-item>Food partner</v-list-item>
-              <v-list-item>User</v-list-item>
-              <v-list-item>Marketing partner</v-list-item>
-              <v-list-item>Host</v-list-item>
-              <v-list-item>Volunteer</v-list-item>
-
-              <v-subheader style="margin-top:20px;">Join now as a</v-subheader>
-              <v-list-item>Food partner</v-list-item>
-              <v-list-item>User</v-list-item>
-              <v-list-item>Marketing partner</v-list-item>
-              <v-list-item>Host</v-list-item>
-              <v-list-item>Volunteer</v-list-item>
+              <v-list-item>
+                <nuxt-link :to="{ path: '/account/login', query: { role: '1' } }">User</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link :to="{ path: '/account/login', query: { role: '2' } }">Food partner</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link :to="{ path: '/account/login', query: { role: '3' } }">Marketing partner</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link :to="{ path: '/account/login', query: { role: '4' } }">Host</nuxt-link>
+              </v-list-item>
+              <v-list-item>
+                <nuxt-link :to="{ path: '/account/login', query: { role: '5' } }">Volunteers</nuxt-link>
+              </v-list-item>
             </v-list>
           </v-col>
           <v-col cols="12" md="3" sm="6">
@@ -87,7 +101,6 @@
               <v-subheader></v-subheader>
               <v-list-item>Career</v-list-item>
               <v-list-item>Press</v-list-item>
-              <v-list-item>Blog</v-list-item>
               <v-list-item>Resource</v-list-item>
             </v-list>
           </v-col>
@@ -108,9 +121,7 @@
           <v-col cols="12" sm="6">
             <div class="designn">
               Designed by
-              <a href="https://imaginetventures.com" target="_blank"
-                >ImagiNET Ventures</a
-              >
+              <a href="https://imaginetventures.com" target="_blank">ImagiNET Ventures</a>
             </div>
           </v-col>
         </v-row>
@@ -130,7 +141,7 @@ export default {
     //     this.$store.commit("SET_USER_DATA", localuserData);
     //   }
     // }
-  }
+  },
 };
 </script>
 
