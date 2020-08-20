@@ -42,33 +42,36 @@
               </div>
             </div>
           </div>
+          <hr />
           <h3 class="order-title">Nearby Deals</h3>
           <div class="order-details near" v-for="(near, i) in nears" :key="i">
-            <div class="order-detail-head">
-              <div>
-                <h4>
-                  {{near.hotelName}}
-                  <span>{{near.type}}</span>
-                </h4>
-                <p>{{near.productName}}</p>
+            <nuxt-link :to="'/listing/' +near.typeId +'-' +near.id">
+              <div class="order-detail-head">
+                <div>
+                  <h4>
+                    {{near.hotelName}}
+                    <span>{{near.type}}</span>
+                  </h4>
+                  <p>{{near.productName}}</p>
+                </div>
+                <div>
+                  <p class="order-price">
+                    <span>{{near.originalPrice}} NOK</span>
+                    {{near.offerPrice}} NOK
+                  </p>
+                </div>
               </div>
-              <div>
-                <p class="order-price">
-                  <span>{{near.originalPrice}} NOK</span>
-                  {{near.offerPrice}} NOK
+              <div class="order-details-foot">
+                <p>
+                  <img src="~/assets/location.svg" />
+                  {{near.address}}
+                </p>
+                <p>
+                  <img src="~/assets/clock.png" />
+                  {{near.pickupTime}}
                 </p>
               </div>
-            </div>
-            <div class="order-details-foot">
-              <p>
-                <img src="~/assets/location.svg" />
-                {{near.address}}
-              </p>
-              <p>
-                <img src="~/assets/clock.png" />
-                {{near.pickupTime}}
-              </p>
-            </div>
+            </nuxt-link>
           </div>
         </v-col>
       </div>
@@ -136,11 +139,16 @@ h3.order-title,
 p.order-status {
   color: #f89400;
 }
-p.order-id > span {
+p.order-id > span,
+a {
   color: #333;
 }
 p.order-id {
   color: #aeaeae;
+}
+hr {
+  border: 0.5px solid #eaedf6;
+  margin: 2em 0;
 }
 .order-detail-head,
 .order-details-foot,
@@ -163,7 +171,7 @@ p.order-id {
   margin: 0;
 }
 .order-details {
-  background: #fafaf9;
+  background: #eaedf6;
   padding: 1em;
 }
 .order-details-foot {
@@ -185,7 +193,7 @@ p.order-price > span {
   font-size: 18px;
 }
 .order-details.near {
-  margin-bottom: 0.5em;
+  margin-bottom: 0.8em;
   border-radius: 10px;
 }
 h3.order-title {

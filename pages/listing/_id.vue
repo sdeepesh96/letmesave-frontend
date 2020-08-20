@@ -12,7 +12,10 @@
               {{ items.hotelName }}
               <span class="type">{{items.type}}</span>
             </h1>
-            <h2 class="font-weight-regular">{{ items.productName }}</h2>
+            <h2
+              class="font-weight-regular"
+              style="text-transform: capitalize;"
+            >{{ items.productName }}</h2>
           </div>
           <div class="text-right">
             <h1 class="text-h1 blue-text">
@@ -70,7 +73,7 @@
                 quis non aperiam amet et?
               </p>
               <v-card flat>
-                <v-card-title class="blue-text">Why "Save Food" Bag?</v-card-title>
+                <v-card-title class="blue-text">Reviews?</v-card-title>
                 <v-card-text>
                   <v-row>
                     <v-col class="text-center" cols="12" sm="3">
@@ -78,7 +81,7 @@
                         class="px-5 py-5 review-badge"
                       >{{((restuarantReviews.quality+restuarantReviews.location+restuarantReviews.price)/3)}}</div>
                       <div class="py-3 review-count">
-                        39
+                        {{items.overallReview}}
                         <br />Reviews
                       </div>
                     </v-col>
@@ -124,40 +127,40 @@
               <div class="pt-3 d-flex other-info-box">
                 <div>
                   <div class="subtitle-2 blue-text">Food Type</div>
-                  <div class="mb-5">{{items.foodType}}</div>
+                  <div class="mb-5">{{type}}</div>
                 </div>
                 <div>
                   <div class="subtitle-2 blue-text">Meal Type</div>
-                  <div class="mb-5">{{ items.mealType }}</div>
+                  <div class="mb-5">{{ type }}</div>
                 </div>
                 <div>
                   <div class="subtitle-2 blue-text">Chain</div>
                   <div class="mb-5">
-                    <span>{{ items.chainName}}</span>
+                    <span>{{ chain}}</span>
                   </div>
                 </div>
                 <div>
                   <div class="subtitle-2 blue-text">Store Type</div>
                   <div class="mb-5">
-                    <span>{{ items.storeType}}</span>
+                    <span>{{ store}}</span>
                   </div>
                 </div>
                 <div>
                   <div class="subtitle-2 blue-text">Parking</div>
                   <div class="mb-5">
-                    <span>{{items.parking}}</span>
+                    <span>{{park}}</span>
                   </div>
                 </div>
                 <div>
                   <div class="subtitle-2 blue-text">Accepted Payment Method</div>
                   <div class="mb-5">
-                    <span>{{items.acceptPayment}}</span>
+                    <span>{{payment}}</span>
                   </div>
                 </div>
                 <div>
                   <div class="subtitle-2 blue-text">Landmark</div>
                   <div class="mb-5">
-                    <span>{{ items.landmark}}</span>
+                    <span>{{ land}}</span>
                   </div>
                 </div>
               </div>
@@ -181,6 +184,13 @@ export default {
       location: 5,
       price: 5,
     },
+    type: "",
+    store: "",
+    chain: "",
+    park: "",
+    payment: "",
+    land: "",
+    // type: items.foodType,
   }),
   async mounted() {
     // console.log(this.$route.params.typeId);
@@ -196,6 +206,12 @@ export default {
         })
         .then((response) => {
           this.items = response.data.data[0];
+          this.type = response.data.data[0].foodType || "-";
+          this.store = response.data.data[0].storeType || "-";
+          this.chain = response.data.data[0].chainName || "-";
+          this.park = response.data.data[0].parking || "-";
+          this.payment = response.data.data[0].acceptPayment || "-";
+          this.land = response.data.data[0].landmark || "-";
         });
     } catch (e) {
       console.log(e);
@@ -422,6 +438,9 @@ button.buy-now-btn.v-btn.v-btn--contained.theme--dark.v-size--default {
   }
   .address-bar[data-v-e2998f74] {
     padding: 0.5em 0em;
+  }
+  .btn {
+    display: unset !important;
   }
 }
 
