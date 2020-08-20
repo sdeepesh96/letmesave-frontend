@@ -45,7 +45,7 @@
           <p>NOK {{order.paid}}</p>
         </div>
         <div class="order-pay">
-          <p>Pay while pick-up (80%)</p>
+          <p>Pay upon pick-up (85%)</p>
           <p>NOK {{order.pay}}</p>
         </div>
         <div class="address text-center">

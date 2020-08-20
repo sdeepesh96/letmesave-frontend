@@ -53,12 +53,12 @@
               <p>NOK {{cartTotal}}</p>
             </div>
             <div class="order-paid">
-              <p>Pay online (20%)</p>
-              <p>NOK {{20/100*(cartTotal) }}</p>
+              <p>Pay online (15%)</p>
+              <p>NOK {{15/100*(cartTotal) }}</p>
             </div>
             <div class="order-pay">
-              <p>Pay while pick-up (80%)</p>
-              <p>NOK {{80/100*(cartTotal) }}</p>
+              <p>Pay upon pick-up (85%)</p>
+              <p>NOK {{85/100*(cartTotal) }}</p>
             </div>
             <div class="order-summary-foot text-center">
               <p>

@@ -77,7 +77,13 @@
           <div class="menu-item">
             <v-menu open-on-hover bottom offset-y>
               <template v-slot:activator="{ on }">
-                <v-btn text small color="#104388" v-on="on">Spread a word</v-btn>
+                <v-btn
+                  text
+                  small
+                  color="#104388"
+                  v-on="on"
+                  to="/our-community/spread-a-word"
+                >Spread a word</v-btn>
               </template>
             </v-menu>
           </div>
@@ -140,7 +146,7 @@
                 <nuxt-link to="/user/feedback">
                   <v-list-item>Send Feedback</v-list-item>
                 </nuxt-link>
-                <v-btn @click="logout" small color="#104388" class="ma-2 white--text">
+                <v-btn @click="logoutpop = true" small color="#104388" class="ma-2 white--text">
                   Logout
                   <v-icon small right dark>mdi-logout</v-icon>
                 </v-btn>
@@ -248,7 +254,7 @@
         </v-list-group>
         <v-list-group class="no-sub-menu">
           <template v-slot:activator>
-            <nuxt-link to="#">
+            <nuxt-link to="/our-community/spread-a-word">
               <v-list-item-title>Spread a word</v-list-item-title>
             </nuxt-link>
           </template>
@@ -296,6 +302,26 @@
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
+    <v-dialog v-model="logoutpop" persistent max-width="400px">
+      <v-card class="invite-and-refer">
+        <v-card-title>
+          <span class="headline">Log Out</span>
+          <div @click="logoutpop = false">
+            <img src="~/assets/close.svg" />
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <!-- <v-container> -->
+          <p>Are you sure you want to logout</p>
+          <!-- </v-container> -->
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" dark depressed @click="logoutpop = false">No</v-btn>
+            <v-btn color="red darken-1" dark depressed @click="logout">Yes</v-btn>
+          </v-card-actions>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -306,7 +332,7 @@ export default {
   data() {
     return {
       drawer: null,
-
+      logoutpop: false,
       test: false,
     };
   },
@@ -319,6 +345,7 @@ export default {
       cookies.remove("userAccessToken");
       cookies.remove("userName");
       this.$router.push("/");
+      this.logoutpop = false;
     },
   },
 };
@@ -376,6 +403,27 @@ a {
 }
 .head-logo img {
   width: 220px;
+}
+.v-application .headline {
+  font-size: 18px !important;
+  line-height: 1.1 !important;
+  color: #0f4387;
+}
+.invite-and-refer .v-card__title > div > img {
+  width: 24px;
+  cursor: pointer;
+}
+.v-card__text p {
+  font-size: 18px;
+  color: #333;
+  font-weight: 400;
+}
+.invite-and-refer .v-card__title {
+  display: flex;
+  justify-content: space-between;
+}
+.invite-and-refer .v-card__text {
+  padding: 20px 24px !important;
 }
 
 @media (max-width: 1200px) {

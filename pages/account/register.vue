@@ -291,10 +291,10 @@ export default {
         required: (value) => !!value || "Required.",
         emailMatch: () => "The email and password you entered don't match",
         min: (value) => {
-          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
           return (
             pattern.test(value) ||
-            "Min. 8 characters with at least one capital letter, a number and a special character."
+            "Min 8 characters with at least one capital letter and a number"
           );
         },
         email: (value) => {

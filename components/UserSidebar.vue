@@ -112,7 +112,7 @@
     </v-list>
     <v-list dense>
       <v-list-item-group color="primary">
-        <div @click="logout">
+        <div @click="logoutpop = true">
           <v-list-item>
             <v-list-item-icon>
               <img src="~/assets/logout.svg" />
@@ -124,6 +124,26 @@
         </div>
       </v-list-item-group>
     </v-list>
+    <v-dialog v-model="logoutpop" persistent max-width="400px">
+      <v-card class="invite-and-refer">
+        <v-card-title>
+          <span class="headline">Log Out</span>
+          <div @click="logoutpop = false">
+            <img src="~/assets/close.svg" />
+          </div>
+        </v-card-title>
+        <v-card-text>
+          <!-- <v-container> -->
+          <p>Are you sure you want to logout</p>
+          <!-- </v-container> -->
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="green darken-1" dark depressed @click="logoutpop = false">No</v-btn>
+            <v-btn color="red darken-1" dark depressed @click="logout">Yes</v-btn>
+          </v-card-actions>
+        </v-card-text>
+      </v-card>
+    </v-dialog>
     <v-dialog v-model="inviteFriend" persistent max-width="400px">
       <v-card class="invite-and-refer">
         <v-card-title>
@@ -203,6 +223,7 @@ export default {
     friendStatus: false,
     storeStatus: false,
     inviteFriend: false,
+    logoutpop: false,
     referStore: false,
     error: false,
     errorMsg: null,
@@ -268,6 +289,7 @@ export default {
       cookies.remove("userAccessToken");
       cookies.remove("userName");
       this.$router.push("/");
+      this.logoutpop = false;
     },
   },
 };
@@ -310,6 +332,11 @@ a {
 }
 a.nuxt-link-exact-active.nuxt-link-active > div {
   background: #eaedf6;
+}
+.v-card__text p {
+  font-size: 18px;
+  color: #333;
+  font-weight: 400;
 }
 @media (max-width: 767px) {
   .user-sidebar {

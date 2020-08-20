@@ -18,7 +18,7 @@
           <h4>{{order.hotelName}}</h4>
           <h5>{{order.productName}}</h5>
           <p>
-            <img src="~/assets/clock.png" /> Pick Up
+            <img src="~/assets/clock.png" /> Pick-up Time
             <span>{{order.pickupTime}}</span>
           </p>
           <div class="order-summary-inner">
@@ -41,7 +41,13 @@
                   ></v-text-field>
                   <!-- <v-btn color="#eaedf4">+</v-btn> -->
                 </div>
-                <div>
+                <div v-if="$store.state.cart.productData.type=='Save Food'">
+                  <v-radio-group v-model="orderreserve" row>
+                    <!-- <v-radio label="Reserve Table" value="1" color="#1F7087"></v-radio> -->
+                    <v-radio label="Self Pick-up" value="0" color="#1F7087"></v-radio>
+                  </v-radio-group>
+                </div>
+                <div v-else>
                   <v-radio-group v-model="orderreserve" row>
                     <v-radio label="Reserve Table" value="1" color="#1F7087"></v-radio>
                     <v-radio label="Self Pick-up" value="0" color="#1F7087"></v-radio>
@@ -50,16 +56,16 @@
               </div>
             </div>
             <div class="order-total">
-              <p>Total</p>
+              <p>Total amount</p>
               <p>NOK {{(productCount * order.offerPrice)}}</p>
             </div>
             <div class="order-paid">
-              <p>Pay online (20%)</p>
-              <p>NOK {{20/100*(productCount * order.offerPrice) }}</p>
+              <p>Pay online (15%)</p>
+              <p>NOK {{15/100*(productCount * order.offerPrice) }}</p>
             </div>
             <div class="order-pay">
-              <p>Pay while pick-up (80%)</p>
-              <p>NOK {{80/100*(productCount * order.offerPrice) }}</p>
+              <p>Pay upon pick-up (85%)</p>
+              <p>NOK {{85/100*(productCount * order.offerPrice) }}</p>
             </div>
             <div class="add-note">
               <p>
@@ -135,7 +141,7 @@ export default {
   data: () => ({
     dialog: false,
     productCount: 1,
-    orderreserve: "",
+    orderreserve: "0",
     order: "",
     UserName: "",
     UserEmail: "",
@@ -260,12 +266,14 @@ export default {
   mounted() {
     this.order = this.$store.state.cart.productData;
     this.getuserdata();
+    // console.log("product Data: ");
+    // console.log(this.$store.state.cart.productData.type);
   },
-  computed: {
-    ...mapGetters({
-      productData: "productData",
-    }),
-  },
+  // computed: {
+  //   ...mapGetters({
+  //     productData: "cart/productData",
+  //   }),
+  // },
 };
 </script>
 

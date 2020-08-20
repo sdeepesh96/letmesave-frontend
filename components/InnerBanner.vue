@@ -25,7 +25,6 @@
                     height="47px"
                     append-icon="mdi-image-filter-center-focus"
                     class="location"
-                    disabled
                     dense
                     outlined
                   ></v-text-field>
