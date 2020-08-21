@@ -56,6 +56,8 @@
               ></v-text-field>
               <v-textarea
                 outlined
+                counter
+                :rules="[rules.required, rules.text]"
                 name="input-7-4"
                 label="Store Description"
                 v-model="Store_Description"
@@ -99,12 +101,7 @@
                 outlined
                 class="login-form-feild"
               ></v-text-field>
-              <v-text-field
-                label="Website"
-                v-model="Website"
-                outlined
-                class="login-form-feild"
-              ></v-text-field>
+              <v-text-field label="Website" v-model="Website" outlined class="login-form-feild"></v-text-field>
             </div>
           </div>
           <div class="text-center">
@@ -116,8 +113,7 @@
               class="login-sub"
               @click="submit"
               :loading="loading"
-              >Continue</v-btn
-            >
+            >Continue</v-btn>
           </div>
         </v-form>
       </div>
@@ -152,20 +148,21 @@ export default {
       stateList: [],
       cityList: [],
       rules: {
-        required: value => !!value || "Required.",
+        required: (value) => !!value || "Required.",
+        text: (v) => v.length <= 100 || "Max 100 characters",
         emailMatch: () => "The email and password you entered don't match",
-        email: value => {
+        email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
           return pattern.test(value) || "Invalid e-mail.";
-        }
-      }
+        },
+      },
     };
   },
   async mounted() {
     // Get Designation
     await this.$axios
       .post("GetSearchValue", { ParentId: "86" })
-      .then(response => {
+      .then((response) => {
         this.designationList = response.data.data;
       });
     try {
@@ -173,9 +170,9 @@ export default {
         .post("/Mobile/partner/GetPartnerDetailsById", {
           PartnerId: this.$store.state.userData.userID,
           Id: this.$store.state.userData.id.toString(),
-          AccessToken: this.$store.state.userData.userAccessToken
+          AccessToken: this.$store.state.userData.userAccessToken,
         })
-        .then(response => {
+        .then((response) => {
           console.log(response.data.data);
           this.storename = response.data.data.store_name;
           this.address = response.data.data.address;
@@ -222,8 +219,8 @@ export default {
         }
         this.loading = false;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

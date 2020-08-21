@@ -27,24 +27,9 @@
                 outlined
                 class="login-form-feild"
               ></v-text-field>
-              <v-text-field
-                label="Country"
-                v-model="country"
-                outlined
-                class="login-form-feild"
-              ></v-text-field>
-              <v-text-field
-                label="Region"
-                v-model="region"
-                outlined
-                class="login-form-feild"
-              ></v-text-field>
-              <v-text-field
-                label="City"
-                outlined
-                v-model="city"
-                class="login-form-feild"
-              ></v-text-field>
+              <v-text-field label="Country" v-model="country" outlined class="login-form-feild"></v-text-field>
+              <v-text-field label="Region" v-model="region" outlined class="login-form-feild"></v-text-field>
+              <v-text-field label="City" outlined v-model="city" class="login-form-feild"></v-text-field>
               <v-text-field
                 label="Invoicing Email"
                 v-model="InvoicingEmail"
@@ -170,11 +155,7 @@
                 multiple
                 required
               ></v-combobox>
-              <v-text-field
-                label="If others please specify"
-                outlined
-                v-model="PaymentOthers"
-              ></v-text-field>
+              <v-text-field label="If others please specify" outlined v-model="PaymentOthers"></v-text-field>
               <v-file-input
                 accept="image/png, image/jpeg"
                 placeholder="(Recomended size: 512 X 512 pixels, Format PNG, JPG/JPEG)"
@@ -194,9 +175,11 @@
               ></v-file-input>
             </div>
           </div>
-          <v-alert v-model="error" type="error" dismissible outlined text>{{
+          <v-alert v-model="error" type="error" dismissible outlined text>
+            {{
             errorMsg
-          }}</v-alert>
+            }}
+          </v-alert>
           <div class="text-center">
             <v-btn
               rounded
@@ -206,8 +189,7 @@
               class="login-sub"
               @click="submit"
               :loading="loading"
-              >Submit</v-btn
-            >
+            >Submit</v-btn>
           </div>
         </v-form>
       </div>
@@ -258,7 +240,7 @@ export default {
       landmark: [],
       countryList: [],
       stateList: [],
-      cityList: []
+      cityList: [],
     };
   },
   methods: {
@@ -266,13 +248,13 @@ export default {
       if (this.$refs.form.validate()) {
         this.loading = true;
         try {
-          let PaymentArr = this.Payment.map(item => item.id);
+          let PaymentArr = this.Payment.map((item) => item.id.toString());
           let chainArr = [];
           let StoreTypeArr = [];
           let ParkingArr = [];
           let LandmarkArr = [];
           chainArr.push(this.Chain.id);
-          StoreTypeArr.push(this.StoreType.id);
+          StoreTypeArr.push(this.StoreType.id.toString());
           ParkingArr.push(this.Parking.id);
           LandmarkArr.push(this.Landmark.id);
           await this.$axios
@@ -290,7 +272,7 @@ export default {
               BankCity: this.city,
               BankName: this.BankName,
               BankLocation: this.BankLocation,
-              BankCurrency: this.BankCurrency,
+              BankCurrency: this.BankCurrency.toString(),
               PaymentCycle: this.PaymentCycle,
               TaxNumber: this.TaxNumber,
               PaymentOthers: this.PaymentOthers,
@@ -314,13 +296,13 @@ export default {
               ContactNumber: this.profileNumber,
               AlternativeContactNumber: this.profileAltnumber,
               Website: this.profileWebsite,
-              Designation: this.profileDesignation.id,
+              Designation: this.profileDesignation.id.toString(),
               UserRegion: this.profileRegion,
               UserCountry: this.profileCountry,
               UserCity: this.profileCity,
-              StoreDescription: this.profileDescription
+              StoreDescription: this.profileDescription,
             })
-            .then(response => {
+            .then((response) => {
               if (response.data.code == 200) {
                 this.$router.push("/partner-dashboard/profile");
               } else {
@@ -333,7 +315,7 @@ export default {
         this.loading = false;
       }
     },
-    handleImage: function() {
+    handleImage: function () {
       this.createbase64Image(this.Logo);
     },
     async createbase64Image(fileObject) {
@@ -343,7 +325,7 @@ export default {
         this.logoEncoded = window.btoa(reader.result);
       };
     },
-    handleCover: function() {
+    handleCover: function () {
       this.createbase64Cover(this.Cover);
     },
     async createbase64Cover(fileObject) {
@@ -352,37 +334,37 @@ export default {
       reader.onload = () => {
         this.coverEncoded = window.btoa(reader.result);
       };
-    }
+    },
   },
   async mounted() {
     // Get Chain Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "10" })
-      .then(response => {
+      .then((response) => {
         this.chain = response.data.data;
       });
     // Get Store Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "17" })
-      .then(response => {
+      .then((response) => {
         this.storetype = response.data.data;
       });
     // Get Payment Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "57" })
-      .then(response => {
+      .then((response) => {
         this.payment = response.data.data;
       });
     // Get Parking Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "30" })
-      .then(response => {
+      .then((response) => {
         this.parking = response.data.data;
       });
     // Get Landmark Types
     await this.$axios
       .post("GetSearchValue", { ParentId: "24" })
-      .then(response => {
+      .then((response) => {
         this.landmark = response.data.data;
       });
     try {
@@ -390,9 +372,9 @@ export default {
         .post("/Mobile/partner/GetPartnerDetailsById", {
           PartnerId: this.$store.state.userData.userID,
           Id: this.$store.state.userData.id.toString(),
-          AccessToken: this.$store.state.userData.userAccessToken
+          AccessToken: this.$store.state.userData.userAccessToken,
         })
-        .then(response => {
+        .then((response) => {
           this.LegalName = response.data.data.legal_name;
           this.CompanyAddress = response.data.data.company_address;
           this.BankPostalCode = response.data.data.bank_postal_code;
@@ -440,9 +422,9 @@ export default {
       profileCountry: "profileCountry",
       profileCity: "profileCity",
       profileDesignation: "profileDesignation",
-      profileDescription: "profileDescription"
-    })
-  }
+      profileDescription: "profileDescription",
+    }),
+  },
 };
 </script>
 <style scoped>

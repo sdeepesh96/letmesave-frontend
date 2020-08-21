@@ -11,6 +11,7 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Privacy policy</h2>
       <div class="mission-content">
         <p>
           Letme-save.com works to ensure that your privacy is protected when using our services. This
@@ -198,8 +199,11 @@ export default {
   background-image: url("../../assets/listing-banner.jpg");
   background-position: center 15%;
 }
-.mission-content {
-  margin: 2em 0;
+.mission-content h4 {
+  color: #104388;
+  font-size: 20px;
+  font-weight: 500;
+  margin-top: 1em;
 }
 ul.v-breadcrumbs.theme--light {
   padding: 10px 0 10px;

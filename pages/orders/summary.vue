@@ -134,6 +134,7 @@ export default {
           .then((response) => {
             if (response.data.code == 200) {
               this.snackbar = true;
+              setTimeout(() => this.$router.push("/orders/confirmation"), 2000);
               // this.$router.push("/orders/confirmation");
             } else if (response.data.code == 400) {
               this.error = true;

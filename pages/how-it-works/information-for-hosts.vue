@@ -11,6 +11,7 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Infomation for hosts</h2>
     </v-container>
     <div class="mission-content">
       <v-container>
@@ -186,9 +187,6 @@ export default {
 img {
   width: 100%;
 }
-.mission-content {
-  margin-top: 2em;
-}
 .mission-content h2 {
   margin-top: 1em;
   text-align: center;
@@ -240,7 +238,7 @@ img {
   margin: 2em 0;
 }
 .marketing img {
-  width: 60%;
+  width: 75%;
 }
 .marketing {
   text-align: center;

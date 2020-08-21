@@ -11,6 +11,7 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Care for earth</h2>
       <div class="mission-content">
         <h2>
           “Save the environment with us by becoming our
@@ -180,7 +181,6 @@ img {
   margin-right: 20px;
 }
 .mission-content h2 {
-  margin-top: 1em;
   text-align: center;
   font-weight: 400;
   color: #104388;

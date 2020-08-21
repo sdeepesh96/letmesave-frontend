@@ -97,21 +97,21 @@
               </template>
 
               <v-list class="menu-style">
-                <nuxt-link :to="{ path: '/account/login', query: { role: '1' } }">
+                <a href="/account/login?role=1">
                   <v-list-item>Login/Register as user</v-list-item>
-                </nuxt-link>
-                <nuxt-link :to="{ path: '/account/login', query: { role: '2' } }">
+                </a>
+                <a href="/account/login?role=1">
                   <v-list-item>Login/Register as food partner</v-list-item>
-                </nuxt-link>
-                <nuxt-link :to="{ path: '/account/login', query: { role: '3' } }">
+                </a>
+                <a href="/account/login?role=1">
                   <v-list-item>Login/Register as marketing partner</v-list-item>
-                </nuxt-link>
-                <nuxt-link :to="{ path: '/account/login', query: { role: '4' } }">
+                </a>
+                <a href="/account/login?role=1">
                   <v-list-item>Login/Register as a host</v-list-item>
-                </nuxt-link>
-                <nuxt-link :to="{ path: '/account/login', query: { role: '5' } }">
+                </a>
+                <a href="/account/login?role=1">
                   <v-list-item>Login/Register as a volunteer</v-list-item>
-                </nuxt-link>
+                </a>
               </v-list>
             </v-menu>
           </div>
@@ -264,19 +264,19 @@
             <v-list-item-title>Login/Register</v-list-item-title>
           </template>
           <v-list class="menu-style">
-            <nuxt-link to="#">
-              <v-list-item>Login/Register as food partner</v-list-item>
-            </nuxt-link>
-            <nuxt-link to="#">
+            <nuxt-link :to="{ path: '/account/login', query: { role: '1' } }">
               <v-list-item>Login/Register as user</v-list-item>
             </nuxt-link>
-            <nuxt-link to="#">
+            <nuxt-link :to="{ path: '/account/login', query: { role: '2' } }">
+              <v-list-item>Login/Register as food partner</v-list-item>
+            </nuxt-link>
+            <nuxt-link :to="{ path: '/account/login', query: { role: '3' } }">
               <v-list-item>Login/Register as marketing partner</v-list-item>
             </nuxt-link>
-            <nuxt-link to="#">
+            <nuxt-link :to="{ path: '/account/login', query: { role: '4' } }">
               <v-list-item>Login/Register as a host</v-list-item>
             </nuxt-link>
-            <nuxt-link to="#">
+            <nuxt-link :to="{ path: '/account/login', query: { role: '5' } }">
               <v-list-item>Login/Register as a volunteer</v-list-item>
             </nuxt-link>
           </v-list>

@@ -59,9 +59,9 @@
                     ></v-select>
                   </div>
                   <div>
-                    <nuxt-link
-                      :to="'/search'+'?'+'ordertype='+this.ordertype +'&'+'MealType='+this.MealType"
-                    >Search</nuxt-link>
+                    <a
+                      v-bind:href="`/search?ordertype=${this.ordertype}&MealType=${this.MealType}`"
+                    >Search</a>
                   </div>
                 </div>
               </div>

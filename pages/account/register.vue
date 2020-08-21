@@ -478,18 +478,18 @@ button.login-sub {
   font-weight: 500;
 }
 .login-left-sec {
-  padding: 5em 2em;
+  padding: 3em 2em;
   text-align: center;
   color: #fff;
 }
 .login-right-sec {
-  padding: 5em 2em;
+  padding: 3em 2em;
 }
 .login-left-right {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 1em 0 1.5em;
-  align-items: center;
+  /* align-items: center; */
   border-radius: 10px;
   background: linear-gradient(to left, #fff 50%, #104388 50%);
 }

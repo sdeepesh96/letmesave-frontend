@@ -11,6 +11,7 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Food alergies</h2>
       <div class="mission-content">
         <p>
           When you order food online in Letme-save.com, you must make sure that all the food ingredients are ok
@@ -81,9 +82,7 @@ export default {
   background-image: url("../../assets/listing-banner.jpg");
   background-position: center 15%;
 }
-.mission-content {
-  margin: 2em 0;
-}
+
 ul.v-breadcrumbs.theme--light {
   padding: 10px 0 10px;
 }

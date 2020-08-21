@@ -12,6 +12,7 @@
         </template>
       </v-breadcrumbs>
       <div class="mission-content">
+        <h2 class="page-head">Infomation for food partners</h2>
         <div class="foodpartner-sec">
           <h3>Be Letme-save.com's</h3>
           <h1>Food Partner</h1>
@@ -146,6 +147,7 @@ export default {
 ul.v-breadcrumbs.theme--light {
   padding: 10px 0 10px;
 }
+
 @media (max-width: 767px) {
   .earn-action,
   .earn-content {

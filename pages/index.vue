@@ -98,7 +98,7 @@
     <div class="app-store">
       <v-container>
         <v-row>
-          <v-col cols="6" class="app-content">
+          <v-col cols="4" class="app-content">
             <div class="app-left">
               <h5>Download the Letme-save app now</h5>
               <h4>Saving food is now in your hands!</h4>
@@ -113,16 +113,9 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="6">
-            <div class="mobile-app">
-              <div>
-                <img src="~/assets/pic-13.jpg" />
-              </div>
-              <div></div>
-              <div></div>
-              <div class="bottom-phone">
-                <img src="~/assets/pic-14.jpg" />
-              </div>
+          <v-col cols="8">
+            <div class="app-screen">
+              <img src="~/assets/appscreens.jpg" />
             </div>
           </v-col>
         </v-row>
@@ -281,23 +274,29 @@ export default {
 .app-link img {
   width: 100%;
 }
+.app-screen > img {
+  width: 100%;
+}
+.app-store {
+  padding: 4em 0;
+}
 a {
   text-decoration: none;
   color: unset;
 }
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
   .app-left {
     padding: 0 6em;
   }
-}
+} */
 @media (max-width: 1023px) {
   .mobile-app img {
     width: 100%;
   }
-  .app-left {
+  /* .app-left {
     padding: 2em 0;
-  }
+  } */
   .app-link {
     margin-top: 1em;
   }

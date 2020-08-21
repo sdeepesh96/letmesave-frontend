@@ -317,7 +317,7 @@ button.login-sub {
   color: #fff;
 }
 .login-right-sec {
-  padding: 5em 2em;
+  padding: 3em 2em;
 }
 .left-components > h2 {
   font-weight: 500;
@@ -332,7 +332,7 @@ button.login-sub {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin: 1em 0 1.5em;
-  align-items: center;
+  /* align-items: center; */
   border-radius: 10px;
   background: linear-gradient(to left, #fff 50%, #104388 50%);
 }
@@ -377,7 +377,8 @@ h5.radio-des > span {
 }
 .social-login {
   text-align: center;
-  margin: 2.5em 0;
+  margin: 0;
+  margin-bottom: -1em;
   /* display: none; */
 }
 .social-login > p {
@@ -385,7 +386,6 @@ h5.radio-des > span {
   text-align: center;
   font-weight: 500;
   color: #104388;
-  margin-bottom: 2em;
 }
 .social-login > p:before,
 .social-login > p:after {
@@ -412,7 +412,7 @@ h5.radio-des > span {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-gap: 2em;
-  width: 80%;
+  width: 75%;
   margin: auto;
 }
 @media (max-width: 1200px) {
