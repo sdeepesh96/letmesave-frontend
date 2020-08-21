@@ -15,6 +15,15 @@ a {
   text-transform: unset !important;
 }
 
+h2.page-head {
+  color: #104388;
+  font-size: 32px;
+  font-weight: 400;
+  padding: 0.8em 0;
+  text-align: left;
+  text-transform: capitalize;
+}
+
 @media(max-width: 767px) {
   .v-label {
     font-size: 13px;

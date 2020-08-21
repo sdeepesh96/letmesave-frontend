@@ -11,6 +11,8 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Earn with us</h2>
+
       <div class="mission-content">
         <h2>“You can earn with us by becoming our marketing ambassador.”</h2>
 
@@ -164,9 +166,6 @@ export default {
 .banner-search {
   background-image: url("../../assets/listing-banner.jpg");
   background-position: center 15%;
-}
-.mission-content {
-  margin-top: 2em;
 }
 .mission-content img {
   width: 100%;

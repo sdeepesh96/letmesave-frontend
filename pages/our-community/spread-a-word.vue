@@ -11,8 +11,9 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Spread a word</h2>
+
       <div class="mission-content">
-        <h2></h2>
         <h4>Just one click</h4>
         <div class="social-share">
           <ShareNetwork

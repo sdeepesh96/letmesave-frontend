@@ -11,10 +11,13 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Terms and conditions</h2>
       <div class="mission-content">
         <p>
           "Letme-save.com", "us", "we" or "our" means Letme-save.com L.L.C. "Platform" means the websites and mobile apps on which the Services are made available owned, controlled, managed, maintained and/or hosted by Letme-save.com.&nbsp;The Services are accessible at our android and IoS mobile apps and
-          <a href="http://www.Letme-save.com">our</a> websites.
+          <a
+            href="http://www.Letme-save.com"
+          >our</a> websites.
         </p>
         <p>By using our Services, you agree to comply with these Terms and Conditions and to be legally bound by them and by our privacy policy (collectively referred as &ldquo;Terms&rdquo;), whether you are Customers or Partners. Any use of the Letme-save.com is governed by the Terms. In these Terms, the words "including", &ldquo;included&rdquo; and "include" mean "including, but not limited to."</p>
         <p>Letmesave.com is a platform which connecting the end users including food consumers, individual volunteers, international travelers, locals (&ldquo;Customers&rdquo;) with different partners including hosts, food providers, accommodation providers, farms, projects, business places (&ldquo;Partners&rdquo;) to access offers including the surplus food, sale food offers, hosting offers, volunteering offers with the purpose of saving food, cultural exchange, learning and sharing experience and to help different nations (&ldquo;Products and services&rdquo;, or collectively referred as &ldquo;the Services&rdquo;)&nbsp;.</p>
@@ -188,8 +191,11 @@ export default {
   background-image: url("../../assets/listing-banner.jpg");
   background-position: center 15%;
 }
-.mission-content {
-  margin: 2em 0;
+.mission-content strong {
+  color: #104388;
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0;
 }
 ul.v-breadcrumbs.theme--light {
   padding: 10px 0 10px;

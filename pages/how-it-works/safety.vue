@@ -11,6 +11,7 @@
           >{{item.text}}</v-breadcrumbs-item>
         </template>
       </v-breadcrumbs>
+      <h2 class="page-head">Safety</h2>
       <div class="mission-content">
         <p>
           When you use our online platform, it is your own responsibility to make sure all about your own safety.
@@ -128,9 +129,7 @@ export default {
   background-image: url("../../assets/listing-banner.jpg");
   background-position: center 15%;
 }
-.mission-content {
-  margin: 2em 0;
-}
+
 ul.v-breadcrumbs.theme--light {
   padding: 10px 0 10px;
 }

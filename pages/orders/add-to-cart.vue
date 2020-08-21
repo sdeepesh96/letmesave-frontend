@@ -78,6 +78,7 @@
                 <nuxt-link to="#">Term of Use</nuxt-link>
               </p>
               <p>You will recieve order number and confirmation message in app after payment</p>
+              <v-alert v-model="error" type="error" dismissible outlined text>{{ errorMsg }}</v-alert>
               <v-btn to="#" color="#104388" dark width="150px" @click="opendialog">Order Summary</v-btn>
               <v-row justify="center">
                 <v-dialog v-model="dialog" persistent max-width="600px">
@@ -146,6 +147,10 @@ export default {
     UserName: "",
     UserEmail: "",
     MobileNo: "",
+    error: false,
+    errorMsg: null,
+    valid: false,
+    loading: false,
     userDetails: {},
     // AltMobileNo: "",
     rules: {
@@ -218,7 +223,13 @@ export default {
             ],
           })
           .then((response) => {
-            console.log(response.data);
+            if (response.data.code == 400) {
+              this.error = true;
+              this.errorMsg = response.data.unalailabeldeals[0].message;
+              console.log(this.errorMsg);
+              this.loading = false;
+              return;
+            }
             this.$router.push("/orders/summary");
           });
       } catch (e) {
