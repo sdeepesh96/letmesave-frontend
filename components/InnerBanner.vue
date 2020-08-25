@@ -60,7 +60,7 @@
                   </div>
                   <div>
                     <a
-                      v-bind:href="`/search?ordertype=${this.ordertype}&MealType=${this.MealType}`"
+                      v-bind:href="`http://13.232.187.41/frontend/search?ordertype=${this.ordertype}&MealType=${this.MealType}`"
                     >Search</a>
                   </div>
                 </div>
