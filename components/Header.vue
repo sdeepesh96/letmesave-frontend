@@ -100,16 +100,16 @@
                 <a href="/account/login?role=1">
                   <v-list-item>Login/Register as user</v-list-item>
                 </a>
-                <a href="/account/login?role=1">
+                <a href="/account/login?role=2">
                   <v-list-item>Login/Register as food partner</v-list-item>
                 </a>
-                <a href="/account/login?role=1">
+                <a href="/account/login?role=3">
                   <v-list-item>Login/Register as marketing partner</v-list-item>
                 </a>
-                <a href="/account/login?role=1">
+                <a href="/account/login?role=4">
                   <v-list-item>Login/Register as a host</v-list-item>
                 </a>
-                <a href="/account/login?role=1">
+                <a href="/account/login?role=5">
                   <v-list-item>Login/Register as a volunteer</v-list-item>
                 </a>
               </v-list>
