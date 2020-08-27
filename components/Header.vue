@@ -39,7 +39,7 @@
                   <v-list-item>Care for earth</v-list-item>
                 </nuxt-link>
                 <nuxt-link to="/how-it-works/faq">
-                  <v-list-item>FAQ</v-list-item>
+                  <v-list-item color="#24b149 !important">FAQ</v-list-item>
                 </nuxt-link>
               </v-list>
             </v-menu>
@@ -223,7 +223,7 @@
               <v-list-item>Food alergies</v-list-item>
             </nuxt-link>-->
             <nuxt-link to="/how-it-works/faq">
-              <v-list-item>FAQ</v-list-item>
+              <v-list-item color="#24b149 !important">FAQ</v-list-item>
             </nuxt-link>
           </v-list>
         </v-list-group>

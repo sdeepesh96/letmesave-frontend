@@ -26,13 +26,13 @@
               <v-list-item>
                 <nuxt-link to="/how-it-works/care-for-earth">Care for earth</nuxt-link>
               </v-list-item>
-              <v-list-item>
+              <v-list-item color="#24b149 !important">
                 <nuxt-link to="/how-it-works/faq">FAQ</nuxt-link>
               </v-list-item>
-              <v-list-item>
+              <v-list-item color="#24b149 !important">
                 <nuxt-link to="/how-it-works/food-alergies">Food alergies</nuxt-link>
               </v-list-item>
-              <v-list-item>
+              <v-list-item color="#24b149 !important">
                 <nuxt-link to="/how-it-works/safety">Safety</nuxt-link>
               </v-list-item>
             </v-list>
@@ -41,10 +41,10 @@
             <v-list>
               <v-subheader>Our community</v-subheader>
 
-              <v-list-item>
+              <v-list-item color="#24b149 !important">
                 <nuxt-link to="/listing">Find food</nuxt-link>
               </v-list-item>
-              <v-list-item>
+              <v-list-item color="#24b149 !important">
                 <nuxt-link to="/listing">Find offer</nuxt-link>
               </v-list-item>
               <v-list-item>
@@ -67,21 +67,22 @@
           <v-col cols="12" md="3" sm="6">
             <v-list>
               <v-subheader>Login/Register as a</v-subheader>
-
-              <v-list-item>
-                <nuxt-link :to="{ path: '/account/login', query: { role: '1' } }">User</nuxt-link>
-              </v-list-item>
               <v-list-item>
                 <nuxt-link :to="{ path: '/account/login', query: { role: '2' } }">Food partner</nuxt-link>
               </v-list-item>
               <v-list-item>
-                <nuxt-link :to="{ path: '/account/login', query: { role: '3' } }">Marketing partner</nuxt-link>
+                <nuxt-link :to="{ path: '/account/login', query: { role: '1' } }">User</nuxt-link>
               </v-list-item>
               <v-list-item>
                 <nuxt-link :to="{ path: '/account/login', query: { role: '4' } }">Host</nuxt-link>
               </v-list-item>
               <v-list-item>
                 <nuxt-link :to="{ path: '/account/login', query: { role: '5' } }">Volunteers</nuxt-link>
+              </v-list-item>
+              <v-list-item color="#24b149 !important">
+                <nuxt-link
+                  :to="{ path: '/account/login', query: { role: '3' } }"
+                >Marketing ambassador</nuxt-link>
               </v-list-item>
             </v-list>
           </v-col>

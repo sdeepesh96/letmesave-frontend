@@ -12,7 +12,6 @@
         </template>
       </v-breadcrumbs>
       <div class="mission-content">
-        <h2></h2>
         <h4>A message from our founder</h4>
         <p>Saving food, avoid throwing food, and reducing carbon footprint are the key concerns of Letme-save.com.</p>
         <p>
@@ -103,10 +102,12 @@ export default {
   margin-bottom: 0;
 }
 .mission-content h4 {
-  margin-bottom: 0.5em;
-  font-size: 20px;
-  font-weight: 500;
   color: #104388;
+  font-size: 32px;
+  font-weight: 400;
+  padding: 0.8em 0;
+  text-align: left;
+  text-transform: capitalize;
 }
 .mission-foot {
   margin: 2em 0;

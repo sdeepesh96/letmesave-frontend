@@ -98,7 +98,7 @@
     <div class="app-store">
       <v-container>
         <v-row>
-          <v-col cols="4" class="app-content">
+          <v-col cols="12" sm="4" class="app-content">
             <div class="app-left">
               <h5>Download the Letme-save app now</h5>
               <h4>Saving food is now in your hands!</h4>
@@ -113,7 +113,7 @@
               </div>
             </div>
           </v-col>
-          <v-col cols="8">
+          <v-col cols="12" sm="8" class="my-auto">
             <div class="app-screen">
               <img src="~/assets/appscreens.jpg" />
             </div>
