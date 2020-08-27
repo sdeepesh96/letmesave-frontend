@@ -53,10 +53,12 @@
     <div class="vol-ben">
       <v-container>
         <h2>Letme-save.com Green Awareness Program : Ambassadors and Warriors</h2>
-        <h4 class="text-center">Food wastes</h4>
+        <!-- <h4 class="text-center">Food wastes</h4> -->
         <v-row>
           <v-col cols="12" sm="12" md="4" class="who-host">
-            <p>can come from regular food businesses: like your own school/college/university canteens, company’s canteens, nearby hotels with food services, super markets, restaurants, private caterers, regular buffets etc.</p>
+            <p>
+              <span>Food waste</span> come from regular food businesses: like your own school/college/university canteens, company’s canteens, nearby hotels with food services, super markets, restaurants, private caterers, regular buffets etc.
+            </p>
             <v-list>
               <v-list-item>
                 <v-list-item-icon class="mission-list">
@@ -88,7 +90,9 @@
             <img src="~/assets/food-waste.png" />
           </v-col>
           <v-col cols="12" sm="12" md="4" class="who-host">
-            <p>may come from seldom food wasting entities: like parties, celebrations, event organizers and their buffets etc.</p>
+            <p>
+              <span>Food waste</span> may come from seldom food wasting entities: like parties, celebrations, event organizers and their buffets etc.
+            </p>
             <v-list>
               <v-list-item>
                 <v-list-item-icon class="mission-list">
@@ -186,6 +190,11 @@ img {
   color: #104388;
   padding-bottom: 1em;
   font-size: 28px;
+}
+.who-host p > span {
+  color: #104388;
+  font-weight: 600;
+  font-size: 18px;
 }
 .vol-ben h2 {
   text-align: center;
