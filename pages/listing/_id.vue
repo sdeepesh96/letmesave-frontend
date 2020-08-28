@@ -4,13 +4,17 @@
       <v-card tile>
         <div class="header-image">
           <v-img :src="items.storePicture" height="300" class="grey darken-4"></v-img>
-          <p>{{items.leftQuantity}} Left</p>
+          <p v-bind:style="{ background: items.color_code}">{{items.leftQuantity}} Left</p>
+          <p class="mealtype-left" v-bind:style="{ color: items.color_code}">{{items.mealType}}</p>
         </div>
         <div class="d-flex justify-space-between">
           <div>
             <h1 class="text-h1 blue-text">
               {{ items.hotelName }}
-              <span class="type">{{items.type}}</span>
+              <span
+                class="type"
+                v-bind:style="{ background: items.color_code}"
+              >{{items.type}}</span>
             </h1>
             <h2
               class="font-weight-regular"
@@ -37,7 +41,10 @@
         </div>
 
         <div class="blue-bg pt-5">
-          <div class="address-bar d-flex justify-space-between align-center">
+          <div
+            class="address-bar d-flex justify-space-between align-center"
+            v-bind:style="{ borderColor: items.color_code}"
+          >
             <div class="d-flex align-center">
               <img class="location-icon mx-2" src="~/assets/Group.png" alt="Group" />
               {{ items.address }}
@@ -294,11 +301,21 @@ button.buy-now-btn.v-btn.v-btn--contained.theme--dark.v-size--default {
   position: absolute;
   bottom: 1%;
   right: 2%;
-  background: #fec207;
+  /* background: #fec207; */
   padding: 2px 25px;
   color: #fff;
   font-size: 18px;
   border-radius: 5px;
+}
+.header-image > p.mealtype-left {
+  position: absolute;
+  bottom: 1%;
+  left: 2%;
+  background: #fff;
+  padding: 2px 25px;
+  font-size: 18px;
+  border-radius: 5px;
+  width: max-content;
 }
 .header-image {
   position: relative;

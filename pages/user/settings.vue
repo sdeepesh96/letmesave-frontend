@@ -82,10 +82,10 @@ export default {
       rules: {
         required: (value) => !!value || "Required.",
         min: (value) => {
-          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/;
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
           return (
             pattern.test(value) ||
-            "Min. 8 characters with at least one capital letter, a number and a special character."
+            "Min 8 characters with at least one capital letter and a number"
           );
         },
         repass: (confirmation) =>
@@ -107,6 +107,7 @@ export default {
             .then((response) => {
               if (response.data.code == 200) {
                 this.snackbar = true;
+                this.$refs.form.reset();
               }
             });
         } catch (e) {

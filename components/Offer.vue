@@ -20,12 +20,23 @@
                 <div class="mob-def">
                   <v-avatar tile width="100%" height="160">
                     <v-img :src="item.storePicture"></v-img>
-                    <p class="left-out-tag">{{item.leftQuantity}} left</p>
+                    <p
+                      class="left-out-tag"
+                      v-bind:style="{ background: item.color_code}"
+                    >{{item.leftQuantity}} left</p>
+                    <p
+                      class="right-out-tag"
+                      v-bind:style="{ color: item.color_code}"
+                    >{{item.mealType}}</p>
                   </v-avatar>
                   <div class="listing-order">
                     <div class="head-list">
                       <div class="listing-head">
-                        <v-card-text class="listing-type" v-text="item.type"></v-card-text>
+                        <v-card-text
+                          class="listing-type"
+                          v-text="item.type"
+                          v-bind:style="{ color: item.color_code}"
+                        ></v-card-text>
                         <v-card-title class="headline">
                           <p>{{item.hotelName}}</p>
                         </v-card-title>
@@ -33,7 +44,10 @@
                           <p>{{item.productName}}</p>
                         </v-card-title>
                         <v-card-text class="listing-price">
-                          <span class="nondis-price">NOK {{item.originalPrice}}</span>
+                          <span
+                            class="nondis-price"
+                            v-bind:style="{ color: item.color_code}"
+                          >NOK {{item.originalPrice}}</span>
                           <span>NOK {{item.offerPrice}}</span>
                         </v-card-text>
                       </div>
@@ -52,13 +66,25 @@
                           </span>
                           <span>{{item.pickupTime}}</span>
                         </v-card-text>
+                        <v-card-text class="listing-time">
+                          <span class="clock-icon">
+                            <v-icon>mdi-calendar-today</v-icon>
+                          </span>
+                          <span>{{item.pickupTime}}</span>
+                        </v-card-text>
                         <v-card-text class="listing-location">
                           <span class="find-icon">
                             <v-icon>mdi-map-marker</v-icon>
                           </span>
                           <span>{{item.address}}</span>
                         </v-card-text>
-                        <v-btn class="order-btn mx-auto" small rounded dark>
+                        <v-btn
+                          class="order-btn mx-auto"
+                          v-bind:style="{ background: item.color_code}"
+                          small
+                          rounded
+                          dark
+                        >
                           <span>Order now</span>
                         </v-btn>
                       </div>
@@ -90,14 +116,14 @@ export default {
     try {
       await this.$axios
         .post("Mobile/User/GetOffer", {
-          OfferType: "73",
+          OfferType: "",
           PickupStartTime: "00:00",
           PickupEndTime: "23:59",
           UserId: "0",
         })
         .then((response) => {
           // console.log(response.data.data);
-          this.items = response.data.data;
+          this.items = response.data.data.slice(0, 8);
           // this.myNae = response.data.data.address;
         });
     } catch (e) {
@@ -273,7 +299,7 @@ a.order-btn {
   font-size: 20px;
   text-transform: capitalize;
   font-weight: 400;
-  background-color: #fb6c05 !important;
+  /* background-color: #fb6c05 !important; */
   min-height: 40px;
   min-width: 180px;
 }
@@ -302,6 +328,15 @@ a.order-btn {
   font-size: 14px;
   border-radius: 5px;
   color: white;
+}
+.right-out-tag {
+  position: absolute;
+  bottom: -5px;
+  right: 4%;
+  background: #fff;
+  padding: 4px 12px;
+  font-size: 14px;
+  border-radius: 5px;
 }
 .offer-temp > h4 {
   font-size: 42px;

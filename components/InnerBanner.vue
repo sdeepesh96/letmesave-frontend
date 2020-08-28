@@ -76,7 +76,7 @@
 <script>
 export default {
   data: () => ({
-    ordertype: "73",
+    ordertype: "",
     MealType: "",
     pickup: "",
     ordertypes: [],
@@ -90,7 +90,7 @@ export default {
           .post("GetSearchValue", { ParentId: "72" })
           .then((response) => {
             this.ordertypes = response.data.data;
-            this.ordertype = response.data.data[0].id.toString();
+            this.ordertype = response.data.data.id.toString();
           });
       } catch (e) {
         console.log(e);
