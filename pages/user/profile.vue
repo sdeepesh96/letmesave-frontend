@@ -137,7 +137,7 @@ export default {
               UserCountry: this.country.name || this.country,
               UserState: this.region.name || this.region,
               UserCity: this.city.name || this.city,
-              Id: this.$store.state.userData.id,
+              Id: this.$store.state.userData.id.toString(),
               ProfileImage: "",
               AccessToken: this.$store.state.userData.userAccessToken,
             })

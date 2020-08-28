@@ -122,7 +122,7 @@
               <div class="login-policy text-center">
                 <p>
                   By logging into an account you are agreeing with our
-                  <nuxt-link to="/legal/terms-and-conditions">Term and Conditions</nuxt-link>&nbspand
+                  <nuxt-link to="/legal/terms-and-conditions">Term and Conditions</nuxt-link>&nbsp and
                   <nuxt-link to="/legal/terms-and-conditions">Privacy Policy</nuxt-link>
                 </p>
               </div>
@@ -156,7 +156,13 @@ export default {
       loading: false,
       rules: {
         required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
+        min: (value) => {
+          const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})/;
+          return (
+            pattern.test(value) ||
+            "Min 8 characters with at least one capital letter and a number"
+          );
+        },
         emailMatch: () => "The email and password you entered don't match",
         email: (value) => {
           const pattern = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;

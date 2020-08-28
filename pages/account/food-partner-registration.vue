@@ -88,6 +88,12 @@
                 :rules="[rules.required]"
               ></v-combobox>
               <v-text-field
+                v-if="this.designation.id == 95"
+                label="If others please specify"
+                outlined
+                v-model="designationOther"
+              ></v-text-field>
+              <v-text-field
                 label="mailaddress@mail.com"
                 v-model="email"
                 :rules="[rules.required, rules.email]"
@@ -154,6 +160,7 @@ export default {
       countryList: [],
       stateList: [],
       cityList: [],
+      designationOther: "",
       rules: {
         required: (value) => !!value || "Required.",
         emailMatch: () => "The email and password you entered don't match",
@@ -180,7 +187,7 @@ export default {
               UserRegion: this.region.id.toString(),
               UserCountry: this.country.id.toString(),
               UserCity: this.city.id.toString() || this.city,
-              Designation: this.designation.toString(),
+              Designation: this.designation.toString() || this.designationOther,
               ContactPersonName: this.fullname,
               AlternativeEmail: this.email,
               ContactNumber: this.number,

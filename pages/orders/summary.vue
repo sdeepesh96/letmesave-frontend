@@ -22,7 +22,7 @@
                 <p>Nok {{item.amount}}</p>
               </div>
               <div>
-                <div>
+                <div class="qty-remove">
                   <v-text-field
                     hide-details
                     outlined
@@ -35,15 +35,15 @@
                     @click:append="item.quantity++"
                     @click:prepend-inner="(item.quantity<=1) ? '' : item.quantity--"
                   ></v-text-field>
+                  <v-btn
+                    @click="deleteItem(item, i)"
+                    class="delete-text"
+                    dark
+                    color="#0f4387"
+                  >Delete</v-btn>
                 </div>
                 <div>
                   <p>Nok {{item.amount * item.quantity}}</p>
-                  <v-btn
-                    @click="deleteItem(item, i)"
-                    text
-                    class="delete-text"
-                    color="#0f4387"
-                  >Delete</v-btn>
                 </div>
               </div>
             </div>
@@ -250,15 +250,18 @@ export default {
 .order-summary-inner {
   margin-top: 2.5em;
 }
-
-.order-item > div:last-child > div {
+.qty-remove {
   display: flex;
-  justify-content: space-between;
+}
+.order-item > div:last-child > div {
+  /* display: flex;
+  justify-content: space-between; */
+  text-align: right;
 }
 .order-item {
   display: grid;
   margin: 1em 0;
-  grid-template-columns: 1fr 20%;
+  grid-template-columns: 1fr 30%;
   justify-content: space-between;
 }
 
@@ -310,15 +313,9 @@ export default {
 }
 
 button.delete-text {
-  font-size: 14px;
-  line-height: 0;
-  letter-spacing: 0;
-  margin-top: 12px;
-  float: right;
-  text-align: right;
-  height: 0 !important;
-  min-width: auto !important;
   padding: 0 !important;
+  height: 40px !important;
+  margin-bottom: 5px;
 }
 
 .order-summary-foot > p > a {

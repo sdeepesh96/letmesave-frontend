@@ -11,86 +11,97 @@
       <div class="row">
         <v-col cols="12" sm="3" md="3" lg="3" class="py-0">
           <div class="list-side-bar">
-            <div class="listing-sec-items">
-              <h3>Sort by</h3>
-              <v-radio-group v-model="sort" column class="mt-0">
-                <v-radio value="option-1" label="Distance" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="Popularity" color="#1F7087"></v-radio>
-                <v-radio value="option-3" label="Price (Low to High)" color="#1F7087"></v-radio>
-              </v-radio-group>
-            </div>
-            <div class="listing-sec-items">
-              <h3>Filter</h3>
-              <h4>Offer Type</h4>
-              <v-radio-group v-model="ordertype" column class="mt-0" @change="getoffertype()">
-                <!-- <v-radio value="73" label="Sale Food" color="#1F7087"></v-radio>
+            <v-form ref="form">
+              <div class="listing-sec-items">
+                <h3>Sort by</h3>
+                <v-radio-group v-model="sort" column class="mt-0">
+                  <v-radio value="option-1" label="Distance" color="#1F7087"></v-radio>
+                  <v-radio value="option-2" label="Popularity" color="#1F7087"></v-radio>
+                  <v-radio value="option-3" label="Price (Low to High)" color="#1F7087"></v-radio>
+                </v-radio-group>
+              </div>
+              <div class="listing-sec-items">
+                <h3>Filter</h3>
+                <h4>Offer Type</h4>
+                <v-radio-group v-model="ordertype" column class="mt-0" @change="getoffertype()">
+                  <!-- <v-radio value="73" label="Sale Food" color="#1F7087"></v-radio>
                 <v-radio value="74" label="Save Offer" color="#1F7087"></v-radio>
-                <v-radio value="96" label="Promotions" color="#1F7087"></v-radio>-->
-                <v-radio
-                  v-for="(order, i) in ordertypes"
-                  :key="i"
-                  :label="`${order.name}`"
-                  :value="`${order.id}`"
-                  color="#1F7087"
-                ></v-radio>
-              </v-radio-group>
-            </div>
-            <div class="listing-sec-items">
-              <h4>Food Type</h4>
-              <v-radio-group v-model="foodtype" column class="mt-0" @change="getoffertype()">
-                <v-radio
-                  v-for="(food, i) in foodtypes"
-                  :key="i"
-                  :label="`${food.name}`"
-                  :value="`${food.id}`"
-                  color="#1F7087"
-                ></v-radio>
-              </v-radio-group>
-            </div>
-            <div class="listing-sec-items">
-              <h4>Meal Type</h4>
-              <v-radio-group v-model="mealtype" column class="mt-0" @change="getoffertype()">
-                <v-radio
-                  v-for="(meal, i) in mealtypes"
-                  :key="i"
-                  :label="`${meal.name}`"
-                  :value="`${meal.id}`"
-                  color="#1F7087"
-                ></v-radio>
-              </v-radio-group>
-            </div>
-            <div class="listing-sec-items">
-              <h4>Pick-Up Time</h4>
-              <v-radio-group v-model="pickup" column class="mt-0">
-                <v-radio value="option-1" label="Today" color="#1F7087"></v-radio>
-                <v-radio value="option-2" label="This Week" color="#1F7087"></v-radio>
-                <v-radio value="option-3" label="This Month" color="#1F7087"></v-radio>
-              </v-radio-group>
-            </div>
-            <div class="listing-sec-items">
-              <h4>Store Type</h4>
-              <v-radio-group v-model="storetype" column class="mt-0" @change="getoffertype()">
-                <v-radio
-                  v-for="(store, i) in storetypes"
-                  :key="i"
-                  :label="`${store.name}`"
-                  :value="i"
-                  color="#1F7087"
-                ></v-radio>
-              </v-radio-group>
-            </div>
-            <div class="listing-sec-items">
-              <h4>Chain</h4>
-              <v-radio-group v-model="chain" column class="mt-0" @change="getoffertype()">
-                <v-radio
-                  v-for="(chain, i) in chaintypes"
-                  :key="i"
-                  :label="`${chain.name}`"
-                  :value="i"
-                  color="#1F7087"
-                ></v-radio>
-              </v-radio-group>
-            </div>
+                  <v-radio value="96" label="Promotions" color="#1F7087"></v-radio>-->
+                  <v-radio
+                    v-for="(order, i) in ordertypes"
+                    :key="i"
+                    :label="`${order.name}`"
+                    :value="`${order.id}`"
+                    color="#1F7087"
+                  ></v-radio>
+                </v-radio-group>
+              </div>
+              <div class="listing-sec-items">
+                <h4>Food Type</h4>
+                <v-radio-group v-model="foodtype" column class="mt-0" @change="getoffertype()">
+                  <v-radio
+                    v-for="(food, i) in foodtypes"
+                    :key="i"
+                    :label="`${food.name}`"
+                    :value="`${food.id}`"
+                    color="#1F7087"
+                  ></v-radio>
+                </v-radio-group>
+              </div>
+              <div class="listing-sec-items">
+                <h4>Meal Type</h4>
+                <v-radio-group v-model="mealtype" column class="mt-0" @change="getoffertype()">
+                  <v-radio
+                    v-for="(meal, i) in mealtypes"
+                    :key="i"
+                    :label="`${meal.name}`"
+                    :value="`${meal.id}`"
+                    color="#1F7087"
+                  ></v-radio>
+                </v-radio-group>
+              </div>
+              <div class="listing-sec-items">
+                <h4>Pick-Up Time</h4>
+                <v-radio-group v-model="pickup" column class="mt-0">
+                  <v-radio value="option-1" label="Today" color="#1F7087"></v-radio>
+                  <v-radio value="option-2" label="This Week" color="#1F7087"></v-radio>
+                  <v-radio value="option-3" label="This Month" color="#1F7087"></v-radio>
+                </v-radio-group>
+              </div>
+              <div class="listing-sec-items">
+                <h4>Store Type</h4>
+                <v-radio-group v-model="storetype" column class="mt-0" @change="getoffertype()">
+                  <v-radio
+                    v-for="(store, i) in storetypes"
+                    :key="i"
+                    :label="`${store.name}`"
+                    :value="i"
+                    color="#1F7087"
+                  ></v-radio>
+                </v-radio-group>
+              </div>
+              <div class="listing-sec-items">
+                <h4>Chain</h4>
+                <v-radio-group v-model="chain" column class="mt-0" @change="getoffertype()">
+                  <v-radio
+                    v-for="(chain, i) in chaintypes"
+                    :key="i"
+                    :label="`${chain.name}`"
+                    :value="i"
+                    color="#1F7087"
+                  ></v-radio>
+                </v-radio-group>
+              </div>
+              <v-btn
+                color="#104388"
+                x-large
+                dark
+                rounded
+                width="100%"
+                class="login-sub"
+                @click="reset"
+              >Reset</v-btn>
+            </v-form>
           </div>
         </v-col>
         <v-col cols="12" sm="9" md="9" lg="9" class="px-0 py-0">
@@ -111,12 +122,23 @@
                     <div class="mob-def">
                       <v-avatar tile width="100%" height="160">
                         <v-img :src="item.storePicture"></v-img>
-                        <p class="left-out-tag">{{item.leftQuantity}} left</p>
+                        <p
+                          class="left-out-tag"
+                          v-bind:style="{ background: item.color_code}"
+                        >{{item.leftQuantity}} left</p>
+                        <p
+                          class="right-out-tag"
+                          v-bind:style="{ color: item.color_code}"
+                        >{{item.mealType}}</p>
                       </v-avatar>
                       <div class="listing-order">
                         <div class="head-list">
                           <div class="listing-head">
-                            <v-card-text class="listing-type" v-text="item.type"></v-card-text>
+                            <v-card-text
+                              class="listing-type"
+                              v-bind:style="{ color: item.color_code}"
+                              v-text="item.type"
+                            ></v-card-text>
                             <v-card-title class="headline">
                               <p>{{item.hotelName}}</p>
                             </v-card-title>
@@ -124,7 +146,10 @@
                               <p>{{item.productName}}</p>
                             </v-card-title>
                             <v-card-text class="listing-price">
-                              <span class="nondis-price">NOK {{item.originalPrice}}</span>
+                              <span
+                                class="nondis-price"
+                                v-bind:style="{ color: item.color_code}"
+                              >NOK {{item.originalPrice}}</span>
                               <span>NOK {{item.offerPrice}}</span>
                             </v-card-text>
                           </div>
@@ -143,13 +168,25 @@
                               </span>
                               <span>{{item.pickupTime}}</span>
                             </v-card-text>
+                            <v-card-text class="listing-time">
+                              <span class="clock-icon">
+                                <v-icon>mdi-calendar-today</v-icon>
+                              </span>
+                              <span>{{item.pickupTime}}</span>
+                            </v-card-text>
                             <v-card-text class="listing-location">
                               <span class="find-icon">
                                 <v-icon>mdi-map-marker</v-icon>
                               </span>
                               <span>{{item.address}}</span>
                             </v-card-text>
-                            <v-btn class="order-btn mx-auto" small rounded dark>
+                            <v-btn
+                              class="order-btn mx-auto"
+                              small
+                              rounded
+                              dark
+                              v-bind:style="{ background: item.color_code}"
+                            >
                               <span>Order now</span>
                             </v-btn>
                           </div>
@@ -213,6 +250,9 @@ export default {
       } catch (e) {
         console.log(e);
       }
+    },
+    reset() {
+      this.$refs.form.reset();
     },
     search() {
       this.ordertype = this.$route.query.ordertype;
@@ -314,7 +354,7 @@ export default {
   overflow: hidden;
 }
 .listing-location {
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
 }
 .headline {
@@ -456,7 +496,7 @@ a.order-btn {
   font-size: 20px;
   text-transform: capitalize;
   font-weight: 400;
-  background-color: #fb6c05 !important;
+  /* background-color: #fb6c05 !important; */
   min-height: 40px;
   min-width: 180px;
 }
@@ -485,6 +525,15 @@ a.order-btn {
   font-size: 14px;
   border-radius: 5px;
   color: white;
+}
+.right-out-tag {
+  position: absolute;
+  bottom: -5px;
+  right: 4%;
+  background: #fff;
+  padding: 4px 12px;
+  font-size: 14px;
+  border-radius: 5px;
 }
 .head-list {
   display: grid;
